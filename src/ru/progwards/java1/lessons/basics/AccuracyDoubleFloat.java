@@ -4,13 +4,14 @@ public class AccuracyDoubleFloat {
 
     final static double RADIUS = 6371.2;
     final static double PI = 3.14;
+    final static double FU = 4/3F;
 
     public static double volumeBallDouble(double radius){
-        return (4/3)*PI*Math.pow(radius,3);
+        return FU*PI*Math.pow(radius,3);
     }
 
     public static float volumeBallFloat(float radius){
-        return (float) ((4/3)*PI*Math.pow(radius,3));
+        return (float) (FU*PI*Math.pow(radius,3));
     }
 
     public static double calculateAccuracy(double radius){
