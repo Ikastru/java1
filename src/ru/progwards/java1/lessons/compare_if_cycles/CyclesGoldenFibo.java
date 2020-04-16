@@ -44,7 +44,7 @@ public class CyclesGoldenFibo {
         }
         System.out.println(" ");
         System.out.println(containsDigit(0, 0));
-        System.out.println(isGoldenTriangle(3,4,5));
+        System.out.println(isGoldenTriangle(10,12,21));
 
         int counter=0;
         for (int j = 1; j<=100; j++){
