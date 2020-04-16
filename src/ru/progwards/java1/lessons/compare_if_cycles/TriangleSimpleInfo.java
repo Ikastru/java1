@@ -6,7 +6,7 @@ public class TriangleSimpleInfo {
         int d=0;
         if (a>b){
             d=a;
-        } if (c>a){
+        } else if (c>a){
             d=c;
         } else {
             d=b;
@@ -18,7 +18,7 @@ public class TriangleSimpleInfo {
         int d=0;
         if (a<b){
             d=a;
-        } if (c<a){
+        } else if (c<a){
             d=c;
         } else {
             d=b;
@@ -34,8 +34,8 @@ public class TriangleSimpleInfo {
     }
 
     public static void main(String[] args) {
-        System.out.println(maxSide(5, 7, 3));
-        System.out.println(minSide(5, 7, 3));
+        System.out.println(maxSide(1500, 1000, 900));
+        System.out.println(minSide(3, 4, 5));
         System.out.println(isEquilateralTriangle(5,5,5));
     }
 }
