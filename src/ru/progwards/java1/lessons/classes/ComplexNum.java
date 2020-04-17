@@ -11,7 +11,7 @@ public class ComplexNum {
     }
 
     public String toString(){
-        return " " + re + "+" + im + "i";
+        return re + "+" + im + "i";
     }
 
     public ComplexNum add(ComplexNum num){
