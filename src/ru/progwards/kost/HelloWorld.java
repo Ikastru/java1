@@ -1,5 +1,7 @@
 package ru.progwards.kost;
 
+import java.util.Arrays;
+
 public class HelloWorld {
 
     static void helloWorld(){
@@ -10,6 +12,13 @@ public class HelloWorld {
 
     static int addition(int x, int y){
         return x+y;
+    }
+
+    public static int arrayMax(int[] a){
+        if (a.length == 0)
+            return 0;
+        Arrays.sort(a);
+        return a[a.length - 1];
     }
 
     public static void main(String[] args){
@@ -29,5 +38,15 @@ public class HelloWorld {
         double p = 5.234%2;
         System.out.println(p);
         System.out.println(koe);
+
+        int[] a1 = {12, 5, 0, 58, 36};
+        int[] a2 = Arrays.copyOf(a1, a1.length);
+        a2[2] = 0;
+        System.out.println(Arrays.equals(a1, a2));
+
+        System.out.println(arrayMax(a1));
+
+
+
     }
 }
