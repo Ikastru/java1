@@ -14,7 +14,7 @@ public class Eratosthenes {
 
     private void shift(int N){
         for (int i = 2; i<N; i++) {
-            if (sieve[i] != false) {
+            if (sieve[i]) {
                 for (int j = i; j * i < N; j++) {
                     sieve[i * j] = false;
                 }
@@ -23,7 +23,7 @@ public class Eratosthenes {
     }
 
     public boolean isSimple(int n){
-        if (sieve[n] == true)
+        if (sieve[n])
             return true;
         else
        return false;

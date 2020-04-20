@@ -18,7 +18,7 @@ public class ArraySort {
         }
     }
 
-//    public static void sort(int[] a){
+//    public static void BubbleSort(int[] a){
 //        for (int out = a.length - 1; out >= 1; out--){
 //            for (int in = 0; in < out; in++){
 //                if(a[in] > a[in + 1]) {
