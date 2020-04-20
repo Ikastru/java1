@@ -4,7 +4,7 @@ public class CheckBit {
 
     public static int checkBit(byte value, int bitNumber){
         int result = 0;
-        if ((value & (1 << bitNumber)) == 1){
+        if (((value >>> bitNumber) & 1) == 1){
             result = 1;
         }
         else {
@@ -14,7 +14,9 @@ public class CheckBit {
     }
 
     public static void main(String[] args) {
-        byte value = 0b0100101;
-        System.out.println(checkBit(value, 3));
+        int len =8;
+        byte value = 47;
+        System.out.println(Integer.toBinaryString( (1 << len) | (value & ((1 << len) - 1)) ).substring( 1 ));
+        System.out.println(checkBit(value, 5));
     }
 }
