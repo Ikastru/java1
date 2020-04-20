@@ -5,6 +5,9 @@ import java.util.Arrays;
 public class DIntArray {
     private int[] a;
 
+    public DIntArray() {
+    }
+
     public DIntArray(int[] a) {
         this.a=Arrays.copyOf(a, a.length);
 
