@@ -2,7 +2,7 @@ package ru.progwards.java1.lessons.bitsworld;
 
 public class SumBits {
 
-    public static int sumBits(byte value){
+    public static int sumBits(int value){
         int count = value & 1;
         while (value > 0) {
             count += ((value >>>= 1) & 1);
@@ -11,7 +11,7 @@ public class SumBits {
     }
 
     public static void main(String[] args) {
-        byte value = 0b0100101;
+        int value = 0b10000000;   //??? Ведь в задаче говорится про (byte) value, а робот подставляет int
         System.out.println(sumBits(value));
     }
 }
