@@ -8,10 +8,10 @@ public class DIntArray {
     public DIntArray() {
     }
 
-    public DIntArray(int[] a) {
-        this.a=Arrays.copyOf(a, a.length);
-
-    }
+//    public DIntArray(int[] a) {
+//        this.a=Arrays.copyOf(a, a.length);
+//
+//    }
 
     public void add(int num){
         int [] b;
