@@ -6,7 +6,7 @@ public class DIntArray {
     private int[] a;
 
     public DIntArray() {
-        this.a = new int[2];
+        this.a = new int[0];
     }
 
     public DIntArray(int[] a) {
@@ -42,7 +42,7 @@ public class DIntArray {
     }
 
     public static void main(String[] args) {
-        int [] a = {15,45,89,-1,5,134};
+        int [] a = {44,49,70,7,93};
         System.out.println(a.length);
         DIntArray dIntArray=new DIntArray(a);
 
@@ -50,6 +50,6 @@ public class DIntArray {
         dIntArray.add(3);
         dIntArray.atInsert(3, 87);
         dIntArray.atDelete(2);
-        System.out.println(dIntArray.at(5));
+        System.out.println(dIntArray.at(0));
     }
 }
