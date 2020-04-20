@@ -40,15 +40,15 @@ public class DIntArray {
         return a[pos];
     }
 
-    public static void main(String[] args) {
-        int [] a = {15,45,89,-1,5,134};
-        System.out.println(a.length);
-        DIntArray dIntArray=new DIntArray(a);
-
-        System.out.println(Arrays.toString(a));
-        dIntArray.add(3);
-        dIntArray.atInsert(3, 87);
-        dIntArray.atDelete(2);
-        System.out.println(dIntArray.at(5));
-    }
+//    public static void main(String[] args) {
+//        int [] a = {15,45,89,-1,5,134};
+//        System.out.println(a.length);
+//        DIntArray dIntArray=new DIntArray(a);
+//
+//        System.out.println(Arrays.toString(a));
+//        dIntArray.add(3);
+//        dIntArray.atInsert(3, 87);
+//        dIntArray.atDelete(2);
+//        System.out.println(dIntArray.at(5));
+//    }
 }
