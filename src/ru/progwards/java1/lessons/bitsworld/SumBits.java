@@ -4,7 +4,7 @@ public class SumBits {
 
     public static int sumBits(byte value){
         int count = value & 1;
-        while (value != 0) {
+        while (value > 0) {
             count += ((value >>>= 1) & 1);
         }
         return count;
