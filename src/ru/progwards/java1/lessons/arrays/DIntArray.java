@@ -4,9 +4,11 @@ import java.util.Arrays;
 
 public class DIntArray {
     private int[] a;
+    private int[] b;
 
     public DIntArray() {
         this.a = new int[0];
+        this.b = new int[0];
     }
 
     public DIntArray(int[] a) {
@@ -15,11 +17,14 @@ public class DIntArray {
     }
 
     public void add(int num){
-        int [] b;
-        b = new int[a.length+1];
-        System.arraycopy (a, 0, b, 0, a.length);
-        b[a.length] = num;
-        System.out.println(Arrays.toString(b));
+//        int [] b;
+//        b = new int[a.length+1];
+//        System.arraycopy (a, 0, b, 0, a.length);
+//        b[a.length] = num;
+//        System.out.println(Arrays.toString(b));
+        a  = Arrays.copyOf(a, a.length + 1);
+        a[a.length - 1] = num;
+        System.out.println(Arrays.toString(a));
     }
 
     public void atInsert(int pos, int num){
@@ -31,10 +36,13 @@ public class DIntArray {
     }
 
     public void atDelete(int pos){
-        int [] b = new int[a.length-1];
-        System.arraycopy (a, 0, b, 0, pos);
-        System.arraycopy (a, pos+1, b, pos, a.length-pos-1);
-        System.out.println(Arrays.toString(b));
+//        int [] b = new int[a.length-1];
+//        System.arraycopy (a, 0, b, 0, pos);
+////        System.arraycopy (a, pos+1, b, pos, a.length-pos);
+        System.arraycopy(a, pos + 1, a, pos, a.length - 1 - pos);
+//        Arrays.copyOf(a, a.length-1);
+//        Arrays.stream(a).distinct().toArray();
+        System.out.println(Arrays.toString(a));
     }
 
     public int at(int pos){
