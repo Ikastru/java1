@@ -15,7 +15,7 @@ public class Food implements CompareWeight {
         this.weight = weight;
     }
 
-    public CompareResult compareWeight(CompareWeight smthHasWeigt){
+    public CompareResult compareWeight(double smthHasWeigt){
         if (Double.compare(this.weight, smthHasWeigt)==-1){
             return CompareResult.LESS;
         } else if(Double.compare(this.weight, smthHasWeigt)==1){
@@ -25,11 +25,11 @@ public class Food implements CompareWeight {
         }
     }
 
-    public static void sort(CompareWeight[] a){
+    public static void sort(Animal[] a){
         for (int i=0; i<a.length; i++){
             for (int j=i+1; j<a.length; j++){
-                if(compareWeight(a)) {
-                    int time = a[i];
+                if(Double.compare((a[i]).getWeight(), (a[j]).getWeight()) == 1) {
+                    Animal time = a[i];
                     a[i] = a[j];
                     a[j] = time;
                 }
