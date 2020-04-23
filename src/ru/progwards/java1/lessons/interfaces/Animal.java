@@ -3,7 +3,7 @@ package ru.progwards.java1.lessons.interfaces;
 
 import java.util.Objects;
 
-public class Animal implements FoodCompare, CompareWeight {
+public class Animal implements FoodCompare, CompareWeight<Animal> {
     private double weight;
 
     public Animal() {
@@ -83,10 +83,11 @@ public class Animal implements FoodCompare, CompareWeight {
         return Double.compare(this.getFoodPrice(), animal.getFoodPrice());
     }
 
-    public CompareResult compareWeight(int smthHasWeig){
-        if (this.weight < (double)smthHasWeig){
+    @Override
+    public CompareResult compareWeight(Animal smthHasWeig){
+        if (this.weight < smthHasWeig.weight){
             return CompareResult.LESS;
-        } else if(this.weight > (double)smthHasWeig){
+        } else if(this.weight > smthHasWeig.weight) {
             return CompareResult.GREATER;
         } else {
             return CompareResult.EQUAL;
