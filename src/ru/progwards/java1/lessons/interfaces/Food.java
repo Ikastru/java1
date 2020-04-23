@@ -1,6 +1,6 @@
 package ru.progwards.java1.lessons.interfaces;
 
-public class Food implements CompareWeight<Food> {
+public class Food implements CompareWeight {
     private int weight;
 
     public Food(int weight) {
@@ -16,10 +16,10 @@ public class Food implements CompareWeight<Food> {
     }
 
     @Override
-    public CompareResult compareWeight(Food smthWeight){
-        if (this.weight < smthWeight.weight){
+    public CompareResult compareWeight(CompareWeight smthWeight){
+        if (this.weight < ((Food)smthWeight).weight){
             return CompareResult.LESS;
-        } else if(this.weight > smthWeight.weight){
+        } else if(this.weight > ((Food)smthWeight).weight){
             return CompareResult.GREATER;
         } else {
             return CompareResult.EQUAL;
