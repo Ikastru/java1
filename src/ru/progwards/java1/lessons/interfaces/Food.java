@@ -15,25 +15,14 @@ public class Food implements CompareWeight {
         this.weight = weight;
     }
 
-    public CompareResult compareWeight(double smthHasWeigt){
-        if (Double.compare(this.weight, smthHasWeigt)==-1){
+    public CompareResult compareWeight(int smthWeight){
+        if (this.weight < smthWeight){
             return CompareResult.LESS;
-        } else if(Double.compare(this.weight, smthHasWeigt)==1){
+        } else if(this.weight > smthWeight){
             return CompareResult.GREATER;
         } else {
             return CompareResult.EQUAL;
         }
     }
 
-    public static void sort(Animal[] a){
-        for (int i=0; i<a.length; i++){
-            for (int j=i+1; j<a.length; j++){
-                if(Double.compare((a[i]).getWeight(), (a[j]).getWeight()) == 1) {
-                    Animal time = a[i];
-                    a[i] = a[j];
-                    a[j] = time;
-                }
-            }
-        }
-    }
 }

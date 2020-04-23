@@ -83,10 +83,10 @@ public class Animal implements FoodCompare, CompareWeight {
         return Double.compare(this.getFoodPrice(), animal.getFoodPrice());
     }
 
-    public CompareResult compareWeight(double smthHasWeigt){
-        if (this.weight < smthHasWeigt){
+    public CompareResult compareWeight(int smthHasWeig){
+        if (this.weight < smthHasWeig){
             return CompareResult.LESS;
-        } else if(this.weight > smthHasWeigt){
+        } else if(this.weight > smthHasWeig){
             return CompareResult.GREATER;
         } else {
             return CompareResult.EQUAL;
