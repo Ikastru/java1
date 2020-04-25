@@ -36,7 +36,11 @@ public class ArrayInteger {
         for (int i = 0; i < this.digits.length; i++) {
             str += this.digits[i];
         }
-        a = new BigInteger(str);
+        String result = "";
+        for (int i = 0; i < str.length(); i++) {
+            result = str.charAt(i) + result;
+        }
+        a = new BigInteger(result);
         return a;
     }
 
