@@ -7,12 +7,12 @@ public class AbsInteger {
 
 
     public static AbsInteger add(AbsInteger num1, AbsInteger num2){
-        String str1 = num1.toString();
-        String str2 = num2.toString();
-        byte c = Byte.parseByte(str1);
-        byte d = Byte.parseByte(str2);
-        byte q = (byte) (c+d);
-        ByteInteger bint = new ByteInteger(q);
+        String str1 = num1.toString().trim();
+        String str2 = num2.toString().trim();
+        int c = Integer.parseInt(str1);
+        int d = Integer.parseInt(str2);
+        int q = c+d;
+        IntInteger bint = new IntInteger(q);
         return bint;
     }
 
