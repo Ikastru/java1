@@ -44,32 +44,32 @@ public class ArrayInteger {
     }
 
     public boolean add(ArrayInteger num) {
-        int len = this.digits.length > num.digits.length ? this.digits.length : num.digits.length;
-        int[] result = new int[len];
-        for (int i = 0; i < len; i++) {
-
-            if (i < this.digits.length) {
-
-                result[i] = this.digits[i];
-            }
-
-            if (i < num.digits.length) {
-
-                result[i] += num.digits.length;
-            }
-        }
-        return true;
-    }
-//        if (num.digits.length > this.digits.length){
-//            for (int i = 0; i < this.digits.length; i++){
-//                this.digits[i] = 0;
-//            }
-//            return false;
+//        int len = this.digits.length > num.digits.length ? this.digits.length : num.digits.length;
+//        int[] result = new int[len];
+//        for (int i = 0; i < len; i++) {
 //
-//        } else {
-//            return true;
+//            if (i < this.digits.length) {
+//
+//                result[i] = this.digits[i];
+//            }
+//
+//            if (i < num.digits.length) {
+//
+//                result[i] += num.digits.length;
+//            }
 //        }
+//        return true;
+//    }
+        if (num.digits.length > this.digits.length) {
+            for (int i = 0; i < this.digits.length; i++) {
+                this.digits[i] = 0;
+            }
+            return false;
 
+        } else {
+            return true;
+        }
+    }
 
 
 

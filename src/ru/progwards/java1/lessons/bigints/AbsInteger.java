@@ -12,7 +12,7 @@ public class AbsInteger {
         int c = Integer.parseInt(str1);
         int d = Integer.parseInt(str2);
         int q = c+d;
-        IntInteger bint = new IntInteger(q);
+        ByteInteger bint = new ByteInteger((byte) q);
         return bint;
     }
 
