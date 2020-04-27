@@ -16,12 +16,15 @@ public class ArrayInteger {
     }
 
     public void fromInt(BigInteger value) {
+        String str1 = value.toString().trim();
+        double c = Double.parseDouble(str1);
         int num = (int) Math.log10(value.doubleValue()) + 1;
         this.digits = new byte[num];
         for (int i = 0; i < num; i++) {
-            String s = value.mod(BigInteger.TEN).toString();
-            digits[i] = Byte.parseByte(s);
-            value = value.divide(BigInteger.TEN);
+//            String s = value.mod(BigInteger.TEN).toString();
+            digits[i] = (byte) (c%10);
+            c= c/10;
+//            value = value.divide(BigInteger.TEN);
         }
 
     }
