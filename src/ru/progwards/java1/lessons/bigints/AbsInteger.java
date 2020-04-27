@@ -5,13 +5,14 @@ import java.util.Arrays;
 
 public class AbsInteger {
 
+
     public static AbsInteger add(AbsInteger num1, AbsInteger num2){
-        String str1 = ""+num1;
-        String str2 = ""+num2;
-        int c = Integer.parseInt(str1);
-        int d = Integer.parseInt(str2);
-        int q = c+d;
-        ByteInteger bint = new ByteInteger((byte)q);
+        String str1 = num1.toString();
+        String str2 = num2.toString();
+        byte c = Byte.parseByte(str1);
+        byte d = Byte.parseByte(str2);
+        byte q = (byte) (c+d);
+        ByteInteger bint = new ByteInteger(q);
         return bint;
     }
 
@@ -40,6 +41,13 @@ public class AbsInteger {
 //       ByteInteger byInt1 = new ByteInteger(bn);
 //       return byInt1;
 //    }
+
+    public static void main(String[] args) {
+        ShortInteger shortInteger = new ShortInteger((short) 20);
+        ByteInteger byteInteger = new ByteInteger((byte) 100);
+        System.out.println(AbsInteger.add(shortInteger, byteInteger));
+
+    }
 
 }
 
