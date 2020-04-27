@@ -19,11 +19,11 @@ public class AbsInteger {
                numArr[i] = (byte) (numArr1[i] + numArr2[i]);
            }
        } else if (strArr1.length > strArr2.length){
-           for (int i =strArr2.length-1; i>0; i-- ){
+           for (int i =strArr1.length-1; i>0; i-- ){
                numArr[i] = (byte) (numArr1[i] + numArr2[i]);
            }
        } else if (strArr1.length < strArr2.length){
-           for (int i =strArr1.length-1; i>0; i-- ){
+           for (int i =strArr2.length-1; i>0; i-- ){
                numArr[i] = (byte) (numArr1[i] + numArr2[i]);
            }
        }
