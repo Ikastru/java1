@@ -12,8 +12,18 @@ public class AbsInteger {
         int c = Integer.parseInt(str1);
         int d = Integer.parseInt(str2);
         int q = c+d;
-        ByteInteger bint = new ByteInteger((byte) q);
-        return bint;
+        AbsInteger result = new AbsInteger();
+        if ((num1 instanceof ByteInteger) || (num2 instanceof ByteInteger)){
+            ByteInteger bint = new ByteInteger((byte) q);
+            result= bint;
+        } else if((num1 instanceof ShortInteger) || (num2 instanceof ShortInteger)) {
+            ShortInteger bint = new ShortInteger((short) q);
+            result= bint;
+        } else if((num1 instanceof IntInteger) || (num2 instanceof IntInteger)) {
+            IntInteger bint = new IntInteger(q);
+            result= bint;
+        }
+        return result;
     }
 
 //       String str1 = " "+num1;

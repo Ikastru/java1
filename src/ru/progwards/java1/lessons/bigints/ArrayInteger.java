@@ -42,7 +42,7 @@ public class ArrayInteger {
         for (int i = 0; i < str.length(); i++) {
             result = str.charAt(i) + result;
         }
-        a = new BigInteger(result);
+        a = new BigInteger(result.trim());
         return a;
     }
 
