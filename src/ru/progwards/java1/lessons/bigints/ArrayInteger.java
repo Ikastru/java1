@@ -6,28 +6,27 @@ import java.util.Arrays;
 public class ArrayInteger {
     private byte[] digits;
 
-    public  ArrayInteger(int n){
-        int num = (int)Math.log10(n)+1;
+    public ArrayInteger(int n) {
+        int num = (int) Math.log10(n) + 1;
         this.digits = new byte[num];
         for (int i = 0; i < num; i++) {
-            digits[i] = (byte)(n % 10);
+            digits[i] = (byte) (n % 10);
             n = n / 10;
         }
     }
 
-    public void fromInt(BigInteger value){
-        BigInteger ten = new BigInteger("10");
-        int num = (int)Math.log10(value.doubleValue())+1;
+    public void fromInt(BigInteger value) {
+        int num = (int) Math.log10(value.doubleValue()) + 1;
         this.digits = new byte[num];
         for (int i = 0; i < num; i++) {
-            String s = value.mod(ten).toString();
-            digits[i] = (byte)Integer.parseInt(s);
-            value = value.divide(ten);
+            String s = value.mod(BigInteger.TEN).toString();
+            digits[i] = Byte.parseByte(s);
+            value = value.divide(BigInteger.TEN);
         }
 
     }
 
-    public BigInteger toInt(){
+    public BigInteger toInt() {
 //        return new BigInteger(this.digits);
 //        return BigInteger.valueOf(456782765);
         String str = "";
@@ -44,8 +43,23 @@ public class ArrayInteger {
         return a;
     }
 
-    public boolean add(ArrayInteger num){
+    public boolean add(ArrayInteger num) {
+        int len = this.digits.length > num.digits.length ? this.digits.length : num.digits.length;
+        int[] result = new int[len];
+        for (int i = 0; i < len; i++) {
+
+            if (i < this.digits.length) {
+
+                result[i] = this.digits[i];
+            }
+
+            if (i < num.digits.length) {
+
+                result[i] += num.digits.length;
+            }
+        }
         return true;
+    }
 //        if (num.digits.length > this.digits.length){
 //            for (int i = 0; i < this.digits.length; i++){
 //                this.digits[i] = 0;
@@ -56,7 +70,7 @@ public class ArrayInteger {
 //            return true;
 //        }
 
-    }
+
 
 
     public static void main(String[] args) {
