@@ -45,15 +45,16 @@ public class ArrayInteger {
     }
 
     public boolean add(ArrayInteger num){
-        if (num.digits.length > this.digits.length){
-            for (int i = 0; i < this.digits.length; i++){
-                this.digits[i] = 0;
-            }
-            return false;
-
-        } else {
-            return true;
-        }
+        return true;
+//        if (num.digits.length > this.digits.length){
+//            for (int i = 0; i < this.digits.length; i++){
+//                this.digits[i] = 0;
+//            }
+//            return false;
+//
+//        } else {
+//            return true;
+//        }
 
     }
 
