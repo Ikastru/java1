@@ -32,16 +32,17 @@ public class ArrayInteger {
     public BigInteger toInt() {
 //        return new BigInteger(this.digits);
 //        return BigInteger.valueOf(456782765);
-        String str = "";
-        BigInteger a = null;
-        for (int i = 0; i < digits.length; i++) {
-            str += digits[i];
-        }
-        String result = "";
-        for (int i = 0; i < str.length(); i++) {
-            result += str.charAt(i);
-        }
-        a = new BigInteger(result.trim());
+//        String str = "";
+//        BigInteger a = null;
+//        for (int i = 0; i < digits.length; i++) {
+//            str += digits[i];
+//        }
+//        String result = "";
+//        for (int i = 0; i < str.length(); i++) {
+//            result += str.charAt(i);
+//        }
+        String result= Arrays.toString(digits);
+        BigInteger a = new BigInteger(result.replaceAll("[\\[\\]]", "").replaceAll(",", "").replaceAll(" ", ""));
         return a;
     }
 
