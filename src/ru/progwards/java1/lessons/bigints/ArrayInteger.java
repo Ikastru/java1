@@ -9,7 +9,7 @@ public class ArrayInteger {
     public ArrayInteger(int n) {
         int num = (int) Math.log10(n) + 1;
         this.digits = new byte[num];
-        for (int i = 0; i < num; i++) {
+        for (int i = num-1; i >=0; i--) {
             digits[i] = (byte) (n % 10);
             n = n / 10;
         }
