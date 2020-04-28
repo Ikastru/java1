@@ -1,8 +1,5 @@
 package ru.progwards.java1.lessons.bigints;
 
-import java.math.BigInteger;
-import java.util.Arrays;
-
 public class AbsInteger {
 
 
@@ -13,13 +10,13 @@ public class AbsInteger {
         int d = Integer.parseInt(str2);
         int q = c+d;
         AbsInteger result = new AbsInteger();
-        if ((num1 instanceof ByteInteger) || (num2 instanceof ByteInteger)){
+        if (q>-128 && q<127 ){
             ByteInteger bint = new ByteInteger((byte) q);
             result= bint;
-        } else if((num1 instanceof ShortInteger) || (num2 instanceof ShortInteger)) {
+        } else if(q>-32768 && q<32767) {
             ShortInteger bint = new ShortInteger((short) q);
             result= bint;
-        } else if((num1 instanceof IntInteger) || (num2 instanceof IntInteger)) {
+        } else  {
             IntInteger bint = new IntInteger(q);
             result= bint;
         }
