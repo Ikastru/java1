@@ -15,12 +15,12 @@ public class ArrayInteger {
         }
     }
 
-    public void fromInt(BigInteger value) {
-        String str1 = value.toString().trim();
+     public void fromInt(BigInteger value) {
+        String str1 = value.toString();
         double c = Double.parseDouble(str1);
         int num = (int) Math.log10(value.doubleValue()) + 1;
         this.digits = new byte[num];
-        for (int i = 0; i < num; i++) {
+        for (int i = num-1; i >=0; i--) {
 //            String s = value.mod(BigInteger.TEN).toString();
             digits[i] = (byte) (c%10);
             c= c/10;
@@ -79,7 +79,7 @@ public class ArrayInteger {
     public static void main(String[] args) {
         ArrayInteger arrayInteger = new ArrayInteger(159);
         System.out.println(Arrays.toString(arrayInteger.digits));
-        arrayInteger.fromInt(new BigInteger("15987"));
+        arrayInteger.fromInt(new BigInteger("5159780352"));
         System.out.println(Arrays.toString(arrayInteger.digits));
         System.out.println(arrayInteger.toInt());
         System.out.println(arrayInteger.add(arrayInteger));
