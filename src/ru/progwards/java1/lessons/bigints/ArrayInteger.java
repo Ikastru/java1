@@ -34,7 +34,6 @@ public class ArrayInteger {
 //        return BigInteger.valueOf(456782765);
         String str = "";
         BigInteger a = null;
-
         for (int i = 0; i < digits.length; i++) {
             str += digits[i];
         }
@@ -79,7 +78,7 @@ public class ArrayInteger {
     public static void main(String[] args) {
         ArrayInteger arrayInteger = new ArrayInteger(159);
         System.out.println(Arrays.toString(arrayInteger.digits));
-        arrayInteger.fromInt(new BigInteger("159"));
+        arrayInteger.fromInt(new BigInteger("15987"));
         System.out.println(Arrays.toString(arrayInteger.digits));
         System.out.println(arrayInteger.toInt());
         System.out.println(arrayInteger.add(arrayInteger));
