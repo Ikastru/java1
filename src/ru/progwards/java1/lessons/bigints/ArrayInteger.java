@@ -35,12 +35,12 @@ public class ArrayInteger {
         String str = "";
         BigInteger a = null;
 
-        for (int i = 0; i < this.digits.length; i++) {
-            str += this.digits[i];
+        for (int i = 0; i < digits.length; i++) {
+            str += digits[i];
         }
         String result = "";
         for (int i = 0; i < str.length(); i++) {
-            result = str.charAt(i) + result;
+            result += str.charAt(i);
         }
         a = new BigInteger(result.trim());
         return a;
