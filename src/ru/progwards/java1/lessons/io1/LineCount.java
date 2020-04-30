@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LineCount {
-    public static int calcEmpty(String fileName) throws Exception{
+    public static int calcEmpty(String fileName){
         try {
             int result = 0;
             Pattern regex = Pattern.compile("(?m)^\\s*?$");

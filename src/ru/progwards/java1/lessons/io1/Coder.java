@@ -2,12 +2,13 @@ package ru.progwards.java1.lessons.io1;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class Coder {
-    public static void codeFile(String inFileName, String outFileName, char[] code, String logName) throws Exception{
+    public static void codeFile(String inFileName, String outFileName, char[] code, String logName) throws IOException {
         PrintWriter log;
         FileWriter logFile;
         logFile = new FileWriter(logName, true);
@@ -31,7 +32,7 @@ public class Coder {
             writer.write(text);
             writer.flush();
         }
-        catch(Exception ex){
+        catch(IOException ex){
             log.printf("\n%s: %s\n", LocalDateTime.now(), ex.getMessage());
             ex.printStackTrace(log);
             log.flush();
