@@ -7,7 +7,7 @@ public class LineCount {
     public static int calcEmpty(String fileName){
         try {
             int result = 0;
-            Pattern regex = Pattern.compile("^\\w");
+            Pattern regex = Pattern.compile("\\s");
             Matcher testMatcher = regex.matcher(fileName);
             while (testMatcher.find()) {
                 result++;

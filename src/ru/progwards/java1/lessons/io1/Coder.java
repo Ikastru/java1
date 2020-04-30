@@ -31,7 +31,7 @@ public class Coder {
 
         }
         catch(Exception ex){
-            LOGGER.log(Level.WARNING,"что-то пошло не так" , logName);
+            System.out.println(ex.getMessage());
         }
 
     }
