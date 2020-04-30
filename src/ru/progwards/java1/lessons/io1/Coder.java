@@ -2,17 +2,14 @@ package ru.progwards.java1.lessons.io1;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Coder {
-    public static void codeFile(String inFileName, String outFileName, char[] code, String logName) throws IOException {
-        PrintWriter log;
-        FileWriter logFile;
-        logFile = new FileWriter(logName, true);
-        log = new PrintWriter(logFile);
+    static Logger LOGGER;
+    public static void codeFile(String inFileName, String outFileName, char[] code, String logName) {
+
         try(FileReader reader = new FileReader(inFileName)) {
             char[] buf = new char[1024];
             int[] ibuf = new int[1024];
@@ -31,11 +28,10 @@ public class Coder {
             String text = Arrays.toString(ibuf);
             writer.write(text);
             writer.flush();
+
         }
-        catch(IOException ex){
-            log.printf("\n%s: %s\n", LocalDateTime.now(), ex.getMessage());
-            ex.printStackTrace(log);
-            log.flush();
+        catch(Exception ex){
+            LOGGER.log(Level.WARNING,"что-то пошло не так" , logName);
         }
 
     }
