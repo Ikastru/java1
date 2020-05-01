@@ -10,17 +10,27 @@ public class CharFilter {
             BufferedReader br = new BufferedReader(new FileReader(inFileName));
             BufferedWriter bw = new BufferedWriter(new FileWriter(outFileName));
             try{
-            while ((str = br.readLine())!=null){
+             while ((str = br.readLine())!=null){
                 String rez = str.replaceAll(filter, "");
                 bw.write(rez);
-            }} finally {
-    br.close();
-    bw.close();
+             }
+            } finally {
+                br.close();
+                bw.close();
             }
         }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public static void main(String[] args) {
+        String filter = "-,.()";
+        try {
+            filterFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt",  "FileOut3.txt", filter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
