@@ -13,7 +13,7 @@ public class LineCount {
             in = new BufferedReader(new FileReader(fileName));
             String line = in.readLine();
             for (int i = 0; i <= line.length()-1; i++) {
-                if (String.valueOf(line.charAt(i)).isBlank()) {
+                if (String.valueOf(line.charAt(i)).equals("")) {
                     result++;
                 }
             }
