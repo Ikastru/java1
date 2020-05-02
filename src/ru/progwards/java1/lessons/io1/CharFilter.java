@@ -12,7 +12,7 @@ public class CharFilter {
             try{
              while ((str = br.readLine())!=null){
                 String rez = str.replaceAll(filter, "");
-                bw.write(rez);
+                bw.append(rez);
              }
             } finally {
                 br.close();
