@@ -7,12 +7,7 @@ public class Coder {
         try(BufferedReader in = new BufferedReader(new FileReader(inFileName))) {
             String line = in.readLine();
             StringBuffer buf = new StringBuffer(line);
-            while(line!=null){
-                for (int i=0; i<buf.length(); i++)
-                    buf.setCharAt(i, coder(buf.charAt(i)));
-                System.out.println(buf);
-            }
-            String text = buf.toString();
+            String text = coder(buf, code);
             FileWriter writer = new FileWriter(outFileName);
             writer.write(text);
             writer.flush();
@@ -29,16 +24,12 @@ public class Coder {
         }
     }
 
-    public static char coder(char c){
-        if ((c >= 'A') && (c <= 'Z')){
-            c+=13;
-            if (c > 'Z') c -= 26;
+    public static String coder(StringBuffer str, char[] code1){
+        StringBuilder str1 = new StringBuilder();
+        for (int i=0; i<str.length(); i++) {
+            str1 = str1.append(code1[(int)str.charAt(i)]);
         }
-        if ((c >= 'a') && (c <= 'z')){
-            c += 13;
-            if (c > 'z') c -= 26;
-        }
-        return c;
+        return str1.toString();
     }
 }
 
