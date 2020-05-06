@@ -22,7 +22,7 @@ public class LineCount {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result/3;
+        return result;
 
     }
 }
