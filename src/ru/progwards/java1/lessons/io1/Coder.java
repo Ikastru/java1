@@ -1,11 +1,14 @@
 package ru.progwards.java1.lessons.io1;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Coder {
     public static void codeFile(String inFileName, String outFileName, char[] code, String logName) {
-        try(BufferedReader in = new BufferedReader(new FileReader(inFileName))) {
-            String line = in.readLine();
+        try{
+            FileReader fileReader  = new FileReader(inFileName);
+            Scanner scanner = new Scanner(fileReader);
+            String line = scanner.nextLine();
             StringBuffer buf = new StringBuffer(line);
             String text = coder(buf, code);
             FileWriter writer = new FileWriter(outFileName);
@@ -13,7 +16,6 @@ public class Coder {
             writer.flush();
         }
         catch(Exception ex){
-//            System.out.println(ex.getMessage());
             PrintWriter pw = null;
             try {
                 pw = new PrintWriter(new FileOutputStream(logName));

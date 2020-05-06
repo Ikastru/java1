@@ -1,6 +1,5 @@
 package ru.progwards.java1.lessons.io1;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,9 +18,10 @@ public class LineCount {
                 }
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
+            return -1;
         }
         return result;
     }
