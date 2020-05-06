@@ -12,8 +12,8 @@ public class LineCount {
         try {
             in = new BufferedReader(new FileReader(fileName));
             String line = in.readLine();
-            for (int i = 0; i <= line.length()-1; i++) {
-                if (String.valueOf(line.charAt(i)).equals("")) {
+            while (in.readLine() != null) {
+                if (line.equals("")) {
                     result++;
                 }
             }
