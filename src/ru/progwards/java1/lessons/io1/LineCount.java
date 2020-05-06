@@ -11,9 +11,8 @@ public class LineCount {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(fileName));
-            String line = in.readLine();
             while (in.readLine() != null) {
-                if (line.equals("")) {
+                if (in.readLine().equals("")) {
                     result++;
                 }
             }
@@ -22,11 +21,7 @@ public class LineCount {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result;
+        return result/3;
 
-    }
-
-    public static void main(String[] args) {
-        System.out.println(calcEmpty("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt"));
     }
 }
