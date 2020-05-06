@@ -1,18 +1,25 @@
 package ru.progwards.java1.lessons.io1;
 
 import java.io.*;
+import java.text.Normalizer;
+import java.util.Scanner;
 
 public class CharFilter {
     public static void filterFile(String inFileName, String outFileName, String filter) throws Exception{
         try{
-            String str;
-
-            BufferedReader br = new BufferedReader(new FileReader(inFileName));
+            FileReader br = new FileReader(inFileName);
+            Scanner scanner = new Scanner(br);
             BufferedWriter bw = new BufferedWriter(new FileWriter(outFileName));
             try{
-             while ((str = br.readLine())!=null){
-                String rez = str.replaceAll(filter, "");
-                bw.append(rez);
+             while (scanner.hasNextLine()){
+                 String str = scanner.nextLine();
+                 String withoutFilter = Normalizer.normalize(str, Normalizer.Form.NFD);
+                 for (char c : filter.toCharArray()) {
+                     withoutFilter = withoutFilter.replace(c, ' ');
+                 }
+//                 String rez = withoutFilter.replaceAll(filter, "");
+                 System.out.println(withoutFilter);
+                 bw.append(withoutFilter);
              }
             } finally {
                 br.close();
