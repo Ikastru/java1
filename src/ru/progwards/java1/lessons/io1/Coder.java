@@ -13,7 +13,6 @@ public class Coder {
             String text = coder(buf, code);
             FileWriter writer = new FileWriter(outFileName);
             writer.write(text);
-            writer.flush();
         }
         catch(Exception ex){
             PrintWriter pw = null;

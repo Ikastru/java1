@@ -1,7 +1,6 @@
 package ru.progwards.java1.lessons.io1;
 
 import java.io.*;
-import java.text.Normalizer;
 import java.util.Scanner;
 
 public class CharFilter {
@@ -13,13 +12,11 @@ public class CharFilter {
             try{
              while (scanner.hasNextLine()){
                  String str = scanner.nextLine();
-                 String withoutFilter = Normalizer.normalize(str, Normalizer.Form.NFD);
                  for (char c : filter.toCharArray()) {
-                     withoutFilter = withoutFilter.replace(c, ' ');
+                     str = str.replace(c, ' ');
                  }
-//                 String rez = withoutFilter.replaceAll(filter, "");
-                 System.out.println(withoutFilter);
-                 bw.append(withoutFilter);
+                 bw.write(str);
+                 bw.flush();
              }
             } finally {
                 br.close();
