@@ -15,7 +15,7 @@ public class CharFilter {
                  for (char c : filter.toCharArray()) {
                      str = str.replace(c, ' ');
                  }
-                 bw.write(str);
+                 bw.write(str.replaceAll(" ", ""));
                  bw.flush();
              }
             } finally {
@@ -30,7 +30,7 @@ public class CharFilter {
     }
 
     public static void main(String[] args) {
-        String filter = "-,.()";
+        String filter = "—,.()";
         try {
             filterFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt",  "FileOut3.txt", filter);
         } catch (Exception e) {

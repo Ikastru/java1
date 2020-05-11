@@ -5,13 +5,23 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Censor {
+
     public static void censorFile(String inoutFileName, String[] obscene){
+
+        class CensorException extends Exception{
+            String errStr = super.getMessage();
+            public String toString(){
+                return " "+inoutFileName+errStr;
+            }
+        }
+
         StringBuilder strB = new StringBuilder();
         FileReader fileReader  = null;
         try {
             fileReader = new FileReader(inoutFileName);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            CensorException censorException = new CensorException();
+            censorException.toString();
         }
         Scanner scanner = new Scanner(fileReader);
         while (scanner.hasNextLine()) {
@@ -36,7 +46,8 @@ public class Censor {
             bw.flush();
             bw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            CensorException censorException1 = new CensorException();
+            censorException1.toString();
         }
     }
 
