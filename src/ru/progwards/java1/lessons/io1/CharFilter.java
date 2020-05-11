@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class CharFilter {
-    public static void filterFile(String inFileName, String outFileName, String filter) throws Exception{
+    public static void filterFile(String inFileName, String outFileName, String filter){
         try{
             FileReader br = new FileReader(inFileName);
             Scanner scanner = new Scanner(br);
@@ -17,7 +17,7 @@ public class CharFilter {
                  }
                  bw.write(str.replaceAll(" ", ""));
                  bw.flush();
-             }
+             } 
             } finally {
                 br.close();
                 bw.close();
@@ -30,7 +30,7 @@ public class CharFilter {
     }
 
     public static void main(String[] args) {
-        String filter = "—,.()";
+        String filter = "—,-.()";
         try {
             filterFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt",  "FileOut3.txt", filter);
         } catch (Exception e) {
