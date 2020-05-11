@@ -8,8 +8,11 @@ public class Coder {
         try{
             FileReader fileReader  = new FileReader(inFileName);
             Scanner scanner = new Scanner(fileReader);
-            String line = scanner.nextLine();
-            StringBuffer buf = new StringBuffer(line);
+            StringBuilder line = new StringBuilder();
+            while (scanner.hasNextLine()) {
+                 line.append(scanner.nextLine());
+            }
+                StringBuffer buf = new StringBuffer(line.toString().replace("[", "").replace("]", "").replace(",", "").replace(" ", ""));
             String text = coder(buf, code);
             FileWriter writer = new FileWriter(outFileName);
             writer.write(text);

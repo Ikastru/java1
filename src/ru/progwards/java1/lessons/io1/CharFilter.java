@@ -4,7 +4,10 @@ import java.io.*;
 import java.util.Scanner;
 
 public class CharFilter {
-    public static void filterFile(String inFileName, String outFileName, String filter){
+    public static void filterFile(String inFileName, String outFileName, String filter) throws IllegalArgumentException{
+        if (inFileName.equals(null)){
+            throw new IllegalArgumentException();
+        }
         try{
             FileReader br = new FileReader(inFileName);
             Scanner scanner = new Scanner(br);
@@ -17,7 +20,7 @@ public class CharFilter {
                  }
                  bw.write(str.replaceAll(" ", ""));
                  bw.flush();
-             } 
+             }
             } finally {
                 br.close();
                 bw.close();
