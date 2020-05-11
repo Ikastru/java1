@@ -10,12 +10,13 @@ public class Coder {
             Scanner scanner = new Scanner(fileReader);
             StringBuilder line = new StringBuilder();
             while (scanner.hasNextLine()) {
-                 line.append(scanner.nextLine());
+                 line.append(scanner.nextLine()+"\n");
             }
-                StringBuffer buf = new StringBuffer(line.toString().replace("[", "").replace("]", "").replace(",", "").replace(" ", ""));
+            StringBuffer buf = new StringBuffer(line.toString());
             String text = coder(buf, code);
             FileWriter writer = new FileWriter(outFileName);
             writer.write(text);
+            writer.close();
         }
         catch(Exception ex){
             PrintWriter pw = null;
@@ -33,7 +34,17 @@ public class Coder {
         for (int i=0; i<str.length(); i++) {
             str1 = str1.append(code1[(int)str.charAt(i)]);
         }
-        return str1.toString();
+        return str1.toString().replace("[", "").replace("]", "").replace(",", "").replace(" ", "");
+    }
+
+    public static void main(String[] args) {
+        String filter = "a";
+        filter=filter.repeat(96)+"12345";
+        try {
+            codeFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt", "C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File4.txt",  filter.toCharArray(), "C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\FileErr.txt");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
