@@ -36,7 +36,7 @@ public class Censor {
                     for (int k=0; k<ObsArr.length; k++){
                         ObsArr[k] =42;
                     }
-                    strArr[i] = Arrays.toString(ObsArr).replace("[", "").replace("]", "").replace(",", "");
+                    strArr[i] = Arrays.toString(ObsArr).replace("[", "").replace("]", "").replace(",", "").replace(" ", "");
 //                    for (char с : strArr[i].toCharArray()){
 //                        с = '*';
 //                    }

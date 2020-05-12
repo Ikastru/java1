@@ -9,8 +9,8 @@ public class Translator {
     private ArrayList<String> sentenceArr = new ArrayList<String>();
 
     Translator(String[] inLang, String[] outLang){
-        Collections.addAll(inStr, inLang);
-        Collections.addAll(outStr, outLang);
+        Collections.addAll(this.inStr, inLang);
+        Collections.addAll(this.outStr, outLang);
 //        for(int i=0; i<inLang.length; i++){
 //            this.inStr.add(inLang[i]);
 //        }
