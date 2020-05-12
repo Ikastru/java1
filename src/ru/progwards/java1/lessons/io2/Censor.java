@@ -13,15 +13,14 @@ class CensorException extends Exception{
 
 public class Censor {
 
-    public static void censorFile(String inoutFileName, String[] obscene) {
+    public static void censorFile(String inoutFileName, String[] obscene) throws CensorException {
 
         StringBuilder strB = new StringBuilder();
         FileReader fileReader  = null;
         try {
             fileReader = new FileReader(inoutFileName);
         } catch (Exception e) {
-            CensorException censorException = new CensorException();
-            censorException.toString();
+            throw new CensorException();
         }
         Scanner scanner = new Scanner(fileReader);
         while (scanner.hasNextLine()) {
