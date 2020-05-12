@@ -11,12 +11,14 @@ public class Translator {
     Translator(String[] inLang, String[] outLang){
 //            Collections.addAll(this.inStr, inLang);
 //            Collections.addAll(this.outStr, outLang);
-        for(int i=0; i<inLang.length-1; i++){
-            this.inStr.add(inLang[i]);
-        }
-        for(int j=0; j<outLang.length-1; j++){
-            this.outStr.add(outLang[j]);
-        }
+        try {
+            for (int i = 0; i < inLang.length - 1; i++) {
+                this.inStr.add(inLang[i]);
+            }
+            for (int j = 0; j < outLang.length - 1; j++) {
+                this.outStr.add(outLang[j]);
+            }
+        } catch(IndexOutOfBoundsException ignored){}
     }
 
     public String translate(String sentence){
