@@ -6,14 +6,16 @@ import java.util.Scanner;
 public class Coder {
     public static void codeFile(String inFileName, String outFileName, char[] code, String logName) {
         try{
-            FileReader fileReader  = new FileReader(inFileName);
-            Scanner scanner = new Scanner(fileReader);
+            FileInputStream stream = new FileInputStream (inFileName);
+            InputStreamReader reader = new InputStreamReader ( stream );
+            BufferedReader buffered_reader = new BufferedReader ( reader );
+            String buf, str = null;
             StringBuilder line = new StringBuilder();
-            while (scanner.hasNextLine()) {
-                 line.append(scanner.nextLine()+"\n");
+            while (( buf = buffered_reader.readLine () ) != null) {
+                str += buf;
             }
-            StringBuffer buf = new StringBuffer(line.toString());
-            String text = coder(buf, code);
+            StringBuffer buf1 = new StringBuffer(str.toString());
+            String text = coder(buf1, code);
             FileWriter writer = new FileWriter(outFileName);
             writer.write(text);
             writer.close();
