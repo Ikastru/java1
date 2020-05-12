@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Censor {
 
-    public static void censorFile(String inoutFileName, String[] obscene){
+    public static void censorFile(String inoutFileName, String[] obscene) throws Exception {
 
         class CensorException extends Exception{
             String errStr = super.getMessage();
@@ -15,6 +15,7 @@ public class Censor {
             }
         }
 
+
         StringBuilder strB = new StringBuilder();
         FileReader fileReader  = null;
         try {
@@ -22,6 +23,7 @@ public class Censor {
         } catch (FileNotFoundException e) {
             CensorException censorException = new CensorException();
             censorException.toString();
+            throw censorException;
         }
         Scanner scanner = new Scanner(fileReader);
         while (scanner.hasNextLine()) {
@@ -58,6 +60,10 @@ public class Censor {
 
     public static void main(String[] args) {
         String[] filter = {"count", "write"};
-        censorFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt", filter);
+        try {
+            censorFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt", filter);
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 }
