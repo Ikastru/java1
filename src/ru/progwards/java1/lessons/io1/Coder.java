@@ -12,13 +12,16 @@ public class Coder {
             String buf, str = null;
             StringBuilder line = new StringBuilder();
             while (( buf = buffered_reader.readLine () ) != null) {
-                str += buf;
+                str += buf+"\r\n";
             }
             StringBuffer buf1 = new StringBuffer(str.toString());
             String text = coder(buf1, code);
             FileWriter writer = new FileWriter(outFileName);
             writer.write(text);
             writer.close();
+            buffered_reader.close();
+            reader.close();
+            stream.close();
         }
         catch(Exception ex){
             PrintWriter pw = null;
