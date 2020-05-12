@@ -15,12 +15,11 @@ public class Censor {
 
     public static void censorFile(String inoutFileName, String[] obscene) throws CensorException {
 
-
         StringBuilder strB = new StringBuilder();
         FileReader fileReader  = null;
         try {
             fileReader = new FileReader(inoutFileName);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             CensorException censorException = new CensorException();
             censorException.toString();
             throw censorException;
