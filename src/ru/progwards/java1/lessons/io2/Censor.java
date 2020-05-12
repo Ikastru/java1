@@ -7,7 +7,7 @@ import java.util.Scanner;
 class CensorException extends Exception{
     String errStr = super.getMessage();
     public String toString(){
-        return " "+errStr;
+        return " "+errStr+":"+errStr;
     }
 }
 
