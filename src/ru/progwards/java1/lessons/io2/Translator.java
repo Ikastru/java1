@@ -8,10 +8,10 @@ public class Translator {
     private ArrayList<String> sentenceArr = new ArrayList<String>();
 
     Translator(String[] inLang, String[] outLang){
-        for(int i=0; i<inLang.length-1; i++){
+        for(int i=0; i<inLang.length; i++){
             this.inStr.add(inLang[i]);
         }
-        for(int j=0; j<outLang.length-1; j++){
+        for(int j=0; j<outLang.length; j++){
             this.outStr.add(outLang[j]);
         }
     }

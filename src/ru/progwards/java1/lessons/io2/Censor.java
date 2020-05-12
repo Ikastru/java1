@@ -29,17 +29,22 @@ public class Censor {
         }
         String strTime = strB.toString();
         String[] strArr = strTime.split(" ");
-        for (int i = 0; i<strArr.length-1; i++){
-            for (int j = 0; j<obscene.length-1; j++){
-                if (strArr[i] == obscene[j]){
-                    for (char с : strArr[i].toCharArray()){
-                        с = 42;
+        for (int i = 0; i<strArr.length; i++){
+            for (int j = 0; j<obscene.length; j++){
+                if (strArr[i].equals(obscene[j])){
+                    char [] ObsArr = obscene[j].toCharArray();
+                    for (int k=0; k<ObsArr.length; k++){
+                        ObsArr[k] +=42;
                     }
+                    strArr[i] = Arrays.toString(ObsArr).replace("[", "").replace("]", "").replace(",", "");
+//                    for (char с : strArr[i].toCharArray()){
+//                        с = '*';
+//                    }
                 }
             }
         }
         System.out.println(Arrays.toString(strArr));
-        String res = Arrays.toString(strArr).replace("[", "").replace("]", "").replace(",", "").replace(" ", "");
+        String res = Arrays.toString(strArr).replace("[", "").replace("]", "").replace(",", "");
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(inoutFileName));
             bw.write(res);
@@ -52,7 +57,7 @@ public class Censor {
     }
 
     public static void main(String[] args) {
-        String[] filter = {"Java", "Oracle", "Sun", "Microsystems"};
+        String[] filter = {"count", "write"};
         censorFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt", filter);
     }
 }
