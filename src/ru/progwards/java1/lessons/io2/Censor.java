@@ -13,7 +13,7 @@ class CensorException extends Exception{
 
 public class Censor {
 
-    public static void censorFile(String inoutFileName, String[] obscene) throws CensorException {
+    public static void censorFile(String inoutFileName, String[] obscene) {
 
         StringBuilder strB = new StringBuilder();
         FileReader fileReader  = null;
@@ -22,7 +22,6 @@ public class Censor {
         } catch (Exception e) {
             CensorException censorException = new CensorException();
             censorException.toString();
-            throw censorException;
         }
         Scanner scanner = new Scanner(fileReader);
         while (scanner.hasNextLine()) {
@@ -58,10 +57,10 @@ public class Censor {
     }
 
     public static void main(String[] args) {
-        String[] filter = {"count", "write"};
+        String[] filter = {"count", "write", "day"};
         try {
             censorFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt", filter);
-        } catch (CensorException e) {
+        } catch (Exception e) {
             e.getMessage();
         }
     }
