@@ -34,7 +34,7 @@ public class Censor {
                 if (strArr[i].equals(obscene[j])){
                     char [] ObsArr = obscene[j].toCharArray();
                     for (int k=0; k<ObsArr.length; k++){
-                        ObsArr[k] +=42;
+                        ObsArr[k] =42;
                     }
                     strArr[i] = Arrays.toString(ObsArr).replace("[", "").replace("]", "").replace(",", "");
 //                    for (char с : strArr[i].toCharArray()){

@@ -1,6 +1,7 @@
 package ru.progwards.java1.lessons.io2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Translator {
     private ArrayList<String> inStr = new ArrayList<String>();
@@ -8,12 +9,14 @@ public class Translator {
     private ArrayList<String> sentenceArr = new ArrayList<String>();
 
     Translator(String[] inLang, String[] outLang){
-        for(int i=0; i<inLang.length; i++){
-            this.inStr.add(inLang[i]);
-        }
-        for(int j=0; j<outLang.length; j++){
-            this.outStr.add(outLang[j]);
-        }
+        Collections.addAll(inStr, inLang);
+        Collections.addAll(outStr, outLang);
+//        for(int i=0; i<inLang.length; i++){
+//            this.inStr.add(inLang[i]);
+//        }
+//        for(int j=0; j<outLang.length; j++){
+//            this.outStr.add(outLang[j]);
+//        }
     }
 
     public String translate(String sentence){
