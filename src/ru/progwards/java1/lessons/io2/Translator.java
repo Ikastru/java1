@@ -10,7 +10,9 @@ public class Translator {
     Translator(String[] inLang, String[] outLang){
         for(int i=0; i<inLang.length-1; i++){
             this.inStr.add(inLang[i]);
-            this.outStr.add(outLang[i]);
+        }
+        for(int j=0; j<outLang.length-1; j++){
+            this.outStr.add(outLang[j]);
         }
     }
 
