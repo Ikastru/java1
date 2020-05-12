@@ -43,10 +43,9 @@ public class Coder {
     }
 
     public static void main(String[] args) {
-        String filter = "a";
-        filter=filter.repeat(96)+"12345";
+       char [] cod = {42, 41, 43};
         try {
-            codeFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt", "C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File4.txt",  filter.toCharArray(), "C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\FileErr.txt");
+            codeFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt", "C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File4.txt",  cod, "C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\FileErr.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }

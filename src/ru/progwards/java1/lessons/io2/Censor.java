@@ -4,20 +4,17 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
+class CensorException extends Exception{
+    String errStr = super.getMessage();
+    public String toString(){
+        return " "+errStr;
+    }
+}
+
 public class Censor {
 
-    public static void censorFile(String inoutFileName, String[] obscene) throws Exception {
+    public static void censorFile(String inoutFileName, String[] obscene) throws CensorException {
 
-        class CensorException extends Exception{
-            String errStr = super.getMessage();
-            public String toString(){
-                return " "+inoutFileName+errStr;
-            }
-        }
-
-        if (inoutFileName.equals(null)){
-            throw new CensorException();
-        }
 
         StringBuilder strB = new StringBuilder();
         FileReader fileReader  = null;
@@ -65,7 +62,7 @@ public class Censor {
         String[] filter = {"count", "write"};
         try {
             censorFile("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt", filter);
-        } catch (Exception e) {
+        } catch (CensorException e) {
             e.getMessage();
         }
     }
