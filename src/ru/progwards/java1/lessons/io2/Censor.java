@@ -15,6 +15,9 @@ public class Censor {
             }
         }
 
+        if (inoutFileName.equals(null)){
+            throw new CensorException();
+        }
 
         StringBuilder strB = new StringBuilder();
         FileReader fileReader  = null;
