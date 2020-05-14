@@ -27,7 +27,7 @@ import java.util.*;
 public class Finder {
 
     public static Collection<Integer> findMinSumPair(Collection<Integer> numbers){
-        Integer[] arr = numbers.toArray(new Integer[numbers.size()]);
+        Integer[] arr = numbers.stream().toArray(Integer[]::new);
         Collection<Integer> arrayList = new ArrayList();
         int temp1 = 0;
         int temp2 = 0;
@@ -43,7 +43,7 @@ public class Finder {
     }
 
     public static Collection<Integer> findLocalMax(Collection<Integer> numbers){
-        Integer[] arr = numbers.toArray(new Integer[numbers.size()]);
+        Integer[] arr = numbers.stream().toArray(Integer[]::new);
         Collection<Integer> arrayList = new ArrayList();
         for (int i = 0; i < numbers.size(); i++){
             if(arr[i] > arr[i+1] && arr[i] > arr[i-1]){
@@ -65,7 +65,7 @@ public class Finder {
     }
 
     public static String findSimilar(Collection<String> names){
-        String[] arr = names.toArray(new String[names.size()]);
+        String[] arr = names.stream().toArray(String[]::new);
         StringBuilder strB = new StringBuilder();
         int k=0, max=0;
         for (int i = 0; i <names.size(); i++) {

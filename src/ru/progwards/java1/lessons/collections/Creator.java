@@ -7,11 +7,12 @@ package ru.progwards.java1.lessons.collections;
 
  1.2 Реализовать метод
  public static Collection<Integer> fillOdd(int n) - создать коллекцию и заполнить последовательностью
- нечетных убывающих чисел, минимальное число в коллекции 1, количество элементов в коллекции n*3
+ нечетных убывающих чисел, минимальное число в коллекции 1, количество элементов в коллекции n*2
 
  1.3 Реализовать метод
  public static Collection<Integer> fill3(int n) - создать коллекцию и заполнить ее тройками чисел.
- Каждая тройка создается по алгоритму: первое число тройки - индекс числа в коллекции, второе - индекс в квадрате, третье - индекс в кубе, количество элементов в коллекции n*3
+ Каждая тройка создается по алгоритму: первое число тройки - индекс числа в коллекции, второе -
+ индекс в квадрате, третье - индекс в кубе, количество элементов в коллекции n*3
  **/
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class Creator {
 
     public static Collection<Integer> fill3(int n){
         Collection<Integer> collection = new ArrayList<>();
-        for (int i=0; i<=2*n; ) {
+        for (int i=0; i<3*n; ) {
         collection.add(i);
         collection.add(i*i);
         collection.add(i*i*i);
