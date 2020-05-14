@@ -39,7 +39,7 @@ public class Creator {
 
     public static Collection<Integer> fill3(int n){
         Collection<Integer> collection = new ArrayList<>();
-        for (int i=0; i<=n; ) {
+        for (int i=0; i<=2*n; ) {
         collection.add(i);
         collection.add(i*i);
         collection.add(i*i*i);

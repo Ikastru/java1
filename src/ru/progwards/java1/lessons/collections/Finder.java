@@ -55,7 +55,7 @@ public class Finder {
 
     public static boolean findSequence(Collection<Integer> numbers){
         Collection<Integer> arrayList = new ArrayList();
-        for (int i = 0; i < numbers.size(); i++){
+        for (int i = 1; i <= numbers.size(); i++){
             arrayList.add(i);
         }
         if (numbers.containsAll(arrayList)){
