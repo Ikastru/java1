@@ -27,12 +27,12 @@ import java.util.*;
 public class Finder {
 
     public static Collection<Integer> findMinSumPair(Collection<Integer> numbers){
-        Integer[] arr = numbers.stream().toArray(Integer[]::new);
+        Object[] arr = numbers.toArray();
         Collection<Integer> arrayList = new ArrayList();
         int temp1 = 0;
         int temp2 = 0;
         for (int i = 0; i < numbers.size(); i++){
-            if(arr[i]+arr[i+1]<arr[i+2]+arr[i+1]){
+            if(((Integer)arr[i] + (Integer)arr[i + 1]) < ((Integer)arr[i + 2] + (Integer)arr[i + 1])){
                  temp1 = i;
                  temp2 = i+1;
             }
@@ -43,11 +43,11 @@ public class Finder {
     }
 
     public static Collection<Integer> findLocalMax(Collection<Integer> numbers){
-        Integer[] arr = numbers.stream().toArray(Integer[]::new);
+        Object[] arr = numbers.toArray();
         Collection<Integer> arrayList = new ArrayList();
         for (int i = 0; i < numbers.size(); i++){
-            if(arr[i] > arr[i+1] && arr[i] > arr[i-1]){
-                arrayList.add(arr[i]);
+            if((Integer)arr[i] > (Integer)arr[i+1] && (Integer)arr[i] > (Integer)arr[i-1]){
+                arrayList.add((Integer)arr[i]);
             }
         }
         return arrayList;
@@ -65,7 +65,7 @@ public class Finder {
     }
 
     public static String findSimilar(Collection<String> names){
-        String[] arr = names.stream().toArray(String[]::new);
+        Object[] arr = names.toArray();
         StringBuilder strB = new StringBuilder();
         int k=0, max=0;
         for (int i = 0; i <names.size(); i++) {
