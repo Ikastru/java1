@@ -31,10 +31,10 @@ public class Finder {
         Collection<Integer> arrayList = new ArrayList();
         int temp1 = 0;
         int temp2 = 0;
-        for (int i = 0; i < numbers.size(); i++){
-            if(((Integer)arr[i] + (Integer)arr[i + 1]) < ((Integer)arr[i + 2] + (Integer)arr[i + 1])){
-                 temp1 = i;
-                 temp2 = i+1;
+        for (int i = 2; i < numbers.size(); i++){
+            if(((Integer)arr[i-2] + (Integer)arr[i - 1]) < ((Integer)arr[i] + (Integer)arr[i - 1])){
+                 temp1 = i-2;
+                 temp2 = i-1;
             }
             arrayList.add(temp1);
             arrayList.add(temp2);
@@ -45,9 +45,9 @@ public class Finder {
     public static Collection<Integer> findLocalMax(Collection<Integer> numbers){
         Object[] arr = numbers.toArray();
         Collection<Integer> arrayList = new ArrayList();
-        for (int i = 0; i < numbers.size(); i++){
-            if((Integer)arr[i] > (Integer)arr[i+1] && (Integer)arr[i] > (Integer)arr[i-1]){
-                arrayList.add((Integer)arr[i]);
+        for (int i = 2; i < numbers.size(); i++){
+            if((Integer)arr[i-1] > (Integer)arr[i] && (Integer)arr[i-1] > (Integer)arr[i-2]){
+                arrayList.add((Integer)arr[i-1]);
             }
         }
         return arrayList;
@@ -66,17 +66,18 @@ public class Finder {
 
     public static String findSimilar(Collection<String> names){
         Object[] arr = names.toArray();
+        int a = arr.length;
         StringBuilder strB = new StringBuilder();
         int k=0, max=0;
-        for (int i = 0; i <names.size(); i++) {
-            if (arr[i+1].equals(arr[i])) {
+        for (int i = 1; i <names.size(); i++) {
+            if (arr[i].equals(arr[i-1])) {
                 k++;
             }
             else
                 k = 0;
             if (k > max) {
                 strB.setLength(0);
-                strB.append(arr[i]);
+                strB.append(arr[i-1]);
                 max = k;
             }
         }

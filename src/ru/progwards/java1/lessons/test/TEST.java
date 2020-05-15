@@ -4,24 +4,22 @@ import java.util.*;
 
 public class TEST {
 
-    public static void main(String[] args) {
-        Collection<Integer> numbers = new ArrayList();
-        for (int i = 0; i < 5; i++)
-            numbers.add(i);
-        numbers.add(Collections.min(numbers));
-        System.out.println(numbers);
+    public static void doTreeSet() {
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        treeSet.add(19);
+        treeSet.add(12);
+        treeSet.add(15);
+        treeSet.add(10);
 
-        List<Integer> linkedList = new LinkedList();
-        for (int i = 0; i < 5; i++) {
-            linkedList.add(i);
-        }
-        for (ListIterator<Integer> listIterator = linkedList.listIterator(); listIterator.hasNext(); ) {
-            Integer n = listIterator.next();
-            if (n % 2 != 0)
-                listIterator.remove();
-            else
-                listIterator.add(n * 2);
-        }
-        System.out.println(linkedList);
+        String s = "";
+        Iterator<Integer> iterator = treeSet.iterator();
+        while (iterator.hasNext())
+            s += iterator.next();
+        System.out.println(s);
     }
+
+    public static void main(String[] args) {
+        doTreeSet();
+    }
+
 }
