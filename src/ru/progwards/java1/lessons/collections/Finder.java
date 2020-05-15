@@ -36,9 +36,9 @@ public class Finder {
                  temp1 = i-2;
                  temp2 = i-1;
             }
-            arrayList.add(temp1);
-            arrayList.add(temp2);
         }
+        arrayList.add(temp1);
+        arrayList.add(temp2);
         return arrayList;
     }
 
@@ -81,6 +81,24 @@ public class Finder {
                 max = k;
             }
         }
-        return strB.toString()+max;
+        return strB.toString()+":"+(max+1);
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        for (int i=0; i<11; i++){
+            numbers.add(i);
+        }
+        ArrayList<String> name = new ArrayList<>();
+        for (int i=0; i<20; i++){
+            name.add("Вася"); name.add("Леша"); name.add("Петя"); name.add("Саша"); name.add("Вася");
+            name.add("Вася"); name.add("Вася"); name.add("Петя"); name.add("Дима"); name.add("Андрей");
+            name.add("Ваня"); name.add("Света"); name.add("Люда"); name.add("Ваня"); name.add("Петя");
+            name.add("Дима"); name.add("Катя"); name.add("Светозар"); name.add("Вася"); name.add("Паша");
+        }
+        System.out.println(findMinSumPair(numbers));
+        System.out.println(findLocalMax(numbers));
+        System.out.println(findSequence(numbers));
+        System.out.println(findSimilar(name));
     }
 }
