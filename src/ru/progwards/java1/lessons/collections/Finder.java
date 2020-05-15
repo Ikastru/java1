@@ -41,8 +41,8 @@ public class Finder {
                 }
             }
         }
-        arrayList.add(temp1);
-        arrayList.add(temp2);
+        arrayList.add(temp1-1);
+        arrayList.add(temp2-1);
         return arrayList;
     }
 
