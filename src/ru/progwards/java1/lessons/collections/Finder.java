@@ -29,12 +29,16 @@ public class Finder {
     public static Collection<Integer> findMinSumPair(Collection<Integer> numbers){
         Object[] arr = numbers.toArray();
         Collection<Integer> arrayList = new ArrayList();
+        Integer minN = (Integer)arr[1] + (Integer)arr[2];
         int temp1 = 0;
         int temp2 = 0;
         for (int i = 2; i < numbers.size(); i++){
+            Integer x = (Integer)arr[i-2] + (Integer)arr[i - 1];
             if(((Integer)arr[i-2] + (Integer)arr[i - 1]) < ((Integer)arr[i] + (Integer)arr[i - 1])){
-                 temp1 = i-2;
-                 temp2 = i-1;
+                if(x<minN) {
+                    temp1 = i - 2;
+                    temp2 = i - 1;
+                }
             }
         }
         arrayList.add(temp1);
