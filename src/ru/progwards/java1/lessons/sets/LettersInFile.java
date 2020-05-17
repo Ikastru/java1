@@ -47,7 +47,17 @@ public class LettersInFile {
             Character[] arr = new Character[str.length()];
             for (int i = 0; i < arr.length; i++) arr[i] = str.charAt(i);
             Arrays.sort(arr, awesomeComparator);
-            result = Arrays.toString(arr).replace("[", "").replace("]", "").replace(",", "").replace(" ", "");
+            int n = 1;
+            for (int i = 1; i < arr.length; i++) {
+                if (arr[i] != arr[i-1]) n++;
+            }
+            Character[] res = new Character[n];
+            res[0] = arr[0];
+            n = 1;
+            for (int i = 1; i < arr.length; i++) {
+                if (arr[i] != arr[i-1]) res[n++] = arr[i];
+            }
+            result = Arrays.toString(res).replace("[", "").replace("]", "").replace(",", "").replace(" ", "");
 
         } catch (IOException e) {
             e.printStackTrace();
