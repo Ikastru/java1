@@ -9,7 +9,7 @@ public class ProductAnalytics {
 
     public ProductAnalytics(List<Product> products, List<Shop> shops) {
         this.shops = shops;
-        this.products.addAll(products);
+        this.products = products;
     }
 
     public Set<Product> existInAll(){
