@@ -47,12 +47,20 @@ public class LettersInFile {
             Character[] arr = new Character[str.length()];
             for (int i = 0; i < arr.length; i++) arr[i] = str.charAt(i);
             Arrays.sort(arr, awesomeComparator);
-            result = arr.toString().replace("[", "").replace("]", "").replace(",", "").replace(" ", "");
+            result = Arrays.toString(arr).replace("[", "").replace("]", "").replace(",", "").replace(" ", "");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println(process("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\File3.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
