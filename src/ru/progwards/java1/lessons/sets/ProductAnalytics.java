@@ -15,7 +15,7 @@ public class ProductAnalytics {
     public Set<Product> existInAll(){
         HashSet<Product> productsInShops = new HashSet<>();
         for (Shop s: shops){
-            productsInShops.addAll(s.getProducts());
+            productsInShops.retainAll(s.getProducts());
         }
         return productsInShops;
     }

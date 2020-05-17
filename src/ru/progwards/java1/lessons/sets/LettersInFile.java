@@ -7,7 +7,7 @@ public class LettersInFile {
 
     public static String process(String fileName) throws IOException {
         
-        String result = null;
+        String result = "";
 
         Comparator<Character> awesomeComparator = new Comparator<Character>() {
             @Override
@@ -33,7 +33,7 @@ public class LettersInFile {
                 FileReader br = new FileReader(fileName);
                 Scanner scanner = new Scanner(br);
         ) {
-            String str = null;
+            String str = "";
             while (scanner.hasNextLine()) {
                 str = scanner.nextLine();
                 for (char c : str.toCharArray()) {
