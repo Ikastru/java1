@@ -37,7 +37,7 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existInAll(){
-        HashSet<Product> productsInShops = new HashSet(Collections.singleton(shops.stream().findFirst()));
+        HashSet<Product> productsInShops = new HashSet(products);
         for (Shop s: shops){
             productsInShops.retainAll(s.getProducts());
         }
