@@ -68,7 +68,7 @@ public class ProductAnalytics {
         }
         HashSet<Product> notExProdEx = new HashSet(shops.get(0).getProducts());
         for (Shop s: shops){
-            allProdEx.retainAll(s.getProducts());
+            notExProdEx.retainAll(s.getProducts());
         }
         allProdEx.removeAll(notExProdEx);
         return allProdEx;
