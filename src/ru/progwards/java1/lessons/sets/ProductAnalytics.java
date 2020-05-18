@@ -62,8 +62,14 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existOnlyInOne(){
-        HashSet<Product> allProdEx = new HashSet(products);
-        HashSet<Product> notExProdEx = new HashSet(notExistInShops());
+        HashSet<Product> allProdEx = new HashSet(shops.get(0).getProducts());
+        for (Shop s: shops){
+            allProdEx.addAll(s.getProducts());
+        }
+        HashSet<Product> notExProdEx = new HashSet(shops.get(0).getProducts());
+        for (Shop s: shops){
+            allProdEx.retainAll(s.getProducts());
+        }
         allProdEx.removeAll(notExProdEx);
         return allProdEx;
     }
