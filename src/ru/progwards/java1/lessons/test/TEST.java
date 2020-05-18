@@ -4,22 +4,24 @@ import java.util.*;
 
 public class TEST {
 
-    public static void doTreeSet() {
-        TreeSet<Integer> treeSet = new TreeSet<>();
-        treeSet.add(19);
-        treeSet.add(12);
-        treeSet.add(15);
-        treeSet.add(10);
+    int sumLastAndFirst(ArrayDeque<Integer> deque) {
+        if (deque.getFirst() == null || deque.getLast() == null){
+            return 0;
+        }
+        return deque.getFirst() + deque.getLast();
+    }
 
-        String s = "";
-        Iterator<Integer> iterator = treeSet.iterator();
-        while (iterator.hasNext())
-            s += iterator.next();
-        System.out.println(s);
+    static void pqTest() {
+        PriorityQueue pQueue = new PriorityQueue<>();
+        pQueue.offer(10);
+        pQueue.offer(1);
+        pQueue.offer(9);
+        pQueue.offer(3);
+        System.out.println(pQueue);
     }
 
     public static void main(String[] args) {
-        doTreeSet();
+        pqTest();
     }
 
 }

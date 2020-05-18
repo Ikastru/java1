@@ -1,5 +1,29 @@
 package ru.progwards.java1.lessons.sets;
 
+/**
+ * 2.9 Создать класс ProductAnalytics
+ *
+ * 2.10 Создать private List<Shop> shops - список магазинов
+ *
+ * 2.11 Создать private List<Product> products - список всех имеющихся в ассортименте
+ * товаров. Все товары, присутствующие в магазинах, обязательно присутствуют в products,
+ * но так же тут могут быть и товары, которых нет в магазинах
+ *
+ * 2.12 Создать конструктор  public ProductAnalytics(List<Product> products, List<Shop> shops)
+ *
+ * 2.13 Создать функцию public Set<Product> existInAll() - товары из products,
+ * которые имеются во всех магазинах
+ *
+ * 2.14 Создать функцию public Set<Product> existAtListInOne() - товары из products,
+ * которые имеются хотя бы в одном магазине
+ *
+ * 2.15 Создать функцию public Set<Product> notExistInShops() - товары из products,
+ * которых нет ни в одном магазине
+ *
+ * 2.16 Создать функцию public Set<Product> existOnlyInOne() - товары из products,
+ * которые есть только в одном магазине
+ */
+
 import java.util.*;
 
 public class ProductAnalytics {
@@ -13,7 +37,7 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existInAll(){
-        HashSet<Product> productsInShops = new HashSet<>();
+        HashSet<Product> productsInShops = new HashSet(Collections.singleton(shops.stream().findFirst()));
         for (Shop s: shops){
             productsInShops.retainAll(s.getProducts());
         }
@@ -21,17 +45,10 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existAtListInOne(){
-        HashSet<Product> productsInShops2 = new HashSet<>();
-        for (Shop s: shops){
-            productsInShops2.addAll(s.getProducts());
-        }
-        HashSet<Product> APIS = new HashSet(products);
-        HashSet<Product> PIS = new HashSet<>();
-        for (Shop s: shops){
-            PIS.addAll(s.getProducts());
-        }
-        APIS.removeAll(PIS);
-        return APIS;
+        HashSet<Product> allProd = new HashSet(products);
+        HashSet<Product> notExProd = new HashSet(notExistInShops());
+        allProd.removeAll(notExProd);
+        return allProd;
     }
 
     public Set<Product> notExistInShops(){
@@ -45,15 +62,16 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existOnlyInOne(){
-        HashSet OnlyInOne = new HashSet();
-        ListIterator<Shop> iter = (ListIterator<Shop>) shops.iterator();
-        HashSet result = new HashSet();
-        while(iter.hasNext()){
-            result.addAll(iter.next().getProducts());
-            result.addAll(iter.previous().getProducts());
-            result.removeAll(iter.next().getProducts());
+        HashSet OnlyInOne = new HashSet(Collections.singleton(shops.stream().findFirst()));
+        for (Shop s: shops){
+            OnlyInOne.addAll(s.getProducts());
         }
-        return result;
+        HashSet OnlyInOneInterSec = new HashSet(Collections.singleton(shops.stream().findFirst()));
+        for (Shop s: shops){
+            OnlyInOneInterSec.retainAll(s.getProducts());
+        }
+        OnlyInOne.removeAll(OnlyInOneInterSec);
+        return OnlyInOne;
     }
 
 }
