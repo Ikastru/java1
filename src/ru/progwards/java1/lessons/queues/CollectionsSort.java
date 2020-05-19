@@ -64,7 +64,7 @@ public class CollectionsSort {
     }
 
     public static Collection<String> compareSort() {
-        final int ELEMENTS_COUNT = 250_000;
+        final int ELEMENTS_COUNT = 1000;
         ArrayList<Integer> arrayListExample = new ArrayList();
         ArrayList<String> arrayListString = new ArrayList();
         for (int i = 0; i < ELEMENTS_COUNT; i++) {
@@ -97,5 +97,9 @@ public class CollectionsSort {
             Collections.swap(arrayListString, 1, 2);
         }
         return arrayListString;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(compareSort());
     }
 }
