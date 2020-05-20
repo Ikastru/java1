@@ -24,19 +24,16 @@ package ru.progwards.java1.lessons.queues;
  */
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 public class CollectionsSort {
 
     public static void mySort(Collection<Integer> data) {
-        Object[] arr = data.toArray();
+        Integer[] arr = data.toArray(new Integer[data.size()]);
         for (int i = 0; i < data.size(); i++) {
             for (int j = i + 1; j < data.size(); j++) {
-                if ((Integer) arr[i] > (Integer) arr[j]) {
-                    Integer time = (Integer) arr[i];
+                if (arr[i] > arr[j]) {
+                    Integer time = arr[i];
                     arr[i] = arr[j];
                     arr[j] = time;
                 }
@@ -81,25 +78,68 @@ public class CollectionsSort {
         var startTime3 = new Date().getTime();
         collSort(arrayListExample);
         var resTime3 = new Date().getTime() - startTime3;
-        String strMySort = "mySort", strMinSort = "minSort", strCollSort = "collSort";
-        arrayListString.add(strCollSort);
-        arrayListString.add(strMinSort);
-        arrayListString.add(strMySort);
-        if (resTime3 < resTime2) {
-            Collections.swap(arrayListString, 0, 1);
-            if (resTime3 < resTime1) {
-                Collections.swap(arrayListString, 1, 2);
+
+        class FuncSort {
+            public String str;
+            public long resTime;
+
+            public FuncSort(String str, long resTime) {
+                this.str = str;
+                this.resTime = resTime;
             }
-            if (resTime1 < resTime2) {
-                Collections.swap(arrayListString, 0, 1);
-            }
-        } else if (resTime2 < resTime1) {
-            Collections.swap(arrayListString, 1, 2);
         }
+
+        FuncSort funcSortMy = new FuncSort("mySort", resTime1);
+        FuncSort funcSortMin = new FuncSort("minSort", resTime2);
+        FuncSort funcSortColl = new FuncSort("collSort", resTime3);
+        Comparator<FuncSort> awesomeComparator = new Comparator<FuncSort>() {
+            @Override
+            public int compare(FuncSort o1, FuncSort o2) {
+                return (int) (o1.resTime - o2.resTime);
+//                int camp = 0;
+//                if (o1.resTime<o2.resTime) camp = 1;
+//                if (o1.resTime>o2.resTime) camp = -1;
+//                if (o1.resTime==o2.resTime) camp = 0;
+//                return camp;
+            }
+        };
+//        String strMySort = "mySort", strMinSort = "minSort", strCollSort = "collSort";
+        ArrayList<FuncSort> arrayListF = new ArrayList();
+        arrayListF.add(funcSortMy);
+        arrayListF.add(funcSortMin);
+        arrayListF.add(funcSortColl);
+        Collections.sort(arrayListF, awesomeComparator);
+        for (FuncSort f : arrayListF) {
+            arrayListString.add(f.str);
+        }
+//        if (resTime3 < resTime2) {
+//            Collections.swap(arrayListString, 0, 1);
+//            if (resTime3 < resTime1) {
+//                Collections.swap(arrayListString, 1, 2);
+//            }
+//            if (resTime1 < resTime2) {
+//                Collections.swap(arrayListString, 0, 1);
+//            }
+//        } else if (resTime2 < resTime1) {
+//            Collections.swap(arrayListString, 1, 2);
+//        }
+
+        System.out.println(resTime1);
+        System.out.println(resTime2);
+        System.out.println(resTime3);
         return arrayListString;
     }
 
     public static void main(String[] args) {
+        ArrayList<Integer> arrayList = new ArrayList();
+        arrayList.add(163);
+        arrayList.add(-1);
+        arrayList.add(15);
+        arrayList.add(25);
+        System.out.println(arrayList);
+        minSort(arrayList);
+        System.out.println(arrayList);
+
         System.out.println(compareSort());
     }
 }

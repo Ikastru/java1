@@ -31,8 +31,8 @@ public class Calculate {
 
     public static double calculation2(){
         stackCalc1.clearAll();
-        stackCalc1.push(12.1);
         stackCalc1.push(55.6);
+        stackCalc1.push(12.1);
         stackCalc1.sub();
         double expr1 = stackCalc1.pop();
         stackCalc1.clearAll();
@@ -41,13 +41,13 @@ public class Calculate {
         stackCalc1.add();
         double expr2 = stackCalc1.pop();
         stackCalc1.clearAll();
-        stackCalc1.push(expr1);
         stackCalc1.push(expr2);
+        stackCalc1.push(expr1);
         stackCalc1.div();
         double expr3 = stackCalc1.pop();
         stackCalc1.clearAll();
-        stackCalc1.push(9.2);
         stackCalc1.push(13.001);
+        stackCalc1.push(9.2);
         stackCalc1.sub();
         stackCalc1.push(2.0);
         stackCalc1.mul();
@@ -55,14 +55,19 @@ public class Calculate {
         stackCalc1.add();
         double expr4 = stackCalc1.pop();
         stackCalc1.clearAll();
-        stackCalc1.push(3.33);
         stackCalc1.push(19.0);
+        stackCalc1.push(3.33);
         stackCalc1.sub();
         stackCalc1.push(expr4);
         stackCalc1.mul();
         stackCalc1.push(expr3);
         stackCalc1.add();
         return stackCalc1.pop();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(calculation1());
+        System.out.println(calculation2());
     }
 
 }
