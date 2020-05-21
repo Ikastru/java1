@@ -26,7 +26,7 @@ public class Order {
     private static int count = 0;
     //Новая переменная для сортировки в очереди. Класс (1,2,3) умножается на миллион и
     //прибавляется номер заказа. Так все Ордера в очереди будут отсортированы как нужно.
-    private int l = getC()*10 + num;
+    private int l = getC()*1000000 + num;
 
     public Order(double sum){
         this.sum = sum;
