@@ -24,34 +24,39 @@ public class OrderQueue {
 
     PriorityQueue<Order> myQueue = new PriorityQueue<Order>();
 
-    public static Comparator<Order> numComparator = new Comparator<Order>(){
+    /**
+     * Или в компараторе нужно учитывать классы 1,2,3.
+     *
+     */
 
-        @Override
-        public int compare(Order c1, Order c2) {
-            int res = 0;
-            if(c1.getSum()<=10000 && c2.getSum()>10000){
-                res = 1;
-            }
-            if(c1.getSum()<=20000 && c2.getSum()>20000){
-                res = 1;
-            }
-            if(c1.getSum()>10000 && c2.getSum()<=10000){
-                res = -1;
-            }
-            if(c1.getSum()>20000 && c2.getSum()<=20000){
-                res = -1;
-            }
-            if( (c1.getSum()<=10000 && c2.getSum()<=10000) || (c1.getSum()<=20000 && c2.getSum()<=20000)
-            || (c1.getSum()>20000 && c2.getSum()>20000)) {
-                res = (c1.getNum() - c2.getNum());
-            }
-            return res;
-        }
-    };
+//    public static Comparator<Order> numComparator = new Comparator<Order>(){
+//
+//        @Override
+//        public int compare(Order c1, Order c2) {
+//            int res = 0;
+//            if(c1.getSum()<=10000 && c2.getSum()>10000){
+//                res = 1;
+//            }
+//            if(c1.getSum()<=20000 && c2.getSum()>20000){
+//                res = 1;
+//            }
+//            if(c1.getSum()>10000 && c2.getSum()<=10000){
+//                res = -1;
+//            }
+//            if(c1.getSum()>20000 && c2.getSum()<=20000){
+//                res = -1;
+//            }
+//            if( (c1.getSum()<=10000 && c2.getSum()<=10000) || (c1.getSum()<=20000 && c2.getSum()<=20000)
+//            || (c1.getSum()>20000 && c2.getSum()>20000)) {
+//                res = (c1.getNum() - c2.getNum());
+//            }
+//            return res;
+//        }
+//    };
 
 
     public void add(Order order){
-        PriorityQueue<Order> pQueue = new PriorityQueue<Order>(order.getNum(), numComparator);
+        PriorityQueue<Order> pQueue = new PriorityQueue<Order>(order.getL()/*, numComparator*/);
         myQueue.addAll(pQueue);
     }
 

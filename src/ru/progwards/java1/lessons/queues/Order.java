@@ -24,14 +24,33 @@ public class Order {
     private double sum;
     private int num;
     private static int count = 0;
+    //Новая переменная для сортировки в очереди. Класс (1,2,3) умножается на миллион и
+    //прибавляется номер заказа. Так все Ордера в очереди будут отсортированы как нужно.
+    private int l = getC()*1000000 + num;
 
     public Order(double sum){
         this.sum = sum;
         this.num = ++count;
     }
 
+    public int getC(){
+        int c;
+        if (sum<10000){
+            c=3;
+        } else if (sum<20000){
+            c=2;
+        } else {
+            c=1;
+        }
+        return c;
+    }
+
     public double getSum() {
         return sum;
+    }
+
+    public int getL() {
+        return l;
     }
 
     public int getNum() {

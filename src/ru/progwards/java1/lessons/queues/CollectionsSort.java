@@ -96,14 +96,8 @@ public class CollectionsSort {
             @Override
             public int compare(FuncSort o1, FuncSort o2) {
                 return (int) (o1.resTime - o2.resTime);
-//                int camp = 0;
-//                if (o1.resTime<o2.resTime) camp = 1;
-//                if (o1.resTime>o2.resTime) camp = -1;
-//                if (o1.resTime==o2.resTime) camp = 0;
-//                return camp;
             }
         };
-//        String strMySort = "mySort", strMinSort = "minSort", strCollSort = "collSort";
         ArrayList<FuncSort> arrayListF = new ArrayList();
         arrayListF.add(funcSortMy);
         arrayListF.add(funcSortMin);
@@ -112,18 +106,6 @@ public class CollectionsSort {
         for (FuncSort f : arrayListF) {
             arrayListString.add(f.str);
         }
-//        if (resTime3 < resTime2) {
-//            Collections.swap(arrayListString, 0, 1);
-//            if (resTime3 < resTime1) {
-//                Collections.swap(arrayListString, 1, 2);
-//            }
-//            if (resTime1 < resTime2) {
-//                Collections.swap(arrayListString, 0, 1);
-//            }
-//        } else if (resTime2 < resTime1) {
-//            Collections.swap(arrayListString, 1, 2);
-//        }
-
         System.out.println(resTime1);
         System.out.println(resTime2);
         System.out.println(resTime3);
