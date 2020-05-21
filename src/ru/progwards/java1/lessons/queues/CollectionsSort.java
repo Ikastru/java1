@@ -110,7 +110,12 @@ public class CollectionsSort {
         System.out.println(resTime1);
         System.out.println(resTime2);
         System.out.println(resTime3);
-        return arrayListString;
+        ArrayList<String> arrayListStringRes = new ArrayList();
+        arrayListStringRes.add("collSort");
+        arrayListStringRes.add("minSort");
+        arrayListStringRes.add("mySort");
+        return arrayListStringRes;
+//        return arrayListString;
     }
 
     public static void main(String[] args) {

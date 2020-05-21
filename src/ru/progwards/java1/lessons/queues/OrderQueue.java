@@ -25,7 +25,13 @@ public class OrderQueue {
     Comparator<Order> comparator = new Comparator<>() {
         @Override
         public int compare(Order o1, Order o2) {
-            return o1.getL() - (o2.getL());
+            int res=0;
+            if (o1.getL() == o2.getL()){
+                res = (o1.getNum() - o2.getNum());
+            } else {
+                res= o1.getL() - (o2.getL());
+            }
+            return res;
         }
     };
 
