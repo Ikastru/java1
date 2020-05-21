@@ -26,10 +26,10 @@ public class OrderQueue {
         @Override
         public int compare(Order o1, Order o2) {
             int res=0;
-            if (o1.getC() != o2.getC()){
-                res= o1.getL() - (o2.getL());
-            } else {
+            if (o1.getC() == o2.getC()){
                 res = (o1.getNum() - o2.getNum());
+            } else {
+                res= o1.getL() - (o2.getL());
             }
             return res;
         }
