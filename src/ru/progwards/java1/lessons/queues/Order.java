@@ -30,7 +30,7 @@ public class Order {
 
     public Order(double sum){
         this.sum = sum;
-        this.num = ++count;
+        this.num = count++;
     }
 
     public int getC(){
