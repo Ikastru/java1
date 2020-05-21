@@ -22,7 +22,14 @@ import java.util.PriorityQueue;
 
 public class OrderQueue {
 
-    PriorityQueue<Order> myQueue = new PriorityQueue<Order>();
+    Comparator<Order> comparator = new Comparator<>() {
+        @Override
+        public int compare(Order o1, Order o2) {
+            return o1.getL() - (o2.getL());
+        }
+    };
+
+    PriorityQueue<Order> myQueue = new PriorityQueue<Order>(comparator);
 
     /**
      * Или в компараторе нужно учитывать классы 1,2,3.
@@ -56,8 +63,7 @@ public class OrderQueue {
 
 
     public void add(Order order){
-        PriorityQueue<Order> pQueue = new PriorityQueue<Order>(order.getL()/*, numComparator*/);
-        myQueue.addAll(pQueue);
+        myQueue.add(order);
     }
 
     public Order get(){
