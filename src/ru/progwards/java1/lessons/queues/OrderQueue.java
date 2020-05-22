@@ -35,7 +35,7 @@ public class OrderQueue {
      * Или в компараторе нужно учитывать классы 1,2,3.
      *
      */
-    
+
     public static void add(Order order) {
         myQueue.add(order);
     }

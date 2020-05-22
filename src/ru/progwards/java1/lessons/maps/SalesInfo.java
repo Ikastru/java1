@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class SalesInfo {
@@ -87,5 +88,9 @@ public class SalesInfo {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public Map<String, Double> getGoods(){
+
     }
 }

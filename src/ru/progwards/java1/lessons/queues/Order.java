@@ -34,11 +34,11 @@ public class Order {
         this.num = ++count;
         int c=0;
         if (sum<=10000)
-            c = 1;
+            c = 3;
         else if (sum<=20000)
             c = 2;
         else
-            c = 3;
+            c = 1;
         this.l = c*100000 + num;
     }
 
