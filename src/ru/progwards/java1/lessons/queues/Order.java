@@ -23,7 +23,7 @@ public class Order {
 
     private double sum;
     private int num;
-    private static int count = 1;
+    private static int count = 0;
     //Новая переменная для сортировки в очереди. Класс (1,2,3) умножается на миллион и
     //прибавляется номер заказа. Так все Ордера в очереди будут отсортированы как нужно.
     private long l;

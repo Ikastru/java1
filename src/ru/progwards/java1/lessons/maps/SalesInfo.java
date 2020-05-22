@@ -3,10 +3,7 @@ package ru.progwards.java1.lessons.maps;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class SalesInfo {
 
@@ -91,6 +88,10 @@ public class SalesInfo {
     }
 
     public Map<String, Double> getGoods(){
+
+    }
+
+    public Map<String, AbstractMap.SimpleEntry<Double, Integer>> getCustomers(){
 
     }
 }
