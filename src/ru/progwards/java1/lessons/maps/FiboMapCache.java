@@ -65,7 +65,7 @@ public class FiboMapCache {
         } else {
             int p = 0;
             int[] f = new int[1001];
-            f[0] = 0;
+            f[0] = 1;
             f[1] = 1;
             for(int i = 2; i <= n; i++) {
                 f[i] = f[i-1] + f[i-2];
