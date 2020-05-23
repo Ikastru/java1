@@ -39,7 +39,7 @@ public class UsageFrequency {
         Map<Character, Integer> newMap = new HashMap<>();
         for (String string: arrayList){
             for (char c : string.toCharArray()) {
-                if (Character.isAlphabetic(c)) {
+                if (Character.isLetter(c)) {
                     Integer oldVal = newMap.getOrDefault(c, null);
                     if (oldVal == null){
                         newMap.put(c,1);
