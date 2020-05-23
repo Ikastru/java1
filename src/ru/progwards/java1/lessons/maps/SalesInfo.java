@@ -1,5 +1,49 @@
 package ru.progwards.java1.lessons.maps;
 
+/**
+ * Информация по продажам
+ * <p>
+ * Во входном файле находятся данные в CSV формате, CSV - Comma Separated Values, значения разделенные запятыми.
+ * Каждая строка - данные об одной покупке. Входные данные
+ * <p>
+ * ФИ покупателя, наименование товара, количество, сумма
+ * <p>
+ * String, String, int, double
+ * <p>
+ * <p>
+ * Пример
+ * <p>
+ * <p>
+ * Иванов Сергей, iPhone 10X, 2, 150000
+ * Петрова Анна, наушники JBL, 2, 7000
+ * Иванов Сергей, чехол для iPhone, 1, 1000
+ * Петрова Анна, пакет пластиковый, 1, 3
+ * Радж Кумар, батарейка ААА, 1, 150
+ * Михаил Цикло, iPhone 10X, 1, 75000
+ * Радж Кумар, пакет пластиковый, 1, 3
+ * Михаил Цикло, пакет пластиковый, 1, 3
+ * Иванов Сергей, стекло защитное, 1, 1000
+ * Василий Пупкин, спички, 10, 10
+ * <p>
+ * …
+ * <p>
+ * <p>
+ * 3.1 Реализовать метод public int loadOrders(String fileName) - вернуть количество успешно загруженных строк.
+ * Если в строке более или менее 4-x полей, или количество и сумма не преобразуются в числа -
+ * эту строку не загружаем.
+ * <p>
+ * <p>
+ * 3.2 Реализовать метод public Map<String, Double> getGoods() - вернуть список товаров, отсортированный по
+ * наименованию товара. В String - наименование товара, в Double - общая сумма продаж по товару
+ * <p>
+ * 3.3 Реализовать метод public Map<String, AbstractMap.SimpleEntry<Double, Integer>> getCustomers() -
+ * вернуть список покупателей, отсортированный по алфавиту. В String  - ФИ, в Double -
+ * сумма всех покупок покупателя, в Integer - количество покупок
+ * <p>
+ * 3.4 Протестировать на данных из примера выше
+ */
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,67 +51,74 @@ import java.util.*;
 
 public class SalesInfo {
 
-    public class Strloyee {
+    public static List<Strloyee> strList = new ArrayList<>();
 
+    public static class Strloyee {
         private String fio;
         private String device;
         private int quantity;
-        private int cost;
+        private double cost;
 
         public String getfio() {
             return fio;
         }
+
         public void setFio(String fio) {
             this.fio = fio;
         }
+
         public String getDevice() {
             return device;
         }
+
         public void setDevice(String device) {
             this.device = device;
         }
+
         public int getQuantity() {
             return quantity;
         }
+
         public void setQuantity(int quantity) {
             this.quantity = quantity;
         }
-        public int getCost() {
+
+        public double getCost() {
             return cost;
         }
-        public void setCost(int cost) {
+
+        public void setCost(double cost) {
             this.cost = cost;
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "::Имя " + getfio() + "::Устр-во " + getDevice() + "::Количество " + getQuantity() + "::Цена " + getCost();
         }
     }
 
-    public int loadOrders(String fileName){
+    public static int loadOrders(String fileName) {
         int count = 0;
-        List<Strloyee> strList = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line = null;
             Scanner scanner = null;
             int index = 0;
             int rule = 1;
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 Strloyee sle = new Strloyee();
                 scanner = new Scanner(line);
                 scanner.useDelimiter(",");
-                while (scanner.hasNext()){
+                while (scanner.hasNext()) {
                     String data = scanner.next();
                     if (index == 0)
                         sle.setFio(data);
                     else if (index == 1)
                         sle.setDevice(data);
                     else if (index == 2)
-                        sle.setQuantity(Integer.parseInt(data));
+                        sle.setQuantity((int) Float.parseFloat(data));
                     else if (index == 3)
-                        sle.setCost(Integer.parseInt(data));
+                        sle.setCost(Double.parseDouble(data));
                     else {
                         System.out.println("Некорректные данные::" + data);
                         rule = 0;
@@ -75,11 +126,11 @@ public class SalesInfo {
                     index++;
                 }
                 index = 0;
-                if (rule ==1) {
+                if (rule == 1) {
                     strList.add(sle);
                     count++;
                 }
-                rule=1;
+                rule = 1;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,11 +138,42 @@ public class SalesInfo {
         return count;
     }
 
-    public Map<String, Double> getGoods(){
+    static Comparator<Strloyee> comparatorDevice = new Comparator<>() {
+        @Override
+        public int compare(Strloyee o1, Strloyee o2) {
+            return o1.getDevice().compareTo(o2.getDevice());
+        }
+    };
 
+    public static Map<String, Double> getGoods() {
+//        Map<String, Double> mapGoods = (Map<String, Double>) new PriorityQueue(comparatorDevice);
+        TreeMap<String, Double> mapGoods = new TreeMap<>();
+        for (Strloyee strloyee : strList) {
+            mapGoods.put(strloyee.getDevice(), (double) strloyee.getCost());
+        }
+        return mapGoods;
     }
 
-    public Map<String, AbstractMap.SimpleEntry<Double, Integer>> getCustomers(){
+    static Comparator<Strloyee> comparatorFio = new Comparator<>() {
+        @Override
+        public int compare(Strloyee o1, Strloyee o2) {
+            return o1.getfio().compareTo(o2.getfio());
+        }
+    };
 
+    public static Map<String, AbstractMap.SimpleEntry<Double, Integer>> getCustomers() {
+//        Map<String, AbstractMap.SimpleEntry<Double, Integer>> mapCustomers = (Map<String, AbstractMap.SimpleEntry<Double, Integer>>) new PriorityQueue(comparatorFio);
+        TreeMap<String, AbstractMap.SimpleEntry<Double, Integer>> mapCustomers = new TreeMap<>();
+        for (Strloyee strloyee : strList) {
+            AbstractMap.SimpleEntry<Double, Integer> dobMap = new AbstractMap.SimpleEntry<Double, Integer>(strloyee.getCost(), strloyee.getQuantity());
+            mapCustomers.put(strloyee.getfio(), dobMap);
+        }
+        return mapCustomers;
+    }
+
+    public static void main(String[] args) {
+        loadOrders("C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\ExampleSalesInfo.txt");
+        System.out.println(getGoods());
+        System.out.println(getCustomers());
     }
 }
