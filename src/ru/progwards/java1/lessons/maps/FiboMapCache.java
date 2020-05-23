@@ -78,7 +78,7 @@ public class FiboMapCache {
         boolean cachSet = true;
         FiboMapCache fiboMapCacheOn = new FiboMapCache(cachSet);
         long startTime1 = new Date().getTime();
-        for (int i=0; i<=1000; i++){
+        for (int i=0; i<=10; i++){
             fiboMapCacheOn.fiboNumber(i);
         }
         long resTime1 = new Date().getTime() - startTime1;
@@ -86,7 +86,7 @@ public class FiboMapCache {
         cachSet = false;
         FiboMapCache fiboMapCacheOff = new FiboMapCache(cachSet);
         long startTime2 = new Date().getTime();
-        for (int i=0; i<=1000; i++){
+        for (int i=0; i<=10; i++){
             fiboMapCacheOn.fiboNumber(i);
         }
         long resTime2 = new Date().getTime() - startTime1;
@@ -97,7 +97,7 @@ public class FiboMapCache {
         test();
         boolean cachSet = true;
         FiboMapCache fiboMapCache3 = new FiboMapCache(cachSet);
-        for (int i=0; i<=1000; i++){
+        for (int i=0; i<=10; i++){
             fiboMapCache3.fiboNumber(i);
         }
         fiboMapCache3.clearCahe();
