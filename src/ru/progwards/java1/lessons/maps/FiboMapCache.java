@@ -40,6 +40,15 @@ public class FiboMapCache {
     private Map<Integer, BigDecimal> fiboCache = new HashMap<>();
     private boolean cacheOn;
 
+    public int fibonacci(int n)  {
+        if(n == 0)
+            return 0;
+        else if(n == 1)
+            return 1;
+        else
+            return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+
     public FiboMapCache(boolean cacheOn){
         this.cacheOn = cacheOn;
     }
@@ -51,27 +60,11 @@ public class FiboMapCache {
             if (oldVal != null){
                 bd = oldVal;
             } else {
-                int p = 0;
-                int[] f = new int[1001];
-                f[0] = 1;
-                f[1] = 1;
-                for(int i = 2; i <= n; i++) {
-                    f[i] = f[i-1] + f[i-2];
-                    p = f[i];
-                }
-                bd = BigDecimal.valueOf(p);
+                bd = BigDecimal.valueOf(fibonacci(n));
                 fiboCache.put(n, bd);
             }
         } else {
-            int p = 0;
-            int[] f = new int[1001];
-            f[0] = 1;
-            f[1] = 1;
-            for(int i = 2; i <= n; i++) {
-                f[i] = f[i-1] + f[i-2];
-                p = f[i];
-            }
-            bd = BigDecimal.valueOf(p);
+            bd = BigDecimal.valueOf(fibonacci(n));
         }
         return bd;
     }
