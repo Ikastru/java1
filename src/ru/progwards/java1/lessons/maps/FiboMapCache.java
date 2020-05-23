@@ -44,7 +44,7 @@ public class FiboMapCache {
         int cache1 = 1;
         int cache2 = 1;
         //Новое значение
-        int cache3 = 0;
+        int cache3 = 1;
         if (n==0 || n==1){
             cache3 = 1;
         } else {
