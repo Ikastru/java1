@@ -41,12 +41,26 @@ public class FiboMapCache {
     private boolean cacheOn;
 
     public int fibonacci(int n)  {
-        if(n == 0)
-            return 0;
-        else if(n == 1)
-            return 1;
-        else
-            return fibonacci(n - 1) + fibonacci(n - 2);
+        int cache1 = 1;
+        int cache2 = 1;
+        //Новое значение
+        int cache3 = 0;
+        if (n==0 || n==1){
+            cache3 = 1;
+        } else {
+            for (int i = 2; i <= n; i++) {
+                cache3 = cache1 + cache2;
+                cache1 = cache2;
+                cache2 = cache3;
+            }
+        }
+        return cache3;
+//        if(n == 0)
+//            return 0;
+//        else if(n == 1)
+//            return 1;
+//        else
+//            return fibonacci(n - 1) + fibonacci(n - 2);
     }
 
     public FiboMapCache(boolean cacheOn){
@@ -71,7 +85,7 @@ public class FiboMapCache {
 
     public void clearCahe(){
         fiboCache.clear();
-        System.out.println(fiboCache);
+//        System.out.println(fiboCache);
     }
 
     public static void test(){
