@@ -40,27 +40,35 @@ public class FiboMapCache {
     private Map<Integer, BigDecimal> fiboCache = new HashMap<>();
     private boolean cacheOn;
 
-    public int fibonacci(int n)  {
-        int cache1 = 1;
-        int cache2 = 1;
-        //Новое значение
-        int cache3 = 1;
-        if (n==0 || n==1){
-            cache3 = 1;
-        } else {
-            for (int i = 2; i <= n; i++) {
-                cache3 = cache1 + cache2;
-                cache1 = cache2;
-                cache2 = cache3;
-            }
-        }
-        return cache3;
-//        if(n == 0)
-//            return 0;
-//        else if(n == 1)
-//            return 1;
-//        else
-//            return fibonacci(n - 1) + fibonacci(n - 2);
+    public static int fibonacci(int n)  {
+//        int n0=0, n1=1, n2=1;
+//        for (int i=0; i<=n; i++){
+//            n2=n1+n0;
+//            System.out.print(n2+" ");
+//            n0=n1;
+//            n1=n2;
+//        }
+//        return n2;
+//        int cache1 = 1;
+//        int cache2 = 1;
+//        //Новое значение
+//        int cache3 = 1;
+//        if (n==0 || n==1){
+//            cache3 = 1;
+//        } else {
+//            for (int i = 2; i <= n; i++) {
+//                cache3 = cache1 + cache2;
+//                cache1 = cache2;
+//                cache2 = cache3;
+//            }
+//        }
+//        return cache3;
+        if(n == 0)
+            return 1;
+        else if(n == 1)
+            return 1;
+        else
+            return fibonacci(n - 1) + fibonacci(n - 2);
     }
 
     public FiboMapCache(boolean cacheOn){
@@ -108,6 +116,7 @@ public class FiboMapCache {
     }
 
     public static void main(String[] args) {
+        System.out.println(fibonacci(10));
         test();
         boolean cachSet = true;
         FiboMapCache fiboMapCache3 = new FiboMapCache(cachSet);

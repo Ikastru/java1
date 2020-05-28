@@ -57,7 +57,8 @@ public class UsageFrequency {
         Map<String, Integer> newMapStr = new HashMap<>();
         for (String string: arrayList){
             int count = 1;
-            String[] words = string.toLowerCase().replaceAll("[,.!:?]", "").split("\\s");
+//            String[] words = string.toLowerCase().replaceAll("[,.!:?]", "").split("\\s");
+            String[] words = string.toLowerCase().replaceAll("[,.!:?]", " ").split("\\s");
             Arrays.sort(words);
             for (int i = 1; i < words.length; i++) {
                 if (words[i].equals(words[i - 1])) {
