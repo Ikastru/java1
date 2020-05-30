@@ -98,11 +98,13 @@ public class SalesInfo {
     }
 
     public static int loadOrders(String fileName) {
+        //Количество нормально загруженных строк
         int count = 0;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line = null;
             Scanner scanner = null;
+            //Номер позиции столбца в CSV
             int index = 0;
             int rule = 1;
             while ((line = reader.readLine()) != null) {
@@ -111,7 +113,11 @@ public class SalesInfo {
                 scanner.useDelimiter(",");
                 while (scanner.hasNext()) {
                     String data = scanner.next();
-                    if (index == 0)
+                    if (data.isEmpty()){
+                        System.out.println("Некорректные данные::" + data);
+                        rule = 0;
+                    }
+                    else if (index == 0)
                         sle.setFio(data);
                     else if (index == 1)
                         sle.setDevice(data);
@@ -119,6 +125,10 @@ public class SalesInfo {
                         sle.setQuantity((int) Float.parseFloat(data));
                     else if (index == 3)
                         sle.setCost(Double.parseDouble(data));
+                    else if (index >= 4) {
+                        System.out.println("Некорректные данные::" + data);
+                        rule = 0;
+                    }
                     else {
                         System.out.println("Некорректные данные::" + data);
                         rule = 0;
