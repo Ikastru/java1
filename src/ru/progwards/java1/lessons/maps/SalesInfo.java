@@ -129,13 +129,14 @@ public class SalesInfo {
                             sle.setFio(data);
                         }
                     }
-                    else if (index == 1)
-                        if (data.isEmpty() || isNumber(data)){
+                    else if (index == 1) {
+                        if (data.isEmpty() || isNumber(data)) {
                             System.out.println("Некорректные данные::" + data);
                             rule = 0;
                         } else {
                             sle.setDevice(data);
                         }
+                    }
                     else if (index == 2) {
                         if (!isNumber(data) || data.isEmpty()){
                             System.out.println("Некорректные данные::" + data);
@@ -144,17 +145,18 @@ public class SalesInfo {
                             sle.setQuantity((int) Float.parseFloat(data));
                         }
                     }
-                    else if (index == 3)
-                        if (!isNumber(data) || data.isEmpty()){
+                    else if (index == 3) {
+                        if (!isNumber(data) || data.isEmpty()) {
                             System.out.println("Некорректные данные::" + data);
                             rule = 0;
                         } else {
                             sle.setCost(Double.parseDouble(data));
                         }
-                    else if (index >= 4) {
-                        System.out.println("Некорректные данные::" + data);
-                        rule = 0;
                     }
+//                    else if (index >= 4) {
+//                        System.out.println("Некорректные данные::" + data);
+//                        rule = 0;
+//                    }
 //                    else {
 //                        System.out.println("Некорректные данные::" + data);
 //                        rule = 0;
