@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class FiboMapCache {
 
-    private Map<Integer, BigDecimal> fiboCache = new HashMap<>();
+    private static Map<Integer, BigDecimal> fiboCache = new HashMap<>();
     private boolean cacheOn;
 
     public static int fibonacci(int n)  {
@@ -63,7 +63,7 @@ public class FiboMapCache {
 
     public BigDecimal fiboNumber(int n){
         BigDecimal bd = null;
-        if (cacheOn){
+        if (!cacheOn){
             BigDecimal oldVal = fiboCache.getOrDefault(n, null);
             if (oldVal != null){
                 bd = oldVal;
@@ -79,22 +79,21 @@ public class FiboMapCache {
 
     public void clearCahe(){
         fiboCache.clear();
-//        System.out.println(fiboCache);
     }
 
     public static void test(){
-        boolean cachSet = true;
+        boolean cachSet = false;
         FiboMapCache fiboMapCacheOn = new FiboMapCache(cachSet);
         long startTime1 = new Date().getTime();
-        for (int i=1; i<=100; i++){
+        for (int i=1; i<=1000; i++){
             System.out.println(fiboMapCacheOn.fiboNumber(i));
         }
         long resTime1 = new Date().getTime() - startTime1;
         System.out.println("fiboNumber cacheOn=" + cachSet + " время выполнения " + resTime1);
-        cachSet = false;
+        cachSet = true;
         FiboMapCache fiboMapCacheOff = new FiboMapCache(cachSet);
         long startTime2 = new Date().getTime();
-        for (int i=1; i<=100; i++){
+        for (int i=1; i<=1000; i++){
             System.out.println(fiboMapCacheOff.fiboNumber(i));
         }
         long resTime2 = new Date().getTime() - startTime2;
