@@ -41,13 +41,13 @@ public class FiboMapCache {
     private boolean cacheOn;
 
     public static int fibonacci(int n)  {
-        if(n == 0)
+        if(n == 1)
             return 1;
-        else if(n == 1)
+        else if(n == 2)
             return 1;
         else {
             int n0=1, n1=1, n2=1;
-        for (int i=2; i<=n; i++){
+        for (int i=3; i<=n; i++){
             n2=n1+n0;
 //            System.out.print(n2+" ");
             n0=n1;
@@ -86,30 +86,34 @@ public class FiboMapCache {
         boolean cachSet = true;
         FiboMapCache fiboMapCacheOn = new FiboMapCache(cachSet);
         long startTime1 = new Date().getTime();
-        for (int i=0; i<=10; i++){
-            fiboMapCacheOn.fiboNumber(i);
+        for (int i=1; i<=100; i++){
+            System.out.println(fiboMapCacheOn.fiboNumber(i));
         }
         long resTime1 = new Date().getTime() - startTime1;
         System.out.println("fiboNumber cacheOn=" + cachSet + " время выполнения " + resTime1);
         cachSet = false;
         FiboMapCache fiboMapCacheOff = new FiboMapCache(cachSet);
         long startTime2 = new Date().getTime();
-        for (int i=0; i<=10; i++){
-            fiboMapCacheOn.fiboNumber(i);
+        for (int i=1; i<=100; i++){
+            System.out.println(fiboMapCacheOff.fiboNumber(i));
         }
-        long resTime2 = new Date().getTime() - startTime1;
-        System.out.println("fiboNumber cacheOn=" + cachSet + " время выполнения " + resTime2);
+        long resTime2 = new Date().getTime() - startTime2;
+        System.out.println("fiboNumber cacheOff=" + cachSet + " время выполнения " + resTime2);
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i<=10; i++) {
+        for (int i = 1; i<=10; i++) {
             System.out.println(fibonacci(i));
+        }
+        FiboMapCache fiboMapCache = new FiboMapCache(false);
+        for (int i = 1; i<=10; i++) {
+            System.out.println(fiboMapCache.fiboNumber(i));
         }
         test();
         boolean cachSet = true;
         FiboMapCache fiboMapCache3 = new FiboMapCache(cachSet);
-        for (int i=0; i<=10; i++){
-            fiboMapCache3.fiboNumber(i);
+        for (int i=1; i<=10; i++){
+            System.out.println(fiboMapCache3.fiboNumber(i));
         }
         fiboMapCache3.clearCahe();
     }
