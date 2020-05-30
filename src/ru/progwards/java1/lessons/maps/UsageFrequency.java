@@ -56,26 +56,15 @@ public class UsageFrequency {
     public static Map<String, Integer> getWords(){
         Map<String, Integer> newMapStr = new HashMap<>();
         for (String string: arrayList){
-            int count = 1;
-//            String[] words = string.toLowerCase().replaceAll("[,.!:?]", "").split("\\s");
-//            String[] words = string.replaceAll("[,.!:?]", " ").split("\\s");
-            String[] words = string.replaceAll(",\\p{Punct}=:/\\.", " ").split(" ");
-
-            Arrays.sort(words);
-            for (int i = 1; i < words.length; i++) {
-                if (words[i].equals(words[i - 1])) {
-                    do {
-                        count++;
-                        Integer oldVal = newMapStr.getOrDefault(words[i], null);
-                        if (oldVal == null){
-                            newMapStr.put(words[i],1);
-                        } else {
-                            newMapStr.put(words[i],(newMapStr.get(words[i])+1));
-                        }
-                        i++;
-                    } while (i < words.length && words[i].equals(words[i - 1]));
+            String [] words = string.replaceAll("[-.?!)(,:/]", "").split("\\s");
+            for (String word : words) {
+                if(!word.isEmpty()) {
+                    Integer count = newMapStr.get(word);
+                    if(count == null) {
+                        count = 0;
+                    }
+                    newMapStr.put(word, ++count);
                 }
-                count = 1;
             }
         }
         return newMapStr;
