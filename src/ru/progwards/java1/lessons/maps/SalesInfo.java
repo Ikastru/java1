@@ -121,17 +121,23 @@ public class SalesInfo {
                 scanner.useDelimiter(",");
                 while (scanner.hasNext()) {
                     String data = scanner.next();
-                    if (data.isEmpty()){
-                        System.out.println("Некорректные данные::" + data);
-                        rule = 0;
-                    }
-                    else if (index == 0) {
-                        sle.setFio(data);
+                    if (index == 0) {
+                        if (data.isEmpty() || isNumber(data)){
+                            System.out.println("Некорректные данные::" + data);
+                            rule = 0;
+                        } else {
+                            sle.setFio(data);
+                        }
                     }
                     else if (index == 1)
-                        sle.setDevice(data);
+                        if (data.isEmpty() || isNumber(data)){
+                            System.out.println("Некорректные данные::" + data);
+                            rule = 0;
+                        } else {
+                            sle.setDevice(data);
+                        }
                     else if (index == 2) {
-                        if (!isNumber(data)){
+                        if (!isNumber(data) || data.isEmpty()){
                             System.out.println("Некорректные данные::" + data);
                             rule = 0;
                         } else {
@@ -139,7 +145,7 @@ public class SalesInfo {
                         }
                     }
                     else if (index == 3)
-                        if (!isNumber(data)){
+                        if (!isNumber(data) || data.isEmpty()){
                             System.out.println("Некорректные данные::" + data);
                             rule = 0;
                         } else {
@@ -149,10 +155,10 @@ public class SalesInfo {
                         System.out.println("Некорректные данные::" + data);
                         rule = 0;
                     }
-                    else {
-                        System.out.println("Некорректные данные::" + data);
-                        rule = 0;
-                    }
+//                    else {
+//                        System.out.println("Некорректные данные::" + data);
+//                        rule = 0;
+//                    }
                     index++;
                 }
                 index = 0;
