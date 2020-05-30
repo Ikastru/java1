@@ -97,6 +97,14 @@ public class SalesInfo {
         }
     }
 
+    public static boolean isNumber(String str) {
+        if (str == null || str.isEmpty()) return false;
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
+    }
+
     public static int loadOrders(String fileName) {
         //Количество нормально загруженных строк
         int count = 0;
@@ -117,14 +125,26 @@ public class SalesInfo {
                         System.out.println("Некорректные данные::" + data);
                         rule = 0;
                     }
-                    else if (index == 0)
+                    else if (index == 0) {
                         sle.setFio(data);
+                    }
                     else if (index == 1)
                         sle.setDevice(data);
-                    else if (index == 2)
-                        sle.setQuantity((int) Float.parseFloat(data));
+                    else if (index == 2) {
+                        if (!isNumber(data)){
+                            System.out.println("Некорректные данные::" + data);
+                            rule = 0;
+                        } else {
+                            sle.setQuantity((int) Float.parseFloat(data));
+                        }
+                    }
                     else if (index == 3)
-                        sle.setCost(Double.parseDouble(data));
+                        if (!isNumber(data)){
+                            System.out.println("Некорректные данные::" + data);
+                            rule = 0;
+                        } else {
+                            sle.setCost(Double.parseDouble(data));
+                        }
                     else if (index >= 4) {
                         System.out.println("Некорректные данные::" + data);
                         rule = 0;

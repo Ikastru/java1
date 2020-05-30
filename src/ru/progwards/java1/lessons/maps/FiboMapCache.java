@@ -63,7 +63,7 @@ public class FiboMapCache {
 
     public BigDecimal fiboNumber(int n){
         BigDecimal bd = null;
-        if (!cacheOn){
+        if (cacheOn){
             BigDecimal oldVal = fiboCache.getOrDefault(n, null);
             if (oldVal != null){
                 bd = oldVal;
