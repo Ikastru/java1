@@ -67,6 +67,11 @@ public class UsageFrequency {
                 }
             }
         }
+        for (String key : newMapStr.keySet()){
+            if (newMapStr.get(key)>1){
+                newMapStr.put(key, newMapStr.get(key)/2);
+            }
+        }
         return newMapStr;
     }
 
