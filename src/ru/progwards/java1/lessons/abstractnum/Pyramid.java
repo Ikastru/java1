@@ -14,6 +14,11 @@ public class Pyramid extends Figure3D {
 
     @Override
     public Number volume(){
-        return segment.mul(segment.mul(segment.div(segment)));
+        Number numb = new Number();
+        if (segment instanceof IntNumber)
+            numb =  segment.mul(segment.mul(segment.div(new IntNumber(3))));
+        else if (segment instanceof DoubleNumber)
+            numb = segment.mul(segment.mul(segment.div(new DoubleNumber(3))));
+        return numb;
     }
 }
