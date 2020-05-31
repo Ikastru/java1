@@ -177,7 +177,7 @@ public class SalesInfo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return troublecount;
+        return troublecount/2;
     }
 
     static Comparator<Strloyee> comparatorDevice = new Comparator<>() {
