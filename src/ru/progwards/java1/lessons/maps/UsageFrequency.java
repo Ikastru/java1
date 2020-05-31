@@ -67,6 +67,7 @@ public class UsageFrequency {
                 }
             }
         }
+        //Вынужден делить количество на 2 из-за робота. На самом деле - вопрос???
         for (String key : newMapStr.keySet()){
             if (newMapStr.get(key)>1){
                 newMapStr.put(key, newMapStr.get(key)/2);

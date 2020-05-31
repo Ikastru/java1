@@ -108,18 +108,20 @@ public class SalesInfo {
     public static int loadOrders(String fileName) {
         //Количество нормально загруженных строк
         int count = 0;
+        //Количество незагруженных строк
+        int troublecount=0;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line = null;
             Scanner scanner = null;
             //Номер позиции столбца в CSV
             int index = 0;
-            int rule = 1;
             while ((line = reader.readLine()) != null) {
                 Strloyee sle = new Strloyee();
                 scanner = new Scanner(line);
                 scanner.useDelimiter(",");
                 while (scanner.hasNext()) {
+                    int rule = 1;
                     String data = scanner.next();
                     if (index == 0) {
                         if (data.isEmpty() || isNumber(data)){
@@ -130,7 +132,7 @@ public class SalesInfo {
                         }
                     }
                     else if (index == 1) {
-                        if (data.isEmpty() || isNumber(data)) {
+                        if (data.isEmpty()) {
                             System.out.println("Некорректные данные::" + data);
                             rule = 0;
                         } else {
@@ -138,7 +140,7 @@ public class SalesInfo {
                         }
                     }
                     else if (index == 2) {
-                        if (!isNumber(data) || data.isEmpty()){
+                        if ((!isNumber(data)) || data.isEmpty()){
                             System.out.println("Некорректные данные::" + data);
                             rule = 0;
                         } else {
@@ -146,7 +148,7 @@ public class SalesInfo {
                         }
                     }
                     else if (index == 3) {
-                        if (!isNumber(data) || data.isEmpty()) {
+                        if ((!isNumber(data)) || data.isEmpty()) {
                             System.out.println("Некорректные данные::" + data);
                             rule = 0;
                         } else {
@@ -162,18 +164,20 @@ public class SalesInfo {
 //                        rule = 0;
 //                    }
                     index++;
+                    if (rule == 0){
+                        troublecount++;
+                    }
+                    if (rule == 1) {
+                        strList.add(sle);
+                        count++;
+                    }
                 }
                 index = 0;
-                if (rule == 1) {
-                    strList.add(sle);
-                    count++;
-                }
-                rule = 1;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return count;
+        return troublecount;
     }
 
     static Comparator<Strloyee> comparatorDevice = new Comparator<>() {
