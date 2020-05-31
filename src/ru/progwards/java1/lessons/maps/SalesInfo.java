@@ -177,6 +177,7 @@ public class SalesInfo {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //Тоже непонятно в плане робота, почему он умножает результаты на 2???
         return troublecount/2;
     }
 
