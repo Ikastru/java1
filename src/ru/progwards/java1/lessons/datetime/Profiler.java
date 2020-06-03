@@ -32,8 +32,22 @@ public class Profiler {
         return false;
     }
 
+    public static String numberN(String name) {
+        StringBuilder str = new StringBuilder();
+        if (name == null || name.isEmpty()) {
+            str.append(0);
+        }
+        for (int i = 0; i < name.length(); i++) {
+            if (Character.isDigit(name.charAt(i))){
+                str.append(name.charAt(i));
+            }
+        }
+        return str.toString();
+    }
+
     public static void enterSection(String name){
-        int n = Integer.parseInt(name);
+        String str = numberN(name);
+        int n = Integer.parseInt(str);
         if (listOfSection.isEmpty() || !contains(listOfSection, name)) {
             StatisticInfo statisticInfo = new StatisticInfo(name);
             listOfSection.add(statisticInfo);
@@ -47,7 +61,8 @@ public class Profiler {
     }
 
     public static void exitSection(String name){
-        int n = Integer.parseInt(name);
+        String str = numberN(name);
+        int n = Integer.parseInt(str);
         long c = 0;
         for (int i=1; i<10; i++){
             Integer x = n+i;

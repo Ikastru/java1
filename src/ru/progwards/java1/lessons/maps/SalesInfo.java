@@ -109,7 +109,7 @@ public class SalesInfo {
         //Количество нормально загруженных строк
         int count = 0;
         //Количество незагруженных строк
-        int troublecount=0;
+//        int troublecount=0;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line = null;
@@ -164,9 +164,9 @@ public class SalesInfo {
 //                        rule = 0;
 //                    }
                     index++;
-                    if (rule == 0){
-                        troublecount++;
-                    }
+//                    if (rule == 0){
+//                        troublecount++;
+//                    }
                     if (rule == 1) {
                         strList.add(sle);
                         count++;
@@ -178,7 +178,7 @@ public class SalesInfo {
             e.printStackTrace();
         }
         //Тоже непонятно в плане робота, почему он умножает результаты на 2???
-        return troublecount/2;
+        return count;
     }
 
     static Comparator<Strloyee> comparatorDevice = new Comparator<>() {

@@ -16,7 +16,9 @@ public class Pyramid extends Figure3D {
     public Number volume(){
         Number numb = new Number();
         if (segment instanceof IntNumber)
-            numb =  segment.mul(segment.mul(segment.div(new IntNumber(3))));
+            //Для точного целочисленного деления на 3 оно должно выполняться в конце
+//            numb =  segment.div(new IntNumber(3)).mul(segment.mul(segment));
+            numb = segment.mul(segment.mul(segment)).div(new IntNumber(3));
         else if (segment instanceof DoubleNumber)
             numb = segment.mul(segment.mul(segment.div(new DoubleNumber(3))));
         return numb;
