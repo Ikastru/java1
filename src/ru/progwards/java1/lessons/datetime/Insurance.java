@@ -145,7 +145,10 @@ public class Insurance {
 
     public static void main(String[] args) {
         LocalDate date = LocalDate.of(2020, Month.MAY, 10);
-        Insurance insurance1 = new Insurance(date.atStartOfDay(ZoneId.of("Europe/Moscow")));
-        Insurance insurance2 = new Insurance("2020-05-10T10:15:30+03:00 Europe/Moscow", FormatStyle.SHORT);
+        String str = date.atStartOfDay(ZoneId.of("Europe/Moscow")).toString();
+        ZonedDateTime zdt1 = ZonedDateTime.of(LocalDate.parse(str, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.MIDNIGHT, ZoneId.systemDefault());
+//        Insurance insurance1 = new Insurance(date.atStartOfDay(ZoneId.of("Europe/Moscow")));
+        Insurance insurance1 = new Insurance(zdt1);
+        Insurance insurance2 = new Insurance(str, FormatStyle.SHORT);
     }
 }

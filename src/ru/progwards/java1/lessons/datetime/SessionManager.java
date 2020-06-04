@@ -42,8 +42,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SessionManager {
-    private static Map<Integer, UserSession> sessions = Collections.synchronizedMap(new HashMap<>());
-    private static Map<String, UserSession> sessionsName = Collections.synchronizedMap(new HashMap<>());
+    private static Map<Integer, UserSession> sessions = new HashMap<>();
+    private static Map<String, UserSession> sessionsName = new HashMap<>();
     private static int sessionValid;
 
     public SessionManager(int sessionValid){
@@ -74,7 +74,7 @@ public class SessionManager {
         }
         try {
             if (sessionsName.containsKey(userName)) {
-                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == -1) {
+                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == 1) {
                     us1 = null;
                 } else {
                     sessionsName.get(userName).newLastAccess();
@@ -98,7 +98,7 @@ public class SessionManager {
             us1 = null;
         }
         if (sessions.containsKey(sessionHandle)){
-            if (dur.compareTo(Duration.ofMillis(sessionValid*1000))==-1){
+            if (dur.compareTo(Duration.ofMillis(sessionValid*1000))==1){
                 us1 = null;
             } else {
                 sessions.get(sessionHandle).newLastAccess();
@@ -121,7 +121,7 @@ public class SessionManager {
         synchronized (sessionsLoc) {
             for (Integer key : sessionsLoc.keySet()) {
                 Duration dur = Duration.between(Instant.now().atZone(ZoneId.systemDefault()), sessions.get(key).getLastAccess());
-                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == -1) {
+                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == 1) {
                     sessionsName.remove(sessions.get(key).getUserName());
                     sessions.remove(key);
                 }
