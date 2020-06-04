@@ -1,21 +1,17 @@
 package ru.progwards.java1.lessons.test;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
 
 public class TEST {
 
-    public static String createFolder(String name) {
-        Path path0 = Paths.get("/home/jobe/runs");
-        Path path1 =path0.resolve(name);
-        System.out.println(path1);
-        return path1.getParent()+"";
-    }
-
     public static void main(String[] args) {
-        System.out.println(createFolder("gob"));
-
+        System.out.println("");
     }
 
 }

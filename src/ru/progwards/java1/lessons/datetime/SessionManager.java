@@ -68,7 +68,7 @@ public class SessionManager {
         UserSession us1 = null;
         Duration dur = null;
         try {
-             dur = Duration.between(Instant.now().atZone(ZoneId.systemDefault()), sessionsName.get(userName).getLastAccess());
+             dur = Duration.between(sessionsName.get(userName).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
         } catch (NullPointerException e) {
             us1 = null;
         }
@@ -93,7 +93,7 @@ public class SessionManager {
         UserSession us1 = null;
         Duration dur = null;
         try {
-            dur = Duration.between(Instant.now().atZone(ZoneId.systemDefault()), sessions.get(sessionHandle).getLastAccess());
+            dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
         } catch (NullPointerException e){
             us1 = null;
         }
@@ -120,7 +120,7 @@ public class SessionManager {
         sessionsLoc.putAll(sessions);
         synchronized (sessionsLoc) {
             for (Integer key : sessionsLoc.keySet()) {
-                Duration dur = Duration.between(Instant.now().atZone(ZoneId.systemDefault()), sessions.get(key).getLastAccess());
+                Duration dur = Duration.between(sessions.get(key).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
                 if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == 1) {
                     sessionsName.remove(sessions.get(key).getUserName());
                     sessions.remove(key);
