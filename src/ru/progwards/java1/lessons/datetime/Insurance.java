@@ -72,18 +72,18 @@ public class Insurance {
     public Insurance(String strStart, FormatStyle style) {
         switch (style) {
             case SHORT: {
-                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.MIDNIGHT, ZoneId.systemDefault());
+                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ofPattern("yyyy-m-d")), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_LOCAL_DATE.format(zdt));
             }
             case LONG: {
-                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME), LocalTime.MIDNIGHT, ZoneId.systemDefault());
+                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ofPattern("yyyy-m-d")), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(zdt));
             }
             case FULL: {
-                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_ZONED_DATE_TIME), LocalTime.MIDNIGHT, ZoneId.systemDefault());
+                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ofPattern("yyyy-m-d")), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zdt));
             }
@@ -146,9 +146,7 @@ public class Insurance {
     public static void main(String[] args) {
         LocalDate date = LocalDate.of(2020, Month.MAY, 10);
         String str = date.atStartOfDay(ZoneId.of("Europe/Moscow")).toString();
-        ZonedDateTime zdt1 = ZonedDateTime.of(LocalDate.parse(str, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 //        Insurance insurance1 = new Insurance(date.atStartOfDay(ZoneId.of("Europe/Moscow")));
-        Insurance insurance1 = new Insurance(zdt1);
         Insurance insurance2 = new Insurance(str, FormatStyle.SHORT);
     }
 }
