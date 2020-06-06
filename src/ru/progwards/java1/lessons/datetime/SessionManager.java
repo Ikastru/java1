@@ -98,7 +98,7 @@ public class SessionManager {
             us1 = null;
         }
         if (sessions.containsKey(sessionHandle)){
-            if (dur.compareTo(Duration.ofMillis(sessionValid))==1){
+            if (dur.compareTo(Duration.ofSeconds(sessionValid))==1){
                 us1 = null;
             } else {
                 sessions.get(sessionHandle).newLastAccess();
