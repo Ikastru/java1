@@ -93,7 +93,7 @@ public class SessionManager {
         UserSession us1 = null;
         Duration dur = null;
         try {
-            dur = Duration.between(Instant.now().atZone(ZoneId.systemDefault()), sessions.get(sessionHandle).getLastAccess());
+            dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
         } catch (NullPointerException e){
             us1 = null;
         }
@@ -105,7 +105,9 @@ public class SessionManager {
                 us1 = sessions.get(sessionHandle);
             }
         } else {
-            us1 = null;
+            sessions.get(sessionHandle).newLastAccess();
+            us1 = sessions.get(sessionHandle);
+//            us1 = null;
         }
         return us1;
     }
