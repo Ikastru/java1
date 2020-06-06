@@ -88,7 +88,7 @@ public class Insurance {
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zdt));
             }
             default: {
-                this.start = Instant.parse(strStart).atZone(ZoneId.systemDefault());
+                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ofPattern("yyyy-m-d")), LocalTime.MIDNIGHT, ZoneId.systemDefault());
             }
         }
     }
