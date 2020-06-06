@@ -83,6 +83,9 @@ public class Profiler {
     }
 
     public static List<StatisticInfo> getStatisticInfo(){
+        for (int i = 0; i<listOfSection.size(); i++){
+            listOfSection.get(i).selfTime = listOfSection.get(0).fullTime - listOfSection.get(i+1).fullTime;
+        }
         for (StatisticInfo item : listOfSection) {
             System.out.println(" "+item.getSectionName()+" "+item.fullTime + " " + item.selfTime + " " + item.count);
         }
