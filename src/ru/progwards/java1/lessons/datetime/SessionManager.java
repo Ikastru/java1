@@ -154,9 +154,11 @@ public class SessionManager {
 
     public static void main(String[] args){
         SessionManager sessionManager = new SessionManager(1);
-        UserSession uVasa = new UserSession("User1");
+        System.out.println(sessionManager.find("User2"));
+        UserSession uVasa = new UserSession("User2");
 //        sessionManager.add(uVasa);
         sessionManager.get(uVasa.getSessionHandle());
+        System.out.println(sessionManager.find(uVasa.getUserName()));
     }
 //    public static void main(String[] args) {
 //        if (find("Vasa")==null){
