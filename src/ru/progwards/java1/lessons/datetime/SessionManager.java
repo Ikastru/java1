@@ -99,15 +99,27 @@ public class SessionManager {
 
     public static UserSession get(int sessionHandle){
         UserSession us1;
+        try {
         Duration dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-        if (sessions.containsKey(sessionHandle)){
             us1 = sessionsName.get(sessionHandle);
             sessions.get(sessionHandle).newLastAccess();
-        } else {
+        } catch (Exception e){
             us1 = null;
         }
         return us1;
     }
+
+//    public static UserSession get(int sessionHandle){
+//        UserSession us1;
+//        Duration dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+//        if (sessions.containsKey(sessionHandle) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
+//            us1 = sessionsName.get(sessionHandle);
+//            sessions.get(sessionHandle).newLastAccess();
+//        } else {
+//            us1 = null;
+//        }
+//        return us1;
+//    }
 
 //    public static UserSession get(int sessionHandle){
 //        UserSession us1 = null;
