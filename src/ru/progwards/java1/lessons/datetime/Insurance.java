@@ -23,8 +23,6 @@ package ru.progwards.java1.lessons.datetime;
  * FULL - ISO_ZONED_DATE_TIME
  * Для вариантов, когда не задан явно часовой пояс использовать таковой по умолчанию.
  * <p>
- * <p>
- * <p>
  * 1.3 Реализовать методы, устанавливающие продолжительность действия страховки:
  * <p>
  * public void setDuration(Duration duration) - установить продолжительность действия страховки.
@@ -41,20 +39,18 @@ package ru.progwards.java1.lessons.datetime;
  * продолжительность действия страховки 0 лет, 6 месяцев, 3 дня 10 часов.
  * FULL - стандартный формат Duration, который получается через toString()
  * <p>
- * <p>
- * <p>
  * 1.4 Реализовать методы возврата информации:
  * <p>
  * public boolean checkValid(ZonedDateTime dateTime) - проверить действительна ли страховка
  * на указанную дату-время. Если продолжительность не задана считать страховку бессрочной.
  * <p>
  * public String toString() - вернуть строку формата "Insurance issued on " + start + validStr,
- * где validStr = " is valid", если страховка действительна на данный момент и " is not valid",
- * если она недействительна.
+ * где validStr = " is valid", если страховка действительна на данный момент и " is not valid", если она недействительна.
  */
 
 import java.time.*;
-import java.time.format.DateTimeFormatter;
+
+import static java.time.format.DateTimeFormatter.*;
 
 
 public class Insurance {
@@ -72,20 +68,20 @@ public class Insurance {
     public Insurance(String strStart, FormatStyle style) {
         switch (style) {
             case SHORT: {
-                this.start = ZonedDateTime.parse(strStart);
+                this.start = ZonedDateTime.parse(strStart, ISO_LOCAL_DATE);
 //                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_LOCAL_DATE.format(zdt));
             }
             case LONG: {
-                this.start = ZonedDateTime.parse(strStart);
+                this.start = ZonedDateTime.parse(strStart, ISO_LOCAL_DATE_TIME);
 //                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(zdt));
             }
             case FULL: {
-                this.start = ZonedDateTime.parse(strStart);
+                this.start = ZonedDateTime.parse(strStart, ISO_ZONED_DATE_TIME);
 //                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_ZONED_DATE_TIME), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zdt));
@@ -105,19 +101,19 @@ public class Insurance {
     }
 
     public void setDuration(int months, int days, int hours) {
-        String str = days + "." + months + "." + start.getYear() + " " + hours;
-        ZonedDateTime endS = Instant.parse(str).atZone(ZoneId.systemDefault());
-        this.duration = Duration.between(start, endS);
+        long mills = hours * 60 * 60 * 1000 + days * 24 * 60 * 60 * 1000 + months * 30 * 24 * 60 * 60 * 1000;
+        this.duration = Duration.ofMillis(mills);
     }
 
     public void setDuration(String strDuration, FormatStyle style) {
         switch (style) {
             case SHORT: {
-                this.duration = Duration.ofDays(Duration.parse(strDuration).toMillis());
+                this.duration = Duration.ofMillis(Duration.parse(strDuration).toMillis());
             }
             case LONG: {
-                ZonedDateTime zdt = Instant.parse(strDuration).atZone(ZoneId.systemDefault());
-                Duration dur = Duration.parse(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(zdt));
+                ZonedDateTime zdt = ZonedDateTime.parse(strDuration, ISO_LOCAL_DATE_TIME);
+//                ZonedDateTime zdt = Instant.parse(strDuration).atZone(ZoneId.systemDefault());
+                Duration dur = Duration.parse(ISO_LOCAL_DATE_TIME.format(zdt));
                 this.duration = dur;
             }
             case FULL: {
@@ -128,9 +124,13 @@ public class Insurance {
 
     public boolean checkValid(ZonedDateTime dateTime) {
         boolean check;
-        if (Duration.between(start, dateTime).compareTo(duration) == 1) {
-            check = false;
-        } else {
+        try {
+            if (Duration.between(start, dateTime).compareTo(duration) == 1) {
+                check = false;
+            } else {
+                check = true;
+            }
+        } catch (Exception e) {
             check = true;
         }
         return check;
@@ -151,5 +151,6 @@ public class Insurance {
         String str = date.atStartOfDay(ZoneId.of("Europe/Moscow")).toString();
 //        Insurance insurance1 = new Insurance(date.atStartOfDay(ZoneId.of("Europe/Moscow")));
         Insurance insurance2 = new Insurance(str, FormatStyle.FULL);
+        System.out.println(insurance2.toString());
     }
 }
