@@ -21,6 +21,8 @@ package ru.progwards.java1.lessons.datetime;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class UserSession {
@@ -52,10 +54,17 @@ public class UserSession {
        this.lastAccess = Instant.now().atZone(ZoneId.systemDefault());
     }
 
+    public UserSession(String userName, int handle, ZonedDateTime access){
+        this.userName = userName;
+        this.sessionHandle = handle;
+        this.lastAccess = access;
+    }
+
     public UserSession(String userName){
         this.userName = userName;
         Random random = new Random();
         this.sessionHandle = random.nextInt(1000);
         this.lastAccess = Instant.now().atZone(ZoneId.systemDefault());
+        SessionManager.add(new UserSession(userName, sessionHandle, lastAccess));
     }
 }
