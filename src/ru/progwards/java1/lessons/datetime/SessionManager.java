@@ -69,6 +69,9 @@ public class SessionManager {
         } else {
             us1 = null;
         }
+        if (sessionsName.isEmpty() || sessions.isEmpty()){
+            us1 = null;
+        }
         return us1;
     }
 
