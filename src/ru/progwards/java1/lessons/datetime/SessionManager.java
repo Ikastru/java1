@@ -55,62 +55,82 @@ public class SessionManager {
         sessionsName.put(userSession.getUserName(), userSession);
     }
 
-    public static boolean contains(HashMap<Integer, UserSession> list, Integer Handle) {
-        for (Integer key : list.keySet()) {
-            if (list.containsKey(Handle)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static UserSession find(String userName){
-        UserSession us1 = null;
+        UserSession us1;
         Duration dur = null;
         try {
-             dur = Duration.between(sessionsName.get(userName).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-        } catch (NullPointerException e) {
+            dur = Duration.between(sessionsName.get(userName).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+        } catch (NullPointerException e){
             us1 = null;
         }
-        try {
-            if (sessionsName.containsKey(userName)) {
-                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == 1) {
-                    us1 = null;
-                } else {
-                    sessionsName.get(userName).newLastAccess();
-                    us1 = sessionsName.get(userName);
-                }
-            } else {
-                us1 = null;
-            }
-        } catch (NullPointerException e){
+        if (sessionsName.containsKey(userName) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
+            us1 = sessionsName.get(userName);
+            sessionsName.get(userName).newLastAccess();
+        } else {
             us1 = null;
         }
         return us1;
     }
+
+//    public static UserSession find(String userName){
+//        UserSession us1 = null;
+//        Duration dur = null;
+//        try {
+//             dur = Duration.between(sessionsName.get(userName).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+//        } catch (NullPointerException e) {
+//            us1 = null;
+//        }
+//        try {
+//            if (sessionsName.containsKey(userName)) {
+//                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == 1) {
+//                    us1 = null;
+//                } else {
+//                    sessionsName.get(userName).newLastAccess();
+//                    us1 = sessionsName.get(userName);
+//                }
+//            } else {
+//                us1 = null;
+//            }
+//        } catch (NullPointerException e){
+//            us1 = null;
+//        }
+//        return us1;
+//    }
 
     public static UserSession get(int sessionHandle){
-        UserSession us1 = null;
-        Duration dur = null;
-        try {
-            dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-        } catch (NullPointerException e){
-            us1 = null;
-        }
-        if (sessions.containsKey(sessionHandle)){
-            if (dur.compareTo(Duration.ofSeconds(sessionValid))==1){
-                us1 = null;
-            } else {
-                sessions.get(sessionHandle).newLastAccess();
-                us1 = sessions.get(sessionHandle);
-            }
-        } else {
+        UserSession us1;
+        Duration dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+        if (sessions.containsKey(sessionHandle) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
+            us1 = sessionsName.get(sessionHandle);
             sessions.get(sessionHandle).newLastAccess();
-            us1 = sessions.get(sessionHandle);
-//            us1 = null;
+        } else {
+            us1 = null;
         }
         return us1;
     }
+
+//    public static UserSession get(int sessionHandle){
+//        UserSession us1 = null;
+//        Duration dur = null;
+//        try {
+//            dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+//        } catch (NullPointerException e){
+//            us1 = null;
+//        }
+//        if (sessions.containsKey(sessionHandle)){
+//            if (dur.compareTo(Duration.ofSeconds(sessionValid))==1){
+//                us1 = null;
+//            } else {
+//                sessions.get(sessionHandle).newLastAccess();
+//                us1 = sessions.get(sessionHandle);
+//            }
+//        } else {
+//            sessions.get(sessionHandle).newLastAccess();
+//            us1 = sessions.get(sessionHandle);
+////            us1 = null;
+//        }
+//        return us1;
+//    }
 
     public static void delete(int sessionHandle){
         sessionsName.remove(sessions.get(sessionHandle).getUserName());
@@ -123,7 +143,7 @@ public class SessionManager {
         synchronized (sessionsLoc) {
             for (Integer key : sessionsLoc.keySet()) {
                 Duration dur = Duration.between(sessions.get(key).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == 1) {
+                if (dur.compareTo(Duration.ofSeconds(sessionValid)) == -1) {
                     sessionsName.remove(sessions.get(key).getUserName());
                     sessions.remove(key);
                 }

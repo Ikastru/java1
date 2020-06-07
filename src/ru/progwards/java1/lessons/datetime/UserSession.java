@@ -32,16 +32,8 @@ public class UserSession {
         return sessionHandle;
     }
 
-    public void setSessionHandle(int sessionHandle) {
-        this.sessionHandle = sessionHandle;
-    }
-
     public String getUserName() {
         return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public ZonedDateTime getLastAccess() {
