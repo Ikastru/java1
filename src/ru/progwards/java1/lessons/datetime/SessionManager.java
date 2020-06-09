@@ -37,51 +37,36 @@ package ru.progwards.java1.lessons.datetime;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SessionManager {
-    private static Map<Integer, UserSession> sessions;
-    public static Map<String, UserSession> sessionsName;
-    private static int sessionValid;
+    private int sessionValid;
+    private Map<Integer, UserSession> sessions;
 
     public SessionManager(int sessionValid){
-        this.sessionValid = sessionValid*1000;
-        this.sessions = new HashMap<>();
-        this.sessionsName = new HashMap<>();
+        this.sessionValid = sessionValid * 1000;
+        this.sessions = new TreeMap<>();
     }
 
     public void add(UserSession userSession){
         sessions.put(userSession.getSessionHandle(), userSession);
-        sessionsName.put(userSession.getUserName(), userSession);
     }
 
-    public static UserSession find(String userName){
-        Long now = Instant.now().toEpochMilli();
-        UserSession us1;
-        Duration dur = null;
-        try {
-            dur = Duration.between(sessionsName.get(userName).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-        } catch (NullPointerException e){
-            us1 = null;
+    public UserSession find(String userName){
+        Collection<UserSession> collection = sessions.values();
+        var iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            UserSession userSession = iterator.next();
+            if (userSession.getUserName().equals(userName)) {
+                if (isValid(userSession))
+                    return null;
+                else {
+                    userSession.updateLastAccess();
+                    return userSession;
+                }
+            }
         }
-        if (sessionsName.containsKey(userName) && sessionValid < (now - sessionsName.get(userName).getLastAccess().toEpochMilli())){
-            us1 = sessionsName.get(userName);
-            sessionsName.get(userName).newLastAccess();
-        } else {
-            us1 = null;
-        }
-        return us1;
-    }
-
-    public boolean isValid(UserSession userSession){
-        Long now = Instant.now().toEpochMilli();
-        if (this.sessionValid < (now - userSession.getLastAccess().toEpochMilli()))
-            return true;
-        else
-            return false;
-
+        return null;
     }
 
     public UserSession get(int sessionHandle){
@@ -99,23 +84,28 @@ public class SessionManager {
         }
     }
 
-    public static void delete(int sessionHandle){
-        sessionsName.remove(sessions.get(sessionHandle).getUserName());
+    public void delete(int sessionHandle){
         sessions.remove(sessionHandle);
     }
 
-    public static void deleteExpired(){
-        Map<Integer, UserSession> sessionsLoc = Collections.synchronizedMap(new HashMap<>());
-        sessionsLoc.putAll(sessions);
-        synchronized (sessionsLoc) {
-            for (Integer key : sessionsLoc.keySet()) {
-                Duration dur = Duration.between(sessions.get(key).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-                if (dur.compareTo(Duration.ofSeconds(sessionValid)) == -1) {
-                    sessionsName.remove(sessions.get(key).getUserName());
-                    sessions.remove(key);
-                }
+    public void deleteExpired(){
+        Collection<UserSession> collection = sessions.values();
+        var iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            UserSession userSession = iterator.next();
+            if (isValid(userSession)) {
+                iterator.remove();
             }
         }
+    }
+   
+    public boolean isValid(UserSession userSession){
+        Long now = Instant.now().toEpochMilli();
+        if (this.sessionValid < (now - userSession.getLastAccess().toEpochMilli()))
+            return true;
+        else
+            return false;
+
     }
 
     public static void main(String[] args){
