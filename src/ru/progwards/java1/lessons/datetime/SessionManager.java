@@ -42,20 +42,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SessionManager {
-    public static Map<Integer, UserSession> sessions = new HashMap<>();
-    public static Map<String, UserSession> sessionsName = new HashMap<>();
+    private static Map<Integer, UserSession> sessions;
+    public static Map<String, UserSession> sessionsName;
     private static int sessionValid;
 
     public SessionManager(int sessionValid){
-        this.sessionValid = sessionValid;
+        this.sessionValid = sessionValid*1000;
+        this.sessions = new HashMap<>();
+        this.sessionsName = new HashMap<>();
     }
 
-    public static void add(UserSession userSession){
+    public void add(UserSession userSession){
         sessions.put(userSession.getSessionHandle(), userSession);
         sessionsName.put(userSession.getUserName(), userSession);
     }
 
     public static UserSession find(String userName){
+        Long now = Instant.now().toEpochMilli();
         UserSession us1;
         Duration dur = null;
         try {
@@ -63,77 +66,30 @@ public class SessionManager {
         } catch (NullPointerException e){
             us1 = null;
         }
-        if (sessionsName.containsKey(userName) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
+        if (sessionsName.containsKey(userName) && sessionValid < (now - sessionsName.get(userName).getLastAccess().toEpochMilli())){
             us1 = sessionsName.get(userName);
             sessionsName.get(userName).newLastAccess();
         } else {
             us1 = null;
         }
-        if (sessionsName.isEmpty() || sessions.isEmpty()){
-            us1 = null;
-        }
         return us1;
     }
 
-//    public static UserSession find(String userName){
-//        UserSession us1 = null;
-//        Duration dur = null;
-//        try {
-//             dur = Duration.between(sessionsName.get(userName).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-//        } catch (NullPointerException e) {
-//            us1 = null;
-//        }
-//        try {
-//            if (sessionsName.containsKey(userName)) {
-//                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == 1) {
-//                    us1 = null;
-//                } else {
-//                    sessionsName.get(userName).newLastAccess();
-//                    us1 = sessionsName.get(userName);
-//                }
-//            } else {
-//                us1 = null;
-//            }
-//        } catch (NullPointerException e){
-//            us1 = null;
-//        }
-//        return us1;
-//    }
-
-    public static UserSession get(int sessionHandle){
-        UserSession us1;
-        Duration dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-        if (sessions.containsKey(sessionHandle) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
-            us1 = sessionsName.get(sessionHandle);
-            sessions.get(sessionHandle).newLastAccess();
-        } else {
-            us1 = null;
+    public UserSession get(int sessionHandle){
+        Long now = Instant.now().toEpochMilli();
+        if  (! sessions.containsKey(sessionHandle)) {
+            return null;
         }
-        return us1;
+        else {
+            UserSession userSession = sessions.get(sessionHandle);
+            if (sessionValid < (now - sessions.get(sessionHandle).getLastAccess().toEpochMilli()))
+                return null;
+            else {
+                userSession.updateLastAccess();
+                return userSession;
+            }
+        }
     }
-
-//    public static UserSession get(int sessionHandle){
-//        UserSession us1 = null;
-//        Duration dur = null;
-//        try {
-//            dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-//        } catch (NullPointerException e){
-//            us1 = null;
-//        }
-//        if (sessions.containsKey(sessionHandle)){
-//            if (dur.compareTo(Duration.ofSeconds(sessionValid))==1){
-//                us1 = null;
-//            } else {
-//                sessions.get(sessionHandle).newLastAccess();
-//                us1 = sessions.get(sessionHandle);
-//            }
-//        } else {
-//            sessions.get(sessionHandle).newLastAccess();
-//            us1 = sessions.get(sessionHandle);
-////            us1 = null;
-//        }
-//        return us1;
-//    }
 
     public static void delete(int sessionHandle){
         sessionsName.remove(sessions.get(sessionHandle).getUserName());
@@ -154,53 +110,177 @@ public class SessionManager {
         }
     }
 
-
     public static void main(String[] args){
-        SessionManager sessionManager = new SessionManager(1);
-        System.out.println(sessionManager.find("User2"));
-        UserSession uVasa = new UserSession("User2");
-//        sessionManager.add(uVasa);
-        sessionManager.get(uVasa.getSessionHandle());
-        System.out.println(sessionManager.find(uVasa.getUserName()));
+        UserSession us1 = new UserSession("User1");
+        int sh1 = us1.getSessionHandle();
+        SessionManager sm = new SessionManager(1);
+        UserSession uus = sm.find(us1.getUserName());
+        System.out.println(uus);
     }
-//    public static void main(String[] args) {
-//        if (find("Vasa")==null){
-//            UserSession uVasa = new UserSession("Vasa");
-//            System.out.println(uVasa.getSessionHandle());
-//            SessionManager sessionManager = new SessionManager(60);
-//            add(uVasa);
-//        }
-//        get(sessionsName.get("Vasa").getSessionHandle());
-//        get(sessionsName.get("Vasa").getSessionHandle());
-//        get(sessionsName.get("Vasa").getSessionHandle());
+}
+//    public static Map<Integer, UserSession> sessions = new HashMap<>();
+//    public static Map<String, UserSession> sessionsName = new HashMap<>();
+//    private static int sessionValid;
+//
+//    public SessionManager(int sessionValid){
+//        this.sessionValid = sessionValid*1000;
+//    }
+//
+//    public static void add(UserSession userSession){
+//        sessions.put(userSession.getSessionHandle(), userSession);
+//        sessionsName.put(userSession.getUserName(), userSession);
+//    }
+//
+//    public static UserSession find(String userName){
+//        UserSession us1;
+//        Duration dur = null;
 //        try {
-//            Thread.sleep(61000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
+//            dur = Duration.between(sessionsName.get(userName).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+//        } catch (NullPointerException e){
+//            us1 = null;
 //        }
-//        deleteExpired();
-//        UserSession uDima = new UserSession("Dima");
-//        add(uDima);
-//        try {
-//            Thread.sleep(30000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
+//        if (sessionsName.containsKey(userName) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
+//            us1 = sessionsName.get(userName);
+//            sessionsName.get(userName).newLastAccess();
+//        } else {
+//            us1 = null;
 //        }
-//        UserSession uFeda = new UserSession("Feda");
-//        add(uFeda);
-//        try {
-//            Thread.sleep(30000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
+//        return us1;
+//    }
+//
+////    public static UserSession find(String userName){
+////        UserSession us1 = null;
+////        Duration dur = null;
+////        try {
+////             dur = Duration.between(sessionsName.get(userName).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+////        } catch (NullPointerException e) {
+////            us1 = null;
+////        }
+////        try {
+////            if (sessionsName.containsKey(userName)) {
+////                if (dur.compareTo(Duration.ofMillis(sessionValid*1000)) == 1) {
+////                    us1 = null;
+////                } else {
+////                    sessionsName.get(userName).newLastAccess();
+////                    us1 = sessionsName.get(userName);
+////                }
+////            } else {
+////                us1 = null;
+////            }
+////        } catch (NullPointerException e){
+////            us1 = null;
+////        }
+////        return us1;
+////    }
+//
+//    public static UserSession get(int sessionHandle){
+//        UserSession us1;
+//        Duration dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+//        if (sessions.containsKey(sessionHandle) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
+//            us1 = sessionsName.get(sessionHandle);
+//            sessions.get(sessionHandle).newLastAccess();
+//        } else {
+//            us1 = null;
 //        }
-//        deleteExpired();
-//        for (String key : sessionsName.keySet()){
-//            System.out.println(" " + sessionsName.get(key).getUserName());
-//        }
-//        delete(sessionsName.get("Feda").getSessionHandle());
-//        for (String key : sessionsName.keySet()){
-//            System.out.println(" " + sessionsName.get(key).getUserName());
+//        return us1;
+//    }
+//
+////    public static UserSession get(int sessionHandle){
+////        UserSession us1 = null;
+////        Duration dur = null;
+////        try {
+////            dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+////        } catch (NullPointerException e){
+////            us1 = null;
+////        }
+////        if (sessions.containsKey(sessionHandle)){
+////            if (dur.compareTo(Duration.ofSeconds(sessionValid))==1){
+////                us1 = null;
+////            } else {
+////                sessions.get(sessionHandle).newLastAccess();
+////                us1 = sessions.get(sessionHandle);
+////            }
+////        } else {
+////            sessions.get(sessionHandle).newLastAccess();
+////            us1 = sessions.get(sessionHandle);
+//////            us1 = null;
+////        }
+////        return us1;
+////    }
+//
+//    public static void delete(int sessionHandle){
+//        sessionsName.remove(sessions.get(sessionHandle).getUserName());
+//        sessions.remove(sessionHandle);
+//    }
+//
+//    public static void deleteExpired(){
+//        Map<Integer, UserSession> sessionsLoc = Collections.synchronizedMap(new HashMap<>());
+//        sessionsLoc.putAll(sessions);
+//        synchronized (sessionsLoc) {
+//            for (Integer key : sessionsLoc.keySet()) {
+//                Duration dur = Duration.between(sessions.get(key).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+//                if (dur.compareTo(Duration.ofSeconds(sessionValid)) == -1) {
+//                    sessionsName.remove(sessions.get(key).getUserName());
+//                    sessions.remove(key);
+//                }
+//            }
 //        }
 //    }
-}
+//
+//
+//    public static void main(String[] args){
+//        UserSession us1 = new UserSession("User1");
+//        int sh1 = us1.getSessionHandle();
+//        SessionManager sm = new SessionManager(1);
+//        UserSession uus = sm.find(us1.getUserName());
+//        System.out.println(uus);
+//    }
+////    public static void main(String[] args){
+////        SessionManager sessionManager = new SessionManager(1);
+////        System.out.println(sessionManager.find("User2"));
+////        UserSession uVasa = new UserSession("User2");
+//////        sessionManager.add(uVasa);
+////        sessionManager.get(uVasa.getSessionHandle());
+////        System.out.println(sessionManager.find(uVasa.getUserName()));
+////    }
+////    public static void main(String[] args) {
+////        if (find("Vasa")==null){
+////            UserSession uVasa = new UserSession("Vasa");
+////            System.out.println(uVasa.getSessionHandle());
+////            SessionManager sessionManager = new SessionManager(60);
+////            add(uVasa);
+////        }
+////        get(sessionsName.get("Vasa").getSessionHandle());
+////        get(sessionsName.get("Vasa").getSessionHandle());
+////        get(sessionsName.get("Vasa").getSessionHandle());
+////        try {
+////            Thread.sleep(61000);
+////        } catch (InterruptedException e) {
+////            e.printStackTrace();
+////        }
+////        deleteExpired();
+////        UserSession uDima = new UserSession("Dima");
+////        add(uDima);
+////        try {
+////            Thread.sleep(30000);
+////        } catch (InterruptedException e) {
+////            e.printStackTrace();
+////        }
+////        UserSession uFeda = new UserSession("Feda");
+////        add(uFeda);
+////        try {
+////            Thread.sleep(30000);
+////        } catch (InterruptedException e) {
+////            e.printStackTrace();
+////        }
+////        deleteExpired();
+////        for (String key : sessionsName.keySet()){
+////            System.out.println(" " + sessionsName.get(key).getUserName());
+////        }
+////        delete(sessionsName.get("Feda").getSessionHandle());
+////        for (String key : sessionsName.keySet()){
+////            System.out.println(" " + sessionsName.get(key).getUserName());
+////        }
+////    }
+//}
 

@@ -19,16 +19,12 @@ package ru.progwards.java1.lessons.datetime;
  */
 
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class UserSession {
     private int sessionHandle;
     private String userName;
-    private ZonedDateTime lastAccess;
+    private Instant lastAccess;
 
     public int getSessionHandle() {
         return sessionHandle;
@@ -38,33 +34,26 @@ public class UserSession {
         return userName;
     }
 
-    public ZonedDateTime getLastAccess() {
+    public Instant getLastAccess() {
         return lastAccess;
     }
 
     public void newLastAccess() {
-        this.lastAccess = Instant.now().atZone(ZoneId.systemDefault());
+        this.lastAccess = Instant.now();
     }
 
-    public void setLastAccess(ZonedDateTime lastAccess) {
+    public void setLastAccess(Instant lastAccess) {
         this.lastAccess = lastAccess;
     }
 
     public void updateLastAccess(){
-       this.lastAccess = Instant.now().atZone(ZoneId.systemDefault());
-    }
-
-    public UserSession(String userName, int handle, ZonedDateTime access){
-        this.userName = userName;
-        this.sessionHandle = handle;
-        this.lastAccess = access;
+       this.lastAccess = Instant.now();
     }
 
     public UserSession(String userName){
         this.userName = userName;
         Random random = new Random();
         this.sessionHandle = random.nextInt(1000);
-        this.lastAccess = Instant.now().atZone(ZoneId.systemDefault());
-        SessionManager.add(new UserSession(userName, sessionHandle, lastAccess));
+        this.lastAccess = Instant.now();
     }
 }

@@ -49,6 +49,7 @@ package ru.progwards.java1.lessons.datetime;
  */
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 import static java.time.format.DateTimeFormatter.*;
 
@@ -68,20 +69,27 @@ public class Insurance {
     public Insurance(String strStart, FormatStyle style) {
         switch (style) {
             case SHORT: {
-                this.start = ZonedDateTime.parse(strStart, ISO_LOCAL_DATE);
+                LocalDate localDate = LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE);
+                this.start = ZonedDateTime.of(localDate, LocalTime.of(0,0), Clock.systemDefaultZone().getZone());
+                break;
+//                this.start = ZonedDateTime.parse(strStart, ISO_LOCAL_DATE);
 //                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_LOCAL_DATE.format(zdt));
             }
             case LONG: {
-                this.start = ZonedDateTime.parse(strStart, ISO_LOCAL_DATE_TIME);
+                LocalDateTime localDateTime = LocalDateTime.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                this.start = ZonedDateTime.of(localDateTime, Clock.systemDefaultZone().getZone());
+                break;
+//                this.start = ZonedDateTime.parse(strStart, ISO_LOCAL_DATE_TIME);
 //                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(zdt));
             }
             case FULL: {
                 this.start = ZonedDateTime.parse(strStart, ISO_ZONED_DATE_TIME);
+                break;
 //                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_ZONED_DATE_TIME), LocalTime.MIDNIGHT, ZoneId.systemDefault());
 //                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
 //                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zdt));
