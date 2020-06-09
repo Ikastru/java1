@@ -75,16 +75,28 @@ public class SessionManager {
         return us1;
     }
 
+    public boolean isValid(UserSession userSession){
+        Long now = Instant.now().toEpochMilli();
+        if (this.sessionValid < (now - userSession.getLastAccess().toEpochMilli()))
+            return true;
+        else
+            return false;
+
+    }
+
     public UserSession get(int sessionHandle){
-        UserSession us1;
-        Duration dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
-        if (sessions.containsKey(sessionHandle) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
-            us1 = sessionsName.get(sessionHandle);
-            sessions.get(sessionHandle).newLastAccess();
-        } else {
-            us1 = null;
+        if  (! sessions.containsKey(sessionHandle)) {
+            return null;
         }
-        return us1;
+        else {
+            UserSession userSession = sessions.get(sessionHandle);
+            if (isValid(userSession))
+                return null;
+            else {
+                userSession.updateLastAccess();
+                return userSession;
+            }
+        }
     }
 
     public static void delete(int sessionHandle){
