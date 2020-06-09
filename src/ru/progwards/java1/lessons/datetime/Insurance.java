@@ -56,108 +56,88 @@ import static java.time.format.DateTimeFormatter.*;
 
 public class Insurance {
 
-    public static enum FormatStyle {SHORT, LONG, FULL}
-
-
     private ZonedDateTime start;
     private Duration duration;
 
-    public Insurance(ZonedDateTime start) {
-        this.start = start;
-    }
+    public static enum FormatStyle {SHORT, LONG, FULL}
 
-    public Insurance(String strStart, FormatStyle style) {
-        switch (style) {
-            case SHORT: {
+
+    public Insurance(String strStart, FormatStyle style){
+        ZonedDateTime zonedDateTime;
+        switch (style){
+            case FULL:
+                zonedDateTime = ZonedDateTime.parse(strStart);
+                this.start = zonedDateTime;
+                break;
+            case LONG:
+                LocalDateTime localDateTime = LocalDateTime.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME); //  BASIC_ISO_DATE
+                zonedDateTime = ZonedDateTime.of(localDateTime, Clock.systemDefaultZone().getZone());
+                this.start = zonedDateTime;
+                break;
+            case SHORT:
                 LocalDate localDate = LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE);
-                this.start = ZonedDateTime.of(localDate, LocalTime.of(0,0), Clock.systemDefaultZone().getZone());
+                zonedDateTime = ZonedDateTime.of(localDate, LocalTime.of(0,0), Clock.systemDefaultZone().getZone());
+                this.start = zonedDateTime;
                 break;
-//                this.start = ZonedDateTime.parse(strStart, ISO_LOCAL_DATE);
-//                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.MIDNIGHT, ZoneId.systemDefault());
-
-//                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
-//                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_LOCAL_DATE.format(zdt));
-            }
-            case LONG: {
-                LocalDateTime localDateTime = LocalDateTime.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                this.start = ZonedDateTime.of(localDateTime, Clock.systemDefaultZone().getZone());
-                break;
-//                this.start = ZonedDateTime.parse(strStart, ISO_LOCAL_DATE_TIME);
-//                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME), LocalTime.MIDNIGHT, ZoneId.systemDefault());
-//                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
-//                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(zdt));
-            }
-            case FULL: {
-                this.start = ZonedDateTime.parse(strStart, ISO_ZONED_DATE_TIME);
-                break;
-//                this.start = ZonedDateTime.of(LocalDate.parse(strStart, DateTimeFormatter.ISO_ZONED_DATE_TIME), LocalTime.MIDNIGHT, ZoneId.systemDefault());
-//                ZonedDateTime zdt = Instant.parse(strStart).atZone(ZoneId.systemDefault());
-//                this.start = ZonedDateTime.parse(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zdt));
-            }
-            default: {
-                this.start = ZonedDateTime.parse(strStart);
-            }
         }
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(Duration duration){
         this.duration = duration;
     }
 
-    public void setDuration(ZonedDateTime expiration) {
-        this.duration = Duration.between(start, expiration);
+    public void setDuration(ZonedDateTime expiration){
+        this.duration = Duration.between(this.start, expiration);
     }
 
-    public void setDuration(int months, int days, int hours) {
-        long mills = hours * 60 * 60 * 1000 + days * 24 * 60 * 60 * 1000 + months * 30 * 24 * 60 * 60 * 1000;
-        this.duration = Duration.ofMillis(mills);
+    public void setDuration(int months, int days, int hours){
+        this.duration = Duration.between(this.start, this.start.plusMonths(months).plusDays(days).plusHours(hours));
     }
 
-    public void setDuration(String strDuration, FormatStyle style) {
-        switch (style) {
-            case SHORT: {
-                this.duration = Duration.ofMillis(Duration.parse(strDuration).toMillis());
-            }
-            case LONG: {
-                ZonedDateTime zdt = ZonedDateTime.parse(strDuration, ISO_LOCAL_DATE_TIME);
-//                ZonedDateTime zdt = Instant.parse(strDuration).atZone(ZoneId.systemDefault());
-                Duration dur = Duration.parse(ISO_LOCAL_DATE_TIME.format(zdt));
-                this.duration = dur;
-            }
-            case FULL: {
+    public void setDuration(String strDuration, FormatStyle style){
+        switch (style){
+            case SHORT:
+                long milSec = Long.parseLong(strDuration);
+                this.duration = Duration.ofMillis(milSec);
+                break;
+            case FULL:
                 this.duration = Duration.parse(strDuration);
-            }
+                break;
+            case LONG:
+                LocalDateTime lDT = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                int year = lDT.getYear();
+                int mont = lDT.getMonthValue();
+                int days = lDT.getDayOfMonth();
+                int hour = lDT.getHour();
+                int minu = lDT.getMinute();
+                int seco = lDT.getSecond();
+
+                this.duration = Duration.between(this.start, this.start.plusYears(year).plusMonths(mont).plusDays(days).plusHours(hour).plusMinutes(minu).plusSeconds(seco));
+                break;
         }
     }
 
-    public boolean checkValid(ZonedDateTime dateTime) {
-        boolean check;
-        try {
-            if (Duration.between(start, dateTime).compareTo(duration) == 1) {
-                check = false;
-            } else {
-                check = true;
-            }
-        } catch (Exception e) {
-            check = true;
-        }
-        return check;
+    public boolean checkValid(ZonedDateTime dateTime){
+        if (this.start.compareTo(dateTime) > 0 )
+            return false;
+        if (this.duration == null)
+            return true;
+        Duration durCurrent = Duration.between(this.start, dateTime);
+        if (this.duration.compareTo(durCurrent) > 0)
+            return true;
+        return false;
     }
 
     public String toString() {
-        String str = "";
-        if (checkValid(Instant.now().atZone(ZoneId.systemDefault()))) {
-            str = "Insurance issued on " + start + " is valid";
-        } else {
-            str = "Insurance issued on " + start + " is not valid";
-        }
-        return str;
+        if (checkValid(ZonedDateTime.now()))
+            return "Insurance issued on " + start + " is valid";
+        else
+            return "Insurance issued on " + start + " is not valid";
     }
 
     public static void main(String[] args) {
         LocalDate date = LocalDate.of(2020, Month.MAY, 10);
         String str = date.atStartOfDay(ZoneId.of("Europe/Moscow")).toString();
-//        Insurance insurance1 = new Insurance(date.atStartOfDay(ZoneId.of("Europe/Moscow")));
         Insurance insurance2 = new Insurance(str, FormatStyle.FULL);
         System.out.println(insurance2.toString());
     }

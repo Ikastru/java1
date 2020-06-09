@@ -76,19 +76,15 @@ public class SessionManager {
     }
 
     public UserSession get(int sessionHandle){
-        Long now = Instant.now().toEpochMilli();
-        if  (! sessions.containsKey(sessionHandle)) {
-            return null;
+        UserSession us1;
+        Duration dur = Duration.between(sessions.get(sessionHandle).getLastAccess(), Instant.now().atZone(ZoneId.systemDefault()));
+        if (sessions.containsKey(sessionHandle) && dur.compareTo(Duration.ofSeconds(sessionValid))==-1){
+            us1 = sessionsName.get(sessionHandle);
+            sessions.get(sessionHandle).newLastAccess();
+        } else {
+            us1 = null;
         }
-        else {
-            UserSession userSession = sessions.get(sessionHandle);
-            if (sessionValid < (now - sessions.get(sessionHandle).getLastAccess().toEpochMilli()))
-                return null;
-            else {
-                userSession.updateLastAccess();
-                return userSession;
-            }
-        }
+        return us1;
     }
 
     public static void delete(int sessionHandle){
