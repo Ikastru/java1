@@ -34,15 +34,15 @@ public class Order {
 
     public double sum;
 
-    public Order(String shopId, String orderId, String customerId, LocalDateTime datetime,
-                 List<OrderItem> items, double sum) {   //  конструктор
-        this.shopId = shopId;
-        this.orderId = orderId;
-        this.customerId = customerId;
-        this.datetime = datetime;
-        this.items = items;
-        this.sum = sum;
-    }
+//    public Order(String shopId, String orderId, String customerId, LocalDateTime datetime,
+//                 List<OrderItem> items, double sum) {   //  конструктор
+//        this.shopId = shopId;
+//        this.orderId = orderId;
+//        this.customerId = customerId;
+//        this.datetime = datetime;
+//        this.items = items;
+//        this.sum = sum;
+//    }
 
     public LocalDateTime getDatetime() {
         return datetime;
