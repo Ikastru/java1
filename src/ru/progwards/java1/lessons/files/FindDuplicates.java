@@ -35,7 +35,7 @@ public class FindDuplicates {
         //Конечный нужный список спаиска одинаковых строк
         List<List<String>> list = new ArrayList<>();
         final Path dir = Paths.get(startPath);
-        PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**");
+        PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/*");
         try {
             Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
                 @Override

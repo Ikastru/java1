@@ -39,7 +39,7 @@ public class FilesSelect {
         Map<String, String> attrMapContent = new HashMap<>();
         Map<String, String> attrMapFileName = new HashMap<>();
         final Path dir = Paths.get(inFolder);
-        PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**");
+        PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/*");
         try {
             Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
                 @Override
