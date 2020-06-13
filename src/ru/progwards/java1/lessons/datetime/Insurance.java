@@ -61,6 +61,9 @@ public class Insurance {
 
     public static enum FormatStyle {SHORT, LONG, FULL}
 
+    public Insurance(ZonedDateTime start){
+        this.start = start;
+    }
 
     public Insurance(String strStart, FormatStyle style){
         ZonedDateTime zonedDateTime;
