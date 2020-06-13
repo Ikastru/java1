@@ -32,7 +32,7 @@ public class SeaBattleAlg {
 
     private static char[][] field;
 
-    private static void init(SeaBattle seaBattle) {
+    private void init(SeaBattle seaBattle) {
         field = new char[seaBattle.getSizeX()+1][seaBattle.getSizeY()+1];
         for (int i = 0; i < field[0].length; i++) {
             for (int j = 0; j < field.length; j++) {
@@ -42,6 +42,7 @@ public class SeaBattleAlg {
     }
 
     public void battleAlgorithm(SeaBattle seaBattle) {
+        init(seaBattle);
         int hits = 0;
         for (int y = 0; y < seaBattle.getSizeX(); y++) {
             for (int x = 0; x < seaBattle.getSizeY(); x++) {
@@ -68,7 +69,6 @@ public class SeaBattleAlg {
     public static void main(String[] args) {
         System.out.println("Sea battle");
         SeaBattle seaBattle = new SeaBattle(true);
-        init(seaBattle);
         new SeaBattleAlg().battleAlgorithm(seaBattle);
         System.out.println(seaBattle);
         System.out.println(seaBattle.getResult());
