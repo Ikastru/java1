@@ -78,7 +78,7 @@ public class FindDuplicates {
 
     //  перебор всех файлов и формирование списка
     public static List<Additional> createList(String startPath) {
-        final String pattern = "glob:**/*";
+        final String pattern = "glob:**";
         List<Additional> fileList = new ArrayList<>();
         if (startPath == null)
             return fileList;
