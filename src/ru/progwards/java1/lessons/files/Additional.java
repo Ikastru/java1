@@ -11,7 +11,7 @@ public class Additional implements Comparable<Additional>{
     public String line; //  первая строка
 
     public Additional(Path filename, String last, String size, String line) {
-        this.filename = Paths.get("target_dir_path/", String.valueOf(filename));
+        this.filename = filename;
         this.last = last;
         this.size = size;
         this.line = line;

@@ -87,7 +87,7 @@ public class FindDuplicates {
                     if (pathMatcher.matches(path)) {
                         String last = Files.getAttribute(path, "basic:lastModifiedTime").toString();
                         String size = Files.getAttribute(path, "basic:size").toString();
-                        fileList.add(new Additional(path, last, size, null));
+                        fileList.add(new Additional(Paths.get(startPath), last, size, null));
                     }
                     return FileVisitResult.CONTINUE;
                 }
