@@ -14,68 +14,56 @@ package ru.progwards.java1.lessons.files;
  * Если, например, слово “files” ни разу не встретилось, пустую папку создавать не нужно
  */
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
-import static java.nio.file.Files.readString;
-import static org.apache.commons.io.FilenameUtils.getExtension;
 
 public class FilesSelect {
-
-    private boolean isDirEmpty(final Path directory) throws IOException {
-        try(DirectoryStream<Path> dirStream = Files.newDirectoryStream(directory)) {
-            return !dirStream.iterator().hasNext();
+    public static void selectFiles(String inFolder, String outFolder, List<String> keys) {
+        List<Path> fList;
+        Path dir2 = Paths.get(outFolder);   //  имя каталога назначения
+        try {
+            fList = createList(inFolder);    //  получить список всех файлов с атрибутами
+            Iterator<Path> it1 = fList.iterator();
+            while (it1.hasNext()) {
+                Path itObj = it1.next();                    //  файл для копирования
+                String text = contentFile(itObj);
+                Iterator<String> it2 = keys.iterator();
+                while (it2.hasNext()) {
+                    String itStr = it2.next();              //  имя подкаталога назначения
+                    if (text.contains(itStr)) {
+                        //  найти или создать папку в outFolder
+                        Path dstDir = dir2.resolve(itStr);
+                        if (!Files.exists(dstDir)) {
+                            // действия, если папка не существует
+                            Files.createDirectory(dstDir);  //  создать каталог
+                        }
+                        Path dstFile = dstDir.resolve(itObj.getFileName().toString());
+                        Files.copy(itObj, dstFile, StandardCopyOption.REPLACE_EXISTING);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e);
         }
     }
 
-    public void selectFiles(String inFolder, String outFolder, List<String> keys){
-        //Хэш Мэп для хранения атрибутов файлов
-        Map<String, String> attrMapExtension = new HashMap<>();
-        Map<String, String> attrMapContent = new HashMap<>();
-        Map<String, String> attrMapFileName = new HashMap<>();
-        final Path dir = Paths.get(inFolder);
-        PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/*");
+    //  перебор всех файлов и формирование списка
+    public static List<Path> createList(String startPath) {
+        final String pattern = "glob:**/*.txt";
+        List<Path> fList = new ArrayList<>();
+        if (startPath == null)
+            return fList;
         try {
-            Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
+            PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher(pattern);
+            Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<Path>() {
                 @Override
-                public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
+                public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                     if (pathMatcher.matches(path)) {
-                        File file = new File(path.toString());
-                        try {
-                            //Расширение файла
-                            attrMapExtension.put(path.toString(), getExtension(path.toString()));
-                            //Содержимое файла в одну строку
-                            attrMapContent.put(path.toString(), readString(path));
-                            //Имя файла
-                            attrMapFileName.put(path.toString(), path.getFileName().toString());
-                            for (int j = 0; j<keys.size(); j++){
-                                Path pathEnd = Paths.get(outFolder+"/" + keys.get(j));
-                                if (readString(path).equals(keys.get(j)) && getExtension(path.toString()).equals("txt")){
-                                    //if directory exists?
-                                    if (!Files.exists(path)) {
-                                        try {
-                                            Files.createDirectory(pathEnd);
-                                        } catch (IOException e) {
-                                            //fail to create directory
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                    Path srcFile = Paths.get(path.toString());
-                                    Path dstFile = Paths.get(outFolder+"/" + keys.get(j)+"/"+path.getFileName());
-                                    Files.copy(srcFile, dstFile);
-                                }
-                                if (isDirEmpty(pathEnd)){
-                                    Files.deleteIfExists(pathEnd);
-                                }
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        fList.add(path);
                     }
                     return FileVisitResult.CONTINUE;
                 }
@@ -86,7 +74,21 @@ public class FilesSelect {
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
+
+        return fList;
+    }
+
+//  извлечь содержимое файла и проверить
+    static String contentFile(Path path) {
+        String fileAsString = "";
+        try {
+            fileAsString = Files.readString(path);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return fileAsString;
     }
 }
+
