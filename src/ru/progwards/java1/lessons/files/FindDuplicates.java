@@ -13,8 +13,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.nio.file.Files.readString;
-
 public class FindDuplicates {
 
     static boolean compareFiles(Additional itObj, Additional groupObj) {
@@ -45,10 +43,9 @@ public class FindDuplicates {
         boolean first = true;       //  указатель первого элемента
         List<String> list1 = null;  //  список
         int index = 0;
-        for (Additional oneFile : fileList) {
+        for (Additional additional : fileList) {
             index++;
-            itObj = oneFile;
-//            System.out.println(index + " - значение = " + itObj);
+            itObj = additional;
             if (first) {
                 groupObj = itObj; //  запомнить первый элемент
                 first = false;  //  больше этого не повтрится
@@ -104,8 +101,7 @@ public class FindDuplicates {
             System.out.println(e);
         }
 
-        fileList.sort(null);
-//        System.out.println("fileList = " + fileList);
+//        fileList.sort(null);
         return fileList;
     }
 

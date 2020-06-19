@@ -1,6 +1,7 @@
 package ru.progwards.java1.lessons.files;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Additional implements Comparable<Additional>{
 
@@ -10,7 +11,7 @@ public class Additional implements Comparable<Additional>{
     public String line; //  первая строка
 
     public Additional(Path filename, String last, String size, String line) {
-        this.filename = filename;
+        this.filename = Paths.get("target_dir_path/"+filename);
         this.last = last;
         this.size = size;
         this.line = line;
