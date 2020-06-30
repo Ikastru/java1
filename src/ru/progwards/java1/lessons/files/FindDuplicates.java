@@ -101,7 +101,7 @@ public class FindDuplicates {
             System.out.println(e);
         }
 
-//        fileList.sort(null);
+        fileList.sort(null);
         return fileList;
     }
 
