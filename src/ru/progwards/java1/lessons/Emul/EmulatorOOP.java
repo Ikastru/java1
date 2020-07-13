@@ -88,7 +88,7 @@ public class EmulatorOOP {
     }
 
     public static void main(String[] args) {
-        String inFileName = "C:\\Users\\user\\IdeaProjects\\MyProject\\Ex2Mult.txt";
+        String inFileName = "C:\\Users\\Ikast\\IdeaProjects\\Helloworld\\src\\Ex1.txt";
         EmulatorOOP emulatorOOP = new EmulatorOOP(inFileName);
         emulatorOOP.calculate();
     }
