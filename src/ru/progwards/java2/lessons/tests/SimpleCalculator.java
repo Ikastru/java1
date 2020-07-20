@@ -37,7 +37,7 @@ public class SimpleCalculator {
         return check(result);
     }
 
-    public int div(int a, int b) throws ArithmeticException {
+    public static int div(int a, int b) throws ArithmeticException {
         if (b == 0)
             throw new ArithmeticException("Деление на ноль");
         long result = (long) a / b;
