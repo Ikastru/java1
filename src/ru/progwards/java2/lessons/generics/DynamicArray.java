@@ -27,9 +27,13 @@ public class DynamicArray<T> {
     private int size = 10;
 
     public void proverka(){
-        if (count >= size+1){
-            size *=2;
-            T[] array = (T[])new Object[size];
+        if (array.length == size){
+            int newSize = array.length*2;
+            Object[] newArray = new Object[newSize];
+            System.arraycopy(array, 0, newArray, 0, size);
+            array = (T[]) newArray;
+            size = size*2;
+//            T[] array = (T[])new Object[size];
         }
     }
 

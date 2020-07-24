@@ -40,12 +40,27 @@ public class FruitBox<T extends Fruit> extends ArrayList {
     }
 
     public void moveTo(FruitBox o) throws UnsupportedOperationException {
-        o.box.addAll(this.box);
-        if (this.box.get(0).getClass() == o.box.get(0).getClass()) {
-            return;
-        } else
-            throw new UnsupportedOperationException();
+        List<T> temp = new ArrayList<>();
+        for (T fruit : box) {
+            temp.add(fruit);
+        }
+        if (o.box.isEmpty()){
+            o.box.addAll(temp);
+        } else {
+            if (temp.get(0).getClass() == o.box.get(0).getClass()) {
+                o.box.addAll(temp);
+            } else {
+                throw new UnsupportedOperationException();
+            }
+        }
     }
+//        o.box.addAll(this.box);
+//        if (this.box.get(0).getClass() == o.box.get(0).getClass()) {
+//            return;
+//        } else{
+//            throw new UnsupportedOperationException();
+//    }
+
 
     public float getWeight() {
         if (box.isEmpty())
