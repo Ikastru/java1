@@ -1,16 +1,15 @@
-package ru.progwards.java2.lessons.tests.test.calc;
 
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import ru.progwards.java2.lessons.tests.SimpleCalculator;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
 @RunWith(Enclosed.class)
+
 public class SimpleCalculatorTest {
     @RunWith(Parameterized.class)
     public static class SumCalculatorTest {
