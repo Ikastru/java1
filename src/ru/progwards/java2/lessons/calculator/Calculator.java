@@ -1,5 +1,9 @@
 package ru.progwards.java2.lessons.calculator;
 
+/**
+ * Лучший вариант калькулятора
+ */
+
 public class Calculator {
     String expression;
     int pos;

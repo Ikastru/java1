@@ -6,7 +6,7 @@ package ru.progwards.java2.lessons.calculator;
 
 import java.util.Scanner;
 
-public class MyCalculator {
+public class CalculatorWithRPN {
     public static void main(String[] args) {
         while (true) //Бесконечный цикл
         {
