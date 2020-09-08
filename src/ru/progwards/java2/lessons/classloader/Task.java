@@ -1,10 +1,19 @@
 package ru.progwards.java2.lessons.classloader;
 
-public interface Task {
-    // методы для получения и установки времени создания файла
-    long getModifiedTime();
-    void setModifiedTime(long time);
+import java.util.Arrays;
 
+public class Task {
+    private long modifiedTime;
+
+    public void setModifiedTime(long modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
+    public long getModifiedTime() {
+        return modifiedTime;
+    }
     // метод для обработки данных и возвращения результата в виде строки
-    String process(byte[] data);
+    public String process(byte[] data){
+        return Arrays.toString(data);
+    }
 }
