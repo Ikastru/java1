@@ -55,6 +55,29 @@
                     </descriptorRefs>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>ru.progwards.java2.lessons.builders</groupId>
+                <artifactId>mailPlugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>touch</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <emailTo>emailTo@domen.ru</emailTo>
+                    <emailFrom>emailFrom@domen.ru</emailFrom>
+                    <authServ>smtp.domen.ru</authServ>
+                    <authUser>Ivan</authUser>
+                    <authPass>Hv</authPass>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
