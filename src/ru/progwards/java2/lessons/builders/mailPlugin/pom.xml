@@ -1,12 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>ru.progwards.java2.lessons.builders</groupId>
     <artifactId>mailPlugin</artifactId>
-    <packaging>maven-plugin</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>mailPlugin Maven Mojo</name>
-    <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -20,28 +18,43 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>ru.progwards.java2.lessons.builders</groupId>
-            <artifactId>mailPlugin</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>ru.progwards.java2.lessons.builders</groupId>-->
+<!--            <artifactId>mailPlugin</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>ru.progwards.java2.lessons.builders</groupId>
-                <artifactId>mailPlugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <executions>
-                    <execution>
-                        <id>process</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>touch</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>ru.progwards.java2.lessons.builders</groupId>-->
+<!--                <artifactId>mailPlugin</artifactId>-->
+<!--                <version>1.0-SNAPSHOT</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>process</id>-->
+<!--                        <phase>install</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>mail</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

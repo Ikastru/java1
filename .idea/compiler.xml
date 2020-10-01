@@ -6,13 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mailPlugin" />
         <module name="calculator" />
+        <module name="mailPlugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="calculator" target="8" />
-      <module name="mailPlugin" target="1.5" />
+      <module name="mailPlugin" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
