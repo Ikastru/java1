@@ -1,63 +1,100 @@
 package ru.progwards.java2.lessons.synchro;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class Philosopher implements Runnable {
-    private final int id;
-    private final Fork leftFork;
-    private final Fork rightFork;
+    private String name;
+    private Fork right;
+    private Fork left;
+    private long reflectTime;
+    private long eatTime;
+    private Waiter waiter;
+    Long sync = 0L;
 
-    private final State state;
-    public final AtomicBoolean stopped = new AtomicBoolean();
 
-    public AtomicInteger eatSum = new AtomicInteger();
+    public Philosopher(String name, Fork left, Fork right, long reflectTime, long eatTime, Waiter waiter) {
+        this.name = name;
+        this.right = right;
+        this.left = left;
+        this.reflectTime = reflectTime;
+        this.eatTime = eatTime;
+        this.waiter = waiter;
+    }
 
-    protected Philosopher(int id, Fork leftFork, Fork rightFork, State state) {
-        this.id = id;
-        this.leftFork = leftFork;
-        this.rightFork = rightFork;
-        this.state = state;
+    public Fork getRight() {
+        return right;
+    }
+
+    public Fork getLeft() {
+        return left;
+    }
+
+    public void setRight(Fork right) {
+        this.right = right;
+    }
+
+    public void setLeft(Fork left) {
+        this.left = left;
+    }
+
+    public void reflect() {
+        System.out.println(name + " размышляет");
+        try {
+            Thread.sleep(reflectTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void eat() {
+        System.out.println(name + " ест");
+        try {
+            Thread.sleep(eatTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putUpLeftFork(Waiter waiter) {
+            if (waiter.getForks().get(left.getId()).getAvailability()) {
+                System.out.println(name + " взял левую вилку");
+                left.setAvailability(false);
+                waiter.getForks().put(left.getId(), left);
+            }
+    }
+
+    public void putUpRightFork(Waiter waiter) {
+            if (waiter.getForks().get(right.getId()).getAvailability()) {
+                System.out.println(name + " взял правую вилку");
+                right.setAvailability(false);
+                waiter.getForks().put(right.getId(), right);
+            }
+    }
+
+    public void putDownRightFork(Waiter waiter) {
+            right.setAvailability(true);
+            System.out.println(name + " положил правую вилку");
+            waiter.getForks().put(right.getId(), right);
+    }
+
+    public void putDownLeftFork(Waiter waiter) {
+            left.setAvailability(true);
+            System.out.println(name + " положил левую вилку");
+            waiter.getForks().put(left.getId(), left);
     }
 
     @Override
-
     public void run() {
-        try {
-            while (!stopped.get()) {
-                reflect();
-                state.takeForks(id, leftFork, rightFork);
-                eat();
-                state.putForks(id, leftFork, rightFork);
+        while (true) {
+            reflect();
+            synchronized (this.sync) {
+                putUpLeftFork(waiter);
+                if (!left.getAvailability())
+                    putUpRightFork(waiter);
+                if (!right.getAvailability() && !left.getAvailability()) {
+                    eat();
+                    putDownRightFork(waiter);
+                    putDownLeftFork(waiter);
+                }
             }
-        } catch (InterruptedException ignored) { }
-    }
-    public void stop() {
-        stopped.set(true);
-    }
-
-    private void reflect() throws InterruptedException {
-        long t = System.nanoTime();
-        if (Main.DEBUG) {
-            System.out.println(t + ": " + Thread.currentThread().getName() + " думает");
         }
-        if (Main.MAX_WAIT_MS > 0) {
-            Thread.sleep(getRandomInt());
-        }
-    }
-
-    private void eat() throws InterruptedException {
-        long t = System.nanoTime();
-        if (Main.DEBUG) {
-            System.out.println(t + ": " + Thread.currentThread().getName() + " ест");
-        }
-        if (Main.MAX_WAIT_MS > 0) {
-            Thread.sleep(getRandomInt());
-        }
-        eatSum.incrementAndGet();
-    }
-
-    private int getRandomInt() {
-        return (int) (Math.random() * Main.MAX_WAIT_MS);
     }
 }

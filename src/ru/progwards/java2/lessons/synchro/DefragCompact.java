@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.ListIterator;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DefragCompact {
 
@@ -13,7 +14,7 @@ public class DefragCompact {
     ArrayList<MemoryBlock> free;
     ConcurrentSkipListMap<Integer, MemoryBlock> used;
 
-    public DefragCompact(int maxHeapSize, byte[] bytes, ArrayList<MemoryBlock> free, ConcurrentSkipListMap<Integer, MemoryBlock> used) {
+    public DefragCompact(int maxHeapSize, byte[] bytes, CopyOnWriteArrayList<MemoryBlock> free, ConcurrentSkipListMap<Integer, MemoryBlock> used) {
         this.maxHeapSize = maxHeapSize;
         this.bytes = Arrays.copyOf(bytes, bytes.length);
         this.free = new ArrayList<>(free);
