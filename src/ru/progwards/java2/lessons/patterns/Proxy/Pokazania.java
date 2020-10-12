@@ -1,37 +1,33 @@
 package ru.progwards.java2.lessons.patterns.Proxy;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Pokazania {
-    List<GPS> listGPS = new ArrayList<>();
-    double mo = mathOD();
-    double sigma = Math.sqrt(dispersia());
+public enum Pokazania {
+    INSTANCE;
+    private Map<Double, Double> maps;
 
-    public void addGPS(GPS gps){
-        listGPS.add(gps);
+    Pokazania(){
+        maps = new HashMap<>();
     }
 
-    public void showList(){
-        for (GPS list: listGPS){
-            list.toString();
-        }
+    public Map<Double, Double> getMaps(){
+        return maps;
     }
 
-    public double mathOD(){
-        double v = 0;
-        for (GPS list: listGPS){
-            v+=Math.sqrt(list.lat*list.lat + list.lon*list.lon)/list.time1;
-        }
-        return v/listGPS.size();
+    Double getMap(Double place){
+        return maps.get(place);
     }
 
-    public double dispersia(){
-        double d = 0;
-        for (GPS list: listGPS){
-            d+=mo*((Math.sqrt(list.lat*list.lat + list.lon*list.lon)/list.time1)-mo)*((Math.sqrt(list.lat*list.lat + list.lon*list.lon)/list.time1)-mo);
-        }
-        return d;
+    public void addInMaps(double lat, double lon, long t){
+        maps.put(Math.sqrt(lat*lat + lon*lon), Math.sqrt(lat*lat + lon*lon)/t);
     }
 
+    public void setMap(Double place, Double V){
+        maps.put(place, V);
+    }
+
+    public Double getV(Double place){
+        return maps.get(place);
+    }
 }

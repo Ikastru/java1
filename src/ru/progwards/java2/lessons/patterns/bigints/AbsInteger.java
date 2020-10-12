@@ -1,32 +1,53 @@
 package ru.progwards.java2.lessons.patterns.bigints;
 
 public class AbsInteger {
+    private static volatile AbsInteger instance;
 
-    public static AbsInteger add(AbsInteger num1, AbsInteger num2) {
-        String str1 = num1.toString().trim();
-        String str2 = num2.toString().trim();
-        int c = Integer.parseInt(str1);
-        int d = Integer.parseInt(str2);
-        int q = c + d;
+    private AbsInteger(){ }
+
+    public static AbsInteger getInstance() {
+        AbsInteger localInstance = instance;
+        if (localInstance == null) {
+            synchronized (AbsInteger.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new AbsInteger();
+                }
+            }
+        }
+        return localInstance;
+    }
+
+    public static IntegerFactory create(int z){
         IntegerFactory factory = null;
-        if (q > -128 && q < 127) {
-            ByteInteger bint = ByteInteger.getInstance((byte) q);
+        if (z > -128 && z < 127) {
+            ByteInteger bint = new ByteInteger((byte) z);
             factory = bint;
-        } else if (q > -32768 && q < 32767) {
-            ShortInteger bint = ShortInteger.getInstance((short)q);
+        } else if (z > -32768 && z < 32767) {
+            ShortInteger bint = new ShortInteger((short)z);
             factory = bint;
         } else {
-            IntInteger bint = IntInteger.getInstance(q);
+            IntInteger bint = new IntInteger(z);
             factory = bint;
         }
-        System.out.println(factory.toString());
+        return factory;
+    }
+
+    public static AbsInteger add(int num1, int num2) {
+        IntegerFactory factory = create(num1+num2);
+        System.out.println(factory.getInfo());
         return null;
     }
 
     public static void main(String[] args) {
-        ShortInteger shortInteger = new ShortInteger((short) 20);
-        ByteInteger byteInteger = new ByteInteger((byte) 100);
-        add(shortInteger, byteInteger);
+        AbsInteger absInteger = getInstance();
+        IntegerFactory sI = absInteger.create((short) 20);
+        String str1 = sI.getInfo().trim();
+        int c = Integer.parseInt(str1);
+        IntegerFactory bI = absInteger.create((byte) 100);
+        String str2 = bI.getInfo().trim();
+        int b = Integer.parseInt(str2);
+        add(c, b);
     }
 }
 

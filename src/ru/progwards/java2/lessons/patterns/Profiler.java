@@ -10,6 +10,10 @@ public class Profiler {
 
     private static volatile Profiler instance;
 
+    private Profiler(){
+
+    }
+
     public static Profiler getInstance() {
         Profiler localInstance = instance;
         if (localInstance == null) {
@@ -93,7 +97,7 @@ public class Profiler {
     }
 
     public static void main(String[] args) {
-        Profiler profiler = new Profiler();
+        Profiler profiler = getInstance();
         profiler.enterSection("1");
         int i=0;
         profiler.enterSection("2");
