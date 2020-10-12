@@ -1,30 +1,51 @@
 package ru.progwards.java2.lessons.synchro;
 
-public class Simposion {
-    private int quantityPhilosopher;
+import java.util.ArrayList;
 
-    public Simposion() {
-        quantityPhilosopher = 5;
+public class Simposion {
+    static final int philosopherCount = 5;
+    static final int runSeconds = 15;
+    static ArrayList<Fork> forks = new ArrayList<>();
+    static ArrayList<Philosopher> philosophers = new ArrayList<>();
+
+    public static void start(){
+        for (Philosopher p : philosophers) new Thread(p).start();
     }
 
-    public void start() {
-        Waiter waiter = new Waiter();
-
-        Philosopher[] philosophers = new Philosopher[quantityPhilosopher];
-
-        for (int i = 0; i < quantityPhilosopher; i++) {
-            Fork left = waiter.getForks().get(i);
-            Fork right = waiter.getForks().get((i+1)%quantityPhilosopher);
-
-            philosophers[i] = new Philosopher("Philosopher" + (i+1), left, right, 200, 300, waiter);
-
-            Thread t = new Thread(philosophers[i]);
-            t.start();
-        }
+    public static void stop(){
+        for (Philosopher p : philosophers) p.end.set(true);
+        for (Philosopher p : philosophers)
+            System.out.printf("Фил%02d: ел %,d раз, %,d/sec\n",
+                    p.id, p.timesEaten, p.timesEaten/runSeconds);
     }
 
     public static void main(String[] args) {
-       Simposion simposion = new Simposion();
-       simposion.start();
+        for (int i = 0 ; i < philosopherCount ; i++) forks.add(new Fork());
+        for (int i = 0 ; i < philosopherCount ; i++)
+            philosophers.add(new Philosopher());
+        start();
+        long endTime = System.currentTimeMillis() + (runSeconds * 1000);
+
+        do {                                                    //  напечатать статусы
+            StringBuilder sb = new StringBuilder("|");
+
+            for (Philosopher p : philosophers) {
+                sb.append(p.state.toString());
+                sb.append("|");            //  Моментальный снимок
+            }
+
+            sb.append("     |");
+
+            for (Fork f : forks) {
+                int holder = f.holder.get();
+                sb.append(holder==-1?"   ":String.format("Ф%02d",holder));
+                sb.append("|");
+            }
+
+            System.out.println(sb.toString());
+            try {Thread.sleep(1000);} catch (Exception ex) {}
+        } while (System.currentTimeMillis() < endTime);
+
+        stop();
     }
 }

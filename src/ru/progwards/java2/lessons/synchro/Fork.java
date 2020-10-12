@@ -1,22 +1,12 @@
 package ru.progwards.java2.lessons.synchro;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Fork {
-    private boolean availability = true;
-    private int id;
+    public static final int ON_TABLE = -1;
+    static int instances = 0;
+    public int id;
+    public AtomicInteger holder = new AtomicInteger(ON_TABLE);
 
-    public Fork(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public boolean getAvailability(){
-        return availability;
-    }
-
-    public void setAvailability(boolean flag){
-        availability = flag;
-    }
+    Fork() { id = instances++; }
 }

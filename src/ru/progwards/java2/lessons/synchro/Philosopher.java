@@ -1,100 +1,69 @@
 package ru.progwards.java2.lessons.synchro;
 
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
+enum PhilosopherState { Get, Eat, Pon }
+
 public class Philosopher implements Runnable {
-    private String name;
-    private Fork right;
-    private Fork left;
-    private long reflectTime;
-    private long eatTime;
-    private Waiter waiter;
-    Long sync = 0L;
+    static final int maxWaitMs = 100;                          //  должно быть больше 0
+    static AtomicInteger token = new AtomicInteger(0);
+    static int instances = 0;
+    static Random rand = new Random();
+    AtomicBoolean end = new AtomicBoolean(false);
+    int id;
+    PhilosopherState state = PhilosopherState.Get;
+    Fork left;
+    Fork right;
+    int timesEaten = 0;
+    int reflectTime = rand.nextInt(maxWaitMs);
 
-
-    public Philosopher(String name, Fork left, Fork right, long reflectTime, long eatTime, Waiter waiter) {
-        this.name = name;
-        this.right = right;
-        this.left = left;
-        this.reflectTime = reflectTime;
-        this.eatTime = eatTime;
-        this.waiter = waiter;
+    Philosopher() {
+        id = instances++;
+        left = Simposion.forks.get(id);
+        right = Simposion.forks.get((id+1)%Simposion.philosopherCount);
     }
 
-    public Fork getRight() {
-        return right;
+    void reflect() { try { Thread.sleep(reflectTime); }
+    catch (InterruptedException ex) {} }
+
+    void eat(){
+        state = PhilosopherState.Eat;
     }
 
-    public Fork getLeft() {
-        return left;
-    }
-
-    public void setRight(Fork right) {
-        this.right = right;
-    }
-
-    public void setLeft(Fork left) {
-        this.left = left;
-    }
-
-    public void reflect() {
-        System.out.println(name + " размышляет");
-        try {
-            Thread.sleep(reflectTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void eat() {
-        System.out.println(name + " ест");
-        try {
-            Thread.sleep(eatTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void putUpLeftFork(Waiter waiter) {
-            if (waiter.getForks().get(left.getId()).getAvailability()) {
-                System.out.println(name + " взял левую вилку");
-                left.setAvailability(false);
-                waiter.getForks().put(left.getId(), left);
+    void waitForFork(Fork fork) {
+        do {
+            if (fork.holder.get() == Fork.ON_TABLE) {
+                fork.holder.set(id);
+                return;
+            } else {
+                reflect();                            //  проверить позднее снова
             }
+        } while (true);
     }
 
-    public void putUpRightFork(Waiter waiter) {
-            if (waiter.getForks().get(right.getId()).getAvailability()) {
-                System.out.println(name + " взял правую вилку");
-                right.setAvailability(false);
-                waiter.getForks().put(right.getId(), right);
-            }
-    }
-
-    public void putDownRightFork(Waiter waiter) {
-            right.setAvailability(true);
-            System.out.println(name + " положил правую вилку");
-            waiter.getForks().put(right.getId(), right);
-    }
-
-    public void putDownLeftFork(Waiter waiter) {
-            left.setAvailability(true);
-            System.out.println(name + " положил левую вилку");
-            waiter.getForks().put(left.getId(), left);
-    }
-
-    @Override
     public void run() {
-        while (true) {
-            reflect();
-            synchronized (this.sync) {
-                putUpLeftFork(waiter);
-                if (!left.getAvailability())
-                    putUpRightFork(waiter);
-                if (!right.getAvailability() && !left.getAvailability()) {
+        do {
+            if (state == PhilosopherState.Pon) {
+                state = PhilosopherState.Get;       //  философ проголодался
+            } else { // ==PhilosopherState.Get
+                if (token.get() == id) {            //  захват
+                    waitForFork(left);
+                    waitForFork(right);             //  готов есть
+                    token.set((id+2)% Simposion.philosopherCount);
                     eat();
-                    putDownRightFork(waiter);
-                    putDownLeftFork(waiter);
+                    timesEaten++;
+                    reflect();                        //  ест
+                    left.holder.set(Fork.ON_TABLE);
+                    right.holder.set(Fork.ON_TABLE);
+                    state = PhilosopherState.Pon;   //  начинает думать
+                    reflect();
+                } else {                    //  тогда не его очередь
+                    reflect();
                 }
             }
-        }
+        } while (!end.get());
     }
 }
+
