@@ -7,62 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/ПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Вебинар 4/Телеграмм-бот 1.0/telegrambots-4.4.0-jar-with-dependencies.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/ПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Вебинар 4/Телеграмм-бот 1.0/progwardsbot.1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/ПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Вебинар 5/seabattle.1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" exported="" name="junit-4.12" level="project" />
     <orderEntry type="library" exported="" name="hamcrest-core-1.3" level="project" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/ПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 4/Телеграмм-бот 1.0/progwardsbot.1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/ПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 4/Телеграмм-бот 1.0/telegrambots-4.4.0-jar-with-dependencies.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/ПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 5/seabattle.1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -135,10 +81,32 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/mailPlugin-1.0-SNAPSHOT.jar!/" />
+          <root url="file://D:/FПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 4/Телеграмм-бот 1.0" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://D:/FПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 4/Телеграмм-бот 1.0" />
+        </SOURCES>
+        <jarDirectory url="file://D:/FПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 4/Телеграмм-бот 1.0" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://D:/FПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 4/Телеграмм-бот 2.0" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://D:/FПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 4/Телеграмм-бот 2.0" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://D:/FПРОГРАММИРОВАНИЕ/JAVA/Курсы PROGWARDS/Basic/Вебинар 5/seabattle.1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
